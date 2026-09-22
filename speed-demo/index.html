@@ -76,7 +76,26 @@
   that does 350 ms of work, the way a typical review or upsell app does when it starts up.</p>
   <p class="links"><a href="before.html">Open the before page</a> <a href="after.html">Open the after page</a></p>
 
-  <!--RESULTS-->
+  <h2>Results</h2>
+  <p>Measured with Google PageSpeed Insights, mobile, on 22 September 2026: an emulated mid-range Android phone on a
+  slow 4G connection. Both reports are public, so you can check every number.</p>
+  <table>
+    <thead><tr><th></th><th>Before</th><th>After</th></tr></thead>
+    <tbody>
+      <tr><td>Performance score</td><td class="num">68</td><td class="num">96</td></tr>
+      <tr><td>Main product photo on screen (Largest Contentful Paint)</td><td class="num">24.3 s</td><td class="num">2.7 s</td></tr>
+      <tr><td>First text on screen (First Contentful Paint)</td><td class="num">2.8 s</td><td class="num">1.5 s</td></tr>
+      <tr><td>Speed Index</td><td class="num">4.5 s</td><td class="num">1.5 s</td></tr>
+      <tr><td>Layout shift</td><td class="num">0.007</td><td class="num">0.001</td></tr>
+      <tr><td>Page weight</td><td class="num">4.4 MB</td><td class="num">under 0.4 MB</td></tr>
+    </tbody>
+  </table>
+  <p class="links"><a href="https://pagespeed.web.dev/analysis/https-jnsingh01-github-io-speed-demo-before-html/92jiskrzoh?form_factor=mobile">Before report</a>
+  <a href="https://pagespeed.web.dev/analysis/https-jnsingh01-github-io-speed-demo-after-html/1c3gy5h1hm?form_factor=mobile">After report</a></p>
+  <p class="note">Two of the six problems barely show up in this test. The app script's delay happens before anything is
+  on screen, and the reviews widget lands late enough that the test's layout-shift score stays low. On a real phone you
+  still feel both: a blank screen, then a button that jumps as you reach for it. I've left the numbers as measured
+  rather than tune the demo to make those rows look worse.</p>
 
   <h2>What was wrong, and what I changed</h2>
   <ol>
