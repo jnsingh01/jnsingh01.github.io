@@ -81,8 +81,8 @@
   <h2>What was wrong, and what I changed</h2>
   <ol>
     <li><strong>Fonts held up the page.</strong> Two font families in fifteen weights, with no preconnect and no
-    <code>font-display</code>. Now only the three weights actually used load, text shows straight away in a
-    fallback font, and the connection to the font server opens early.</li>
+    <code>font-display</code>. Now only the three weights actually used load, the font stylesheet no longer blocks the page,
+    text shows straight away in a fallback font, and the connection to the font server opens early.</li>
     <li><strong>jQuery and a carousel plugin loaded in the head.</strong> Four files had to download and run before
     anything could appear. The carousel is now CSS scroll-snap: no library at all.</li>
     <li><strong>An app script blocked the first paint.</strong> Its 350 ms of start-up work ran before the page could
