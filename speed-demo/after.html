@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loft Standing Desk (after) | Speed demo</title>
+<meta name="robots" content="noindex">
+<!-- FIX 1: preconnect, only the weights used, font-display: swap -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap">
+<!-- FIX 4: the product image is discovered immediately, in the right size and format -->
+<link rel="preload" as="image" type="image/avif" imagesrcset="img/desk-hero-600.avif 600w, img/desk-hero-900.avif 900w, img/desk-hero-1200.avif 1200w" imagesizes="(max-width: 800px) 100vw, 610px" fetchpriority="high">
+<style>
+  *{box-sizing:border-box} body{margin:0;color:#1b1b1f;background:#faf9f7}
+  .demo-bar{background:#1b1b1f;color:#f1efe9;font:13px/1.5 system-ui,sans-serif;padding:8px 16px;text-align:center}
+  .demo-bar a{color:#9cc3ff}
+  header.site{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid #e6e2da}
+  header.site .logo{font-weight:700;letter-spacing:.14em;font-size:15px}
+  header.site nav a{margin-left:20px;color:inherit;text-decoration:none;font-size:14px}
+  main{max-width:1200px;margin:0 auto;padding:24px}
+  .product{display:grid;grid-template-columns:1.15fr 1fr;gap:48px}
+  @media (max-width:800px){.product{grid-template-columns:1fr;gap:24px}}
+  h1{font-size:34px;line-height:1.15;margin:0 0 8px;font-weight:600}
+  .price{font-size:22px;margin:0 0 20px}
+  .buy{display:block;width:100%;padding:16px;border:0;border-radius:6px;background:#1b1b1f;color:#fff;font-size:16px;cursor:pointer}
+  .desc{line-height:1.65;margin:24px 0}
+  dl.specs{margin:0;border-top:1px solid #e6e2da}
+  dl.specs .row{display:grid;grid-template-columns:9rem 1fr;gap:12px;padding:10px 0;border-bottom:1px solid #e6e2da;font-size:15px}
+  dl.specs dt{font-weight:600} dl.specs dd{margin:0}
+  .thumbs{display:flex;gap:10px;margin-top:10px}
+  .thumbs .t{width:84px;height:84px;border-radius:4px;overflow:hidden;border:1px solid #e6e2da}
+  .life{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:800px){.life{grid-template-columns:1fr}}
+  .life h2,.reviews h2{grid-column:1/-1;font-size:22px;margin:0 0 4px;font-weight:600}
+  .stars{font-size:20px;color:#b8860b;margin:0} .stars span{color:#555;font-size:14px}
+  .rev-note{font-size:13px;color:#777}
+  footer{margin-top:64px;padding:32px 24px;border-top:1px solid #e6e2da;font-size:13px;color:#777;text-align:center}
+
+  body{font-family:Inter,system-ui,sans-serif} h1,.life h2,.reviews h2{font-family:"Playfair Display",Georgia,serif}
+  img{max-width:100%;height:auto;display:block}
+  /* FIX 2: the carousel is CSS scroll-snap. No jQuery, no plugin */
+  .gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .gallery::-webkit-scrollbar{display:none}
+  .gallery > *{flex:0 0 100%;scroll-snap-align:start}
+  .reviews{margin:0 0 16px}
+</style>
+</head>
+<body>
+<div class="demo-bar">Speed demo, <strong>after</strong> version. A mock product page, not a real store.
+  <a href="./">How it was measured</a> · <a href="before.html">See the before version</a></div>
+<header class="site"><span class="logo">LOFT</span><nav><a href="#">Desks</a><a href="#">Chairs</a><a href="#">Cart</a></nav></header>
+<main>
+  <section class="product">
+    <div>
+      <div class="gallery" aria-label="Product images">
+        <picture><source type="image/avif" srcset="img/desk-hero-600.avif 600w, img/desk-hero-900.avif 900w, img/desk-hero-1200.avif 1200w" sizes="(max-width: 800px) 100vw, 610px"><source type="image/webp" srcset="img/desk-hero-600.webp 600w, img/desk-hero-900.webp 900w, img/desk-hero-1200.webp 1200w" sizes="(max-width: 800px) 100vw, 610px"><img src="img/desk-hero-1200.webp" width="1200" height="1200" alt="Loft Standing Desk in oak" fetchpriority="high"></picture>
+        <picture><source type="image/avif" srcset="img/desk-alt-600.avif 600w, img/desk-alt-900.avif 900w, img/desk-alt-1200.avif 1200w" sizes="(max-width: 800px) 100vw, 610px"><source type="image/webp" srcset="img/desk-alt-600.webp 600w, img/desk-alt-900.webp 900w, img/desk-alt-1200.webp 1200w" sizes="(max-width: 800px) 100vw, 610px"><img src="img/desk-alt-1200.webp" width="1200" height="1200" alt="Loft Standing Desk, raised" loading="lazy" decoding="async"></picture>
+      </div>
+      <div class="thumbs">
+        <div class="t"><picture><source type="image/avif" srcset="img/desk-hero-200.avif 200w" sizes="84px"><source type="image/webp" srcset="img/desk-hero-200.webp 200w" sizes="84px"><img src="img/desk-hero-200.webp" width="200" height="200" alt="" loading="lazy" decoding="async"></picture></div>
+        <div class="t"><picture><source type="image/avif" srcset="img/desk-alt-200.avif 200w" sizes="84px"><source type="image/webp" srcset="img/desk-alt-200.webp 200w" sizes="84px"><img src="img/desk-alt-200.webp" width="200" height="200" alt="" loading="lazy" decoding="async"></picture></div>
+      </div>
+    </div>
+    <div>
+      <h1>Loft Standing Desk, 60 in</h1>
+      <p class="price">$849.00</p>
+      <!-- FIX 6: reviews rendered with the page, so nothing moves -->
+      <div class="reviews">
+      <h2>What owners say</h2>
+      <p class="stars" aria-label="Average rating 4.8 out of 5">★★★★★ <span>4.8 · sample rating</span></p>
+      <p class="rev-note">Sample review content for the demo. Not real customers.</p>
+      </div>
+      <button class="buy" type="button">Add to cart (demo)</button>
+      <p class="desc">The Loft is a dual-motor standing desk with an oak-veneer top. It moves from 25 to 50 inches in about twenty seconds and remembers four heights, so switching between sitting and standing is one button, not a routine.</p>
+      <dl class="specs">
+        <div class="row"><dt>Desktop</dt><dd>60 × 30 in</dd></div>
+        <div class="row"><dt>Height range</dt><dd>25–50 in, four programmable presets</dd></div>
+        <div class="row"><dt>Top</dt><dd>Oak veneer, 1 in thick</dd></div>
+        <div class="row"><dt>Frame</dt><dd>Powder-coated steel</dd></div>
+        <div class="row"><dt>Motors</dt><dd>Dual, 300 lb lift capacity</dd></div>
+        <div class="row"><dt>Warranty</dt><dd>10 years</dd></div>
+      </dl>
+    </div>
+  </section>
+  <section class="life">
+    <h2>In the room</h2>
+    <!-- FIX 5: below-the-fold images are lazy-loaded, sized for the slot, in AVIF/WebP -->
+    <picture><source type="image/avif" srcset="img/desk-life-600.avif 600w, img/desk-life-1000.avif 1000w" sizes="(max-width: 800px) 100vw, 584px"><source type="image/webp" srcset="img/desk-life-600.webp 600w, img/desk-life-1000.webp 1000w" sizes="(max-width: 800px) 100vw, 584px"><img src="img/desk-life-1000.webp" width="1000" height="667" alt="Loft desk in a home office" loading="lazy" decoding="async"></picture>
+    <picture><source type="image/avif" srcset="img/desk-alt-600.avif 600w, img/desk-alt-900.avif 900w" sizes="(max-width: 800px) 100vw, 584px"><source type="image/webp" srcset="img/desk-alt-600.webp 600w, img/desk-alt-900.webp 900w" sizes="(max-width: 800px) 100vw, 584px"><img src="img/desk-alt-900.webp" width="900" height="900" alt="Loft desk at standing height" loading="lazy" decoding="async"></picture>
+  </section>
+</main>
+<footer>Speed demo by John Singh · jnsingh01.github.io</footer>
+<script>
+  // FIX 3: the same ~350 ms of app work still runs, but deferred until the page is idle and split into
+  // small chunks, so it never blocks the first paint or a tap.
+  (function(){
+    var left = 350;
+    function chunk(deadline){
+      var end = performance.now() + Math.min(8, left);
+      while (performance.now() < end) {}
+      left -= 8;
+      if (left > 0) schedule();
+    }
+    function schedule(){ ('requestIdleCallback' in window) ? requestIdleCallback(chunk) : setTimeout(chunk, 16); }
+    addEventListener('load', schedule);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speed demo: one product page, before and after | John Singh</title>
+<meta name="description" content="The same Shopify-style product page built twice: once with the six problems that most often slow stores down, once with them fixed. Measured with Google PageSpeed Insights.">
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
+    --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
+    --measure:38rem;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16.5px/1.65 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding:clamp(2rem,7vw,5.5rem) clamp(1.25rem,6vw,2rem) 5rem;
+  }
+  .wrap{max-width:var(--measure); margin:0 auto}
+  h1{
+    font:600 1.5rem/1.25 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0 0 .15rem; letter-spacing:-.01em;
+  }
+  .role{
+    font:400 1.0rem/1.4 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:var(--muted); margin:0 0 2.25rem;
+  }
+  h2{
+    font:600 .78rem/1.4 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    text-transform:uppercase; letter-spacing:.09em; color:var(--muted);
+    margin:2.75rem 0 .85rem; padding-bottom:.4rem; border-bottom:1px solid var(--rule);
+  }
+  p{margin:0 0 1.05rem}
+  ul{margin:0 0 1.05rem; padding-left:1.15rem}
+  li{margin-bottom:.45rem}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  code{
+    font:0.86em/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:var(--code-bg); padding:.1em .35em; border-radius:3px;
+  }
+  pre{
+    background:var(--code-bg); border:1px solid var(--rule); border-radius:5px;
+    padding:1rem 1.1rem; overflow-x:auto; margin:0 0 1.25rem;
+  }
+  pre code{background:none; padding:0; font-size:0.8rem; line-height:1.6}
+  .lede{font-size:1.06rem}
+  .note{
+    border-left:2px solid var(--rule); padding-left:1rem; color:var(--muted);
+    font-size:.95rem; margin:0 0 1.25rem;
+  }
+
+  
+  table{width:100%;border-collapse:collapse;font:.92rem/1.4 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;margin:0 0 1.25rem}
+  th,td{text-align:left;padding:.55rem .5rem;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-weight:600;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .links a{margin-right:1.1rem}
+  ol li{margin-bottom:.7rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="role"><a href="../">John Singh</a> · Shopify theme development</p>
+  <h1>Speed demo: one product page, before and after</h1>
+  <p class="lede">The same product page built twice. The first version has the six problems I most often find
+  slowing a Shopify store down. The second has them fixed. Nothing else changes: same layout, same copy,
+  same photos, and the same amount of third-party script work.</p>
+  <p class="note">This is a mock page for a made-up desk brand, not a client's store. The "app" script is a stand-in
+  that does 350 ms of work, the way a typical review or upsell app does when it starts up.</p>
+  <p class="links"><a href="before.html">Open the before page</a> <a href="after.html">Open the after page</a></p>
+
+  <!--RESULTS-->
+
+  <h2>What was wrong, and what I changed</h2>
+  <ol>
+    <li><strong>Fonts held up the page.</strong> Two font families in fifteen weights, with no preconnect and no
+    <code>font-display</code>. Now only the three weights actually used load, text shows straight away in a
+    fallback font, and the connection to the font server opens early.</li>
+    <li><strong>jQuery and a carousel plugin loaded in the head.</strong> Four files had to download and run before
+    anything could appear. The carousel is now CSS scroll-snap: no library at all.</li>
+    <li><strong>An app script blocked the first paint.</strong> Its 350 ms of start-up work ran before the page could
+    show. The same work still runs, but after the page has loaded, in 8 ms slices while the browser is idle,
+    so it never gets in the way of the first paint or a tap.</li>
+    <li><strong>The main product photo was a 2.3 MB, 2400 px JPEG, and couldn't appear until the carousel started.</strong>
+    It is now AVIF or WebP at 600, 900 or 1200 px (whichever the screen needs), preloaded, marked high priority, with its
+    width and height set.</li>
+    <li><strong>Photos further down loaded straight away at full size.</strong> They now load only as you scroll
+    near them, sized for their slot.</li>
+    <li><strong>A reviews widget pushed the page down after it loaded.</strong> That is layout shift, the reason
+    people tap the wrong button. The reviews now render with the page, so nothing moves.</li>
+  </ol>
+
+  <h2>Doing this on a real store</h2>
+  <p>On a live Shopify theme the same six fixes are Liquid and asset changes: <code>image_url</code> with
+  <code>image_tag</code> widths, <code>preload: true</code> on the product image, app embeds deferred or
+  removed, and space reserved for anything an app injects. I work on a duplicate theme, measure before and after
+  with the same tool, and send you both reports.</p>
+  <p><a href="../">Fixed-price work and ordering</a></p>
+</div>
+</body>
+</html>
