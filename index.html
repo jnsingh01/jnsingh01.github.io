@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>John Singh — Shopify Liquid Development</title>
-<meta name="description" content="Freelance Shopify theme development: custom Liquid sections, metafield and metaobject architecture, and front-end performance work for e-commerce stores.">
+<meta name="description" content="Freelance Shopify theme development at fixed prices: custom Liquid sections from $350, front-end fixes from $150, and metafield architecture for stores that have outgrown the theme editor.">
 <style>
   :root{
     --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
-    --accent:#1a4d8f; --code-bg:#f2f2ef;
+    --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
     --measure:38rem;
   }
   @media (prefers-color-scheme: dark){
     :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
-           --accent:#7fb0e8; --code-bg:#1d1d21; }
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328; }
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -55,6 +55,59 @@
     border-left:2px solid var(--rule); padding-left:1rem; color:var(--muted);
     font-size:.95rem; margin:0 0 1.25rem;
   }
+
+  /* ---- fixed-price offers ---- */
+  .offers{margin:0 0 1.5rem}
+  .offer{padding:1.5rem 0; border-top:1px solid var(--rule)}
+  .offer:first-child{border-top:0; padding-top:.5rem}
+  .offer:last-of-type{border-bottom:1px solid var(--rule)}
+  .offer-head{display:flex; align-items:baseline; gap:.5rem 1rem}
+  .offer-name{
+    font:600 1.08rem/1.3 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0; flex:1 1 auto; letter-spacing:-.005em;
+  }
+  .offer-price{
+    font:600 1.08rem/1.3 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-variant-numeric:tabular-nums; white-space:nowrap; flex:0 0 auto;
+  }
+  .offer-when{
+    font:400 .86rem/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:var(--muted); margin:.3rem 0 .75rem;
+  }
+  .offer p{margin:0 0 .75rem; font-size:.985rem}
+  .offer dl{margin:0 0 .25rem; font-size:.95rem}
+  .offer dt{
+    font:600 .74rem/1.4 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    text-transform:uppercase; letter-spacing:.07em; color:var(--muted);
+    margin:.85rem 0 .3rem;
+  }
+  .offer dd{margin:0}
+  .buy{
+    display:inline-block; margin-top:1rem; border:0; border-radius:4px;
+    background:var(--accent); color:var(--btn-fg);
+    font:600 .93rem/1 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    padding:.95rem 1.3rem; letter-spacing:.005em; text-align:center;
+  }
+  .buy:hover{border:0; filter:brightness(1.08)}
+  .buy:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .terms{
+    font:400 .93rem/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    color:var(--muted); margin:1.35rem 0 0;
+  }
+  .steps{
+    list-style:none; padding:0; margin:0 0 1.05rem; counter-reset:step;
+    font-size:.985rem;
+  }
+  .steps li{
+    position:relative; padding-left:1.9rem; margin-bottom:.6rem; counter-increment:step;
+  }
+  .steps li::before{
+    content:counter(step); position:absolute; left:0; top:.08em;
+    font:600 .72rem/1.35rem ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+    width:1.35rem; height:1.35rem; text-align:center; border-radius:50%;
+    background:var(--tag-bg); color:var(--muted);
+  }
+
   footer{
     margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule);
     font:400 .9rem/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -72,18 +125,105 @@
   architecture that merchants can actually maintain themselves, and the unglamorous front-end work
   that makes a page load quickly and behave on a phone.</p>
 
-  <p>I work fixed-scope. We agree what "done" looks like before I start, I build it on a duplicate
-  theme so nothing on your live store moves, and you see it working on your own data before you pay
-  for it.</p>
+  <p>Three things below have a price on them. You can order any of them without a call, a proposal
+  or a discovery meeting. Everything else, I quote fixed before I start.</p>
 
-  <h2>What I take on</h2>
+  <h2>Fixed price, ordered directly</h2>
+
+  <div class="offers">
+
+    <div class="offer">
+      <div class="offer-head">
+        <p class="offer-name">A front-end fix</p>
+        <p class="offer-price">$150</p>
+      </div>
+      <p class="offer-when">Two business days. One specific problem, on one template.</p>
+      <p>A section that breaks on a phone, a layout that jumps while the page loads, elements that
+      overlap at one particular width, a script blocking the first render. One reproducible issue
+      that you can point at.</p>
+      <dl>
+        <dt>You send</dt>
+        <dd>The page URL, what it does now, and what it should do instead.</dd>
+        <dt>You get</dt>
+        <dd>The fix built on a duplicate theme, a short note on what was actually causing it, and one
+        round of adjustment after you look at it.</dd>
+        <dt>Not included</dt>
+        <dd>Redesigns, new features, or anything spanning more than one template.</dd>
+      </dl>
+      <!-- STRIPE: replace href with the Payment Link for "A front-end fix — $150" -->
+      <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Order%3A%20A%20front-end%20fix%20(%24150)&amp;body=Store%20URL%3A%0APage%20with%20the%20problem%3A%0AWhat%20it%20does%20now%3A%0AWhat%20it%20should%20do%20instead%3A%0A" aria-label="Order a front-end fix — $150">Order this — $150</a>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <p class="offer-name">A custom section</p>
+        <p class="offer-price">$350</p>
+      </div>
+      <p class="offer-when">Four business days. One Liquid section, built to your specification.</p>
+      <p>A section your theme does not have and no app does properly — a comparison table, a
+      specification block, a staged process, a filtered grid. Built with theme-editor settings so
+      your team changes the content afterwards without needing me again.</p>
+      <dl>
+        <dt>You send</dt>
+        <dd>A description, a sketch, or a link to something similar, plus your store URL.</dd>
+        <dt>You get</dt>
+        <dd>The section installed on a duplicate theme, editable from the theme editor, correct on a
+        phone, and correct when a field is left empty.</dd>
+        <dt>Not included</dt>
+        <dd>Checkout changes, app integrations, or anything that depends on a paid third-party
+        service.</dd>
+      </dl>
+      <!-- STRIPE: replace href with the Payment Link for "A custom section — $350" -->
+      <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Order%3A%20A%20custom%20section%20(%24350)&amp;body=Store%20URL%3A%0AWhat%20the%20section%20should%20do%3A%0AWhere%20it%20goes%20on%20the%20page%3A%0AAnything%20similar%20I%20can%20look%20at%3A%0A" aria-label="Order a custom section — $350">Order this — $350</a>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <p class="offer-name">Product data, structured</p>
+        <p class="offer-price">$850</p>
+      </div>
+      <p class="offer-when">Seven business days. For stores that have outgrown the theme editor.</p>
+      <p>The metafield and metaobject architecture described further down this page, done properly on
+      your store — so your product pages can hold as much detail as your products actually have, and
+      your team edits all of it from the admin.</p>
+      <dl>
+        <dt>You send</dt>
+        <dd>A staff account on a duplicate theme and a sample of the product content you want on
+        the page.</dd>
+        <dt>You get</dt>
+        <dd>A metaobject structure your team can edit, reference fields sharded so they stay under
+        Shopify's limits by construction, and the sections that render them — including what happens
+        when a product has nothing to show.</dd>
+        <dt>Covers</dt>
+        <dd>Up to three product templates and twenty-five products of content migrated. Beyond that
+        is quoted at the same rate before any of it starts.</dd>
+      </dl>
+      <!-- STRIPE: replace href with the Payment Link for "Product data, structured — $850" -->
+      <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Order%3A%20Product%20data%2C%20structured%20(%24850)&amp;body=Store%20URL%3A%0AHow%20many%20product%20templates%3A%0ARoughly%20how%20many%20products%3A%0AWhat%20the%20product%20pages%20need%20to%20show%3A%0A" aria-label="Order product data, structured — $850">Order this — $850</a>
+    </div>
+
+  </div>
+
+  <p class="terms">The price is the price. If I look at your store and the work cannot be done as
+  described here, I refund you in full the same day and tell you what I found — you are not left
+  paying for a diagnosis.</p>
+
+  <h2>How ordering works</h2>
+  <ol class="steps">
+    <li>You pay, and answer four questions about your store on the way through.</li>
+    <li>I confirm within one business day that it can be done as described, or refund you.</li>
+    <li>I build it on a duplicate theme. Your live store does not move.</li>
+    <li>You see it working on your own data, ask for the adjustment, and publish when you are ready.</li>
+  </ol>
+
+  <h2>Work I quote instead of pricing here</h2>
   <ul>
     <li>Custom product, collection and landing-page templates in Liquid</li>
-    <li>Metafield and metaobject architecture — including stores that have outgrown the theme editor's limits</li>
     <li>Bulk migration of product content into a structure your team can edit from the admin</li>
-    <li>Front-end fixes: layout, responsive behaviour, render-blocking assets, Core Web Vitals</li>
-    <li>Sections that degrade correctly when data is missing, instead of leaving empty headings on the page</li>
+    <li>Front-end performance work across a whole storefront — render-blocking assets, Core Web Vitals</li>
+    <li>Theme work carried across a store with several markets or languages</li>
   </ul>
+  <p>Same method: fixed scope, fixed price, written down before anything starts.</p>
 
   <h2>A worked example</h2>
 
@@ -133,7 +273,6 @@
     <li>Duplicate theme only — your live store is not touched until you say so</li>
     <li>Acceptance checks written down first, so "done" is not a matter of opinion</li>
     <li>Plain-English notes on what changed and how to maintain it, handed over at the end</li>
-    <li>Invoiced on delivery</li>
   </ul>
 
   <footer>
