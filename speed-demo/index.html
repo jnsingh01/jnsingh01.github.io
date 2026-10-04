@@ -72,6 +72,7 @@
   .site-nav a:hover{color:var(--fg)}
   .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
     text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
   a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
 </style>
 </head>
@@ -81,6 +82,7 @@
     <a href="../">Home</a>
     <a href="../services/">Services</a>
     <a href="./" aria-current="page">Speed demo</a>
+    <a href="../speed-check/">Speed check</a>
   </nav>
   <p class="role">John Singh · Shopify theme development</p>
   <h1>Speed demo: one product page, before and after</h1>

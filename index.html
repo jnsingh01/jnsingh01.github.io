@@ -64,6 +64,7 @@
   .site-nav a:hover{color:var(--fg)}
   .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
     text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
   a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
 
   /* ---- fixed-price summary (full scope lives on services/) ---- */
@@ -75,6 +76,7 @@
   th{font-weight:600; color:var(--muted); font-size:.74rem; text-transform:uppercase; letter-spacing:.07em}
   td.num, th.num{font-variant-numeric:tabular-nums; white-space:nowrap; text-align:right}
   .days{display:block; margin-top:.15rem; font-size:.82rem; color:var(--muted)}
+  .glance-note{font:400 .86rem/1.5 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--muted); margin:-.65rem 0 1.25rem}
   .buy{
     display:inline-block; border:0; border-radius:4px;
     background:var(--accent); color:var(--btn-fg);
@@ -98,6 +100,7 @@
     <a href="./" aria-current="page">Home</a>
     <a href="services/">Services</a>
     <a href="speed-demo/">Speed demo</a>
+    <a href="speed-check/">Speed check</a>
   </nav>
 
   <h1>John Singh</h1>
@@ -126,6 +129,8 @@
       <tr><td><a href="services/#product-data">Product data, structured</a><span class="days">10 working days</span></td><td class="num">$1,200</td></tr>
     </tbody>
   </table>
+  <p class="glance-note">Not sure where your store stands? The <a href="speed-check/">free speed check</a>
+  runs Google’s mobile test on one page and shows you how to read it.</p>
   <p><a class="buy" href="services/">Scope, guarantees and ordering</a></p>
 
   <h2 id="worked-example">A worked example</h2>

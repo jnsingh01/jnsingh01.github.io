@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Free Shopify speed check | John Singh</title>
+<meta name="description" content="Run Google’s free mobile speed test on your Shopify store and read the result in plain English: what shoppers feel, what each number means, and where to start. Free, no sign-up, nothing stored.">
+<link rel="canonical" href="https://jnsingh01.github.io/speed-check/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="John Singh">
+<meta property="og:title" content="Free Shopify speed check">
+<meta property="og:description" content="Google’s free mobile speed test for your Shopify store, with a plain-English guide to what the numbers mean and where to start.">
+<meta property="og:url" content="https://jnsingh01.github.io/speed-check/">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Shopify speed check",
+  "url": "https://jnsingh01.github.io/speed-check/",
+  "description": "Runs Google PageSpeed Insights’ free mobile test on a Shopify store or product page, with a plain-English guide to the result: the performance score, real-shopper data where Google has it, and where to start.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "author": {"@type": "Person", "name": "John Singh", "url": "https://jnsingh01.github.io/"}
+}
+</script>
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
+    --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
+    --field-bg:#ffffff; --field-line:#8b8b94;
+    --good:#1b6e3c; --avg:#8a5300; --poor:#b42318;
+    --measure:38rem;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328;
+           --field-bg:#1b1b1f; --field-line:#6e6e78;
+           --good:#74c69d; --avg:#e5a54b; --poor:#f28b82; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16.5px/1.65 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding:clamp(2rem,7vw,5.5rem) clamp(1.25rem,6vw,2rem) 5rem;
+  }
+  .wrap{max-width:var(--measure); margin:0 auto}
+
+  /* ---- site navigation (same on every page) ---- */
+  .site-nav{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:-.75rem 0 1.4rem;
+    font:500 .9rem/1.4 var(--sans)}
+  .site-nav a{display:inline-block; padding:.75rem 0; color:var(--muted); border:0}
+  .site-nav a:hover{color:var(--fg)}
+  .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
+
+  h1{
+    font:600 1.5rem/1.25 var(--sans);
+    margin:0 0 .15rem; letter-spacing:-.01em;
+  }
+  .role{
+    font:400 1.0rem/1.4 var(--sans);
+    color:var(--muted); margin:0 0 2.25rem;
+  }
+  h2{
+    font:600 .78rem/1.4 var(--sans);
+    text-transform:uppercase; letter-spacing:.09em; color:var(--muted);
+    margin:2.75rem 0 .85rem; padding-bottom:.4rem; border-bottom:1px solid var(--rule);
+  }
+  p{margin:0 0 1.05rem}
+  ul{margin:0 0 1.05rem; padding-left:1.15rem}
+  li{margin-bottom:.45rem}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+  .lede{font-size:1.06rem}
+  .note{
+    border-left:2px solid var(--rule); padding-left:1rem; color:var(--muted);
+    font-size:.95rem; margin:0 0 1.25rem;
+  }
+  [hidden]{display:none !important}
+
+  /* ---- buttons: the main action filled, the other outlined ---- */
+  .buy{
+    display:inline-block; border:0; border-radius:4px;
+    background:var(--accent); color:var(--btn-fg);
+    font:600 .93rem/1 var(--sans);
+    padding:.95rem 1.3rem; letter-spacing:.005em; text-align:center;
+  }
+  .buy:hover{border:0; filter:brightness(1.08)}
+  .buy:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .buy.secondary{background:transparent; color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+  .buy.secondary:hover{filter:none; background:color-mix(in srgb, var(--accent) 7%, transparent)}
+  .actions{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.15rem}
+  @media (max-width:30rem){
+    .actions .buy{flex:1 1 100%}
+  }
+
+  /* ---- the check ---- */
+  .check{margin:0 0 1.6rem}
+  .check label{display:block; font:600 .9rem/1.4 var(--sans); margin:0 0 .5rem}
+  .check-row{display:flex; gap:.6rem}
+  .check input{
+    flex:1 1 auto; min-width:0; height:2.875rem; margin:0; padding:0 .85rem;
+    font:400 1rem/1.2 var(--sans); color:var(--fg);
+    background:var(--field-bg); border:1px solid var(--field-line); border-radius:4px;
+    -webkit-appearance:none; appearance:none;
+  }
+  .check input::placeholder{color:var(--muted); opacity:1}
+  .check input:focus{outline:2px solid var(--accent); outline-offset:-1px; border-color:var(--accent)}
+  .check input[aria-invalid="true"]{border-color:var(--poor)}
+  .check input[aria-invalid="true"]:focus{outline-color:var(--poor); border-color:var(--poor)}
+  .check button{height:2.875rem; padding:0 1.3rem; flex:0 0 auto; margin:0; cursor:pointer; -webkit-appearance:none; appearance:none}
+  .check button[aria-disabled="true"]{cursor:progress; filter:saturate(.6) brightness(1.06)}
+  .field-error{font:500 .9rem/1.45 var(--sans); color:var(--poor); margin:.55rem 0 0}
+  .fine{font:400 .86rem/1.5 var(--sans); color:var(--muted); margin:.7rem 0 0}
+  @media (max-width:30rem){
+    .check-row{flex-direction:column}
+    .check button{width:100%}
+  }
+
+  .status{font:400 .92rem/1.55 var(--sans); color:var(--muted); margin:0 0 1rem}
+  .status.busy{color:var(--fg)}
+  .status:empty{margin:0}
+  .sr-only{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+  .slow{font:400 .92rem/1.55 var(--sans); margin:-.5rem 0 1rem}
+
+  /* ---- results ---- */
+  .results:focus, .panel:focus{outline:none}
+  .tested{font:400 .9rem/1.5 var(--sans); color:var(--muted); margin:0 0 .85rem; overflow-wrap:anywhere}
+  .tested strong{color:var(--fg); font-weight:600}
+  .flag{
+    border-left:2px solid var(--rule); padding-left:1rem; color:var(--fg);
+    font-size:.95rem; margin:0 0 1rem;
+  }
+  .intro{font-size:.985rem}
+  .verdict{font:600 .98rem/1.4 var(--sans); margin:0 0 .35rem}
+
+  .score{display:flex; align-items:baseline; flex-wrap:wrap; gap:.25rem .6rem; margin:0 0 .7rem; font-family:var(--sans)}
+  .score-num{font:600 2.75rem/1 var(--sans); letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .score.second .score-num{font-size:2rem}
+  .score-of{font-size:.95rem; color:var(--muted)}
+  .score .rating{font-size:.95rem}
+
+  .metrics{list-style:none; padding:0; margin:0 0 .5rem}
+  .metric{padding:.9rem 0; margin:0; border-top:1px solid var(--rule)}
+  .metric:first-child{border-top:0; padding-top:.35rem}
+  .metric-head{display:flex; align-items:baseline; gap:.5rem 1rem}
+  .metric-name{font:600 .98rem/1.35 var(--sans); flex:1 1 auto; margin:0}
+  .metric-val{font:600 .98rem/1.35 var(--sans); font-variant-numeric:tabular-nums; white-space:nowrap; margin:0}
+  .metric-tech{font:400 .84rem/1.5 var(--sans); color:var(--muted); margin:.2rem 0 .35rem}
+  .metric-feel{margin:0; font-size:.985rem}
+  .summary{margin:0}
+  .summary .metric{padding:.7rem 0}
+  .summary .metric:first-child{padding-top:.1rem}
+  .summary .metric-head{flex-wrap:wrap}
+  .summary .metric-tech{margin-bottom:0}
+  .summary .none{color:var(--muted); font-weight:400}
+  .nw{white-space:nowrap}
+  @media (max-width:30rem){
+    .metric-tech .sep2{display:none}
+    .metric-tech .nw{display:block}
+  }
+
+  .rating{font-weight:600; white-space:nowrap}
+  .rating::before, .glyph::before{content:""; display:inline-block; width:.6em; height:.6em; margin-right:.35em; background:currentColor; vertical-align:.02em}
+  .glyph{display:inline}
+  .r-good{color:var(--good)}
+  .r-good::before{border-radius:50%}
+  .r-avg{color:var(--avg)}
+  .r-poor{color:var(--poor)}
+  .r-poor::before{clip-path:polygon(50% 0,100% 100%,0 100%); width:.66em}
+
+  .steps{
+    list-style:none; padding:0; margin:0 0 1.05rem; counter-reset:step;
+    font-size:.985rem;
+  }
+  .steps li{
+    position:relative; padding-left:1.9rem; margin-bottom:.6rem; counter-increment:step;
+  }
+  .steps li::before{
+    content:counter(step); position:absolute; left:0; top:.08em;
+    font:600 .72rem/1.35rem var(--sans);
+    width:1.35rem; height:1.35rem; text-align:center; border-radius:50%;
+    background:var(--tag-bg); color:var(--muted);
+  }
+  .steps .line{display:block; margin-top:.3rem}
+  .fixes li{margin-bottom:1.1rem}
+  .fixes li::before{top:.05em}
+  .fixes h3{font:600 1rem/1.35 var(--sans); margin:0 0 .3rem}
+  .fixes p{margin:0 0 .35rem}
+  .fixes .saving{font:400 .86rem/1.5 var(--sans); color:var(--muted); margin:0}
+  .fixes h3, .offer-name, .metric-name{text-wrap:balance}
+  .wrap p, .wrap li, .wrap dd{text-wrap-style:pretty}
+
+  .links{font:400 .92rem/1.6 var(--sans)}
+
+  /* ---- fixed-price offers (as on the services page) ---- */
+  .offers{margin:0 0 .5rem}
+  .offer{padding:1.5rem 0; border-top:1px solid var(--rule)}
+  .offer:first-child{border-top:0; padding-top:.5rem}
+  .offer:last-child{padding-bottom:.25rem}
+  .offer-head{display:flex; align-items:baseline; gap:.5rem 1rem}
+  .offer-name{
+    font:600 1.08rem/1.3 var(--sans);
+    margin:0; flex:1 1 auto; letter-spacing:-.005em;
+  }
+  .offer-price{
+    font:600 1.08rem/1.3 var(--sans);
+    font-variant-numeric:tabular-nums; white-space:nowrap; flex:0 0 auto; margin:0;
+  }
+  .offer-when{
+    font:400 .86rem/1.5 var(--sans);
+    color:var(--muted); margin:.3rem 0 .75rem;
+  }
+  .offer p{margin:0 0 .75rem; font-size:.985rem}
+  .offer .actions{margin-top:1rem}
+  .fixes-lead{margin-top:1.6rem}
+
+  /* ---- price table (as on the home page) ---- */
+  table{width:100%; border-collapse:collapse; margin:0 0 1.25rem;
+    font:.92rem/1.4 var(--sans)}
+  th,td{text-align:left; padding:.6rem .5rem; border-bottom:1px solid var(--rule); vertical-align:top}
+  th:first-child, td:first-child{padding-left:0}
+  th:last-child, td:last-child{padding-right:0}
+  th{font-weight:600; color:var(--muted); font-size:.74rem; text-transform:uppercase; letter-spacing:.07em}
+  td.num, th.num{font-variant-numeric:tabular-nums; white-space:nowrap; text-align:right}
+  .days{display:block; margin-top:.15rem; font-size:.82rem; color:var(--muted)}
+
+  .glossary{margin:0 0 1rem}
+  .glossary dt{font:600 .98rem/1.4 var(--sans); margin:1rem 0 .2rem}
+  .glossary dt:first-child{margin-top:0}
+  .glossary dd{margin:0}
+
+  footer{
+    margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule);
+    font:400 .9rem/1.6 var(--sans);
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Home</a>
+    <a href="../services/">Services</a>
+    <a href="../speed-demo/">Speed demo</a>
+    <a href="./" aria-current="page">Speed check</a>
+  </nav>
+
+  <h1>Free Shopify speed check</h1>
+  <p class="role">John Singh · Google’s test, in plain English</p>
+
+  <p class="lede" id="lede">Enter your store’s address, or a single product page. Google’s free mobile
+  test opens on its own site, and this page shows you how to read it: how fast it feels, what your
+  shoppers notice, and where to start.</p>
+
+  <form id="check" class="check" action="https://pagespeed.web.dev/analysis" method="get" target="_blank" rel="noopener" novalidate>
+    <label for="url">Store or product page address</label>
+    <div class="check-row">
+      <input id="url" name="url" type="text" inputmode="url" autocomplete="url" autocapitalize="none"
+        autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="yourstore.com"
+        aria-describedby="url-error url-fine">
+      <input type="hidden" name="form_factor" value="mobile">
+      <button class="buy" id="go" type="submit">Check speed</button>
+    </div>
+    <p class="field-error" id="url-error" hidden></p>
+    <p class="fine" id="url-fine">Free, with no sign-up. This page has no analytics, no cookies and no
+    tracking, and it stores nothing. The address goes from your browser straight to Google’s
+    PageSpeed Insights, which runs the test. Where the test opens on Google’s own site, that site
+    uses its own cookies.</p>
+    <noscript><p class="fine">With JavaScript off, the button opens the same test on Google’s own
+    site.</p></noscript>
+  </form>
+
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+  <p class="slow" id="slow" hidden>Taking too long? <a id="slow-link" href="https://pagespeed.web.dev/" target="_blank" rel="noopener">Run it on Google’s site instead</a>.</p>
+
+  <section class="results" id="results" tabindex="-1" aria-labelledby="results-title" hidden></section>
+
+  <section class="panel" id="fallback" tabindex="-1" aria-labelledby="fallback-title" hidden>
+    <h2 id="fallback-title">Reading Google’s results</h2>
+    <p id="fallback-why"></p>
+    <p><a class="buy" id="fallback-link" href="https://pagespeed.web.dev/" target="_blank" rel="noopener">Open the test on Google’s site</a></p>
+    <p>When it’s done, here is what to look at:</p>
+    <ol class="steps">
+      <li>The top section, about what your real users are experiencing, comes from real shoppers on
+      phones over the last 28 days. Where it’s there, it matters most. Smaller stores often don’t have
+      it yet.</li>
+      <li>Under “Diagnose performance issues”, the first circle, labelled Performance, is the lab
+      score out of 100: 90 and above is good, under 50 is poor.</li>
+      <li>Below the score, three numbers:
+        <span class="line">Largest Contentful Paint: how long until the main photo or headline
+        appears. Good is 2.5 seconds or less.</span>
+        <span class="line">Total Blocking Time: how long the page is too busy to answer a tap. Good
+        is 200 milliseconds or less.</span>
+        <span class="line">Cumulative Layout Shift: how much the page jumps. Good is 0.1 or
+        less.</span></li>
+      <li>Further down, the insights and diagnostics marked with an estimated saving are where Google
+      expects the biggest gains.</li>
+    </ol>
+  </section>
+
+  <section id="offer" aria-labelledby="offer-title" hidden>
+    <h2 id="offer-title">If it turns out slow</h2>
+    <div id="offer-list">
+      <p id="offer-intro"></p>
+      <p>You get before and after reports from this same Google test. On my
+      <a href="../speed-demo/">speed demo</a>, a product page I built with six common problems,
+      fixing them took Google’s mobile score from 68 to 96. I don’t promise a particular score for
+      your store: lab scores move from run to run, and what I guarantee is that each cause passes its
+      written check.</p>
+      <div class="offers">
+        <div class="offer" id="speed-report">
+          <div class="offer-head">
+            <h3 class="offer-name">A speed report</h3>
+            <p class="offer-price">$49</p>
+          </div>
+          <p class="offer-when">Within two working days. Credited in full against a fix.</p>
+          <p>Your home, collection and product pages, measured and explained: each cause ranked by
+          how much time it adds, the written check that will show it’s fixed, and a fixed price for
+          fixing them. No access or passwords needed.</p>
+          <div class="actions">
+            <a class="buy" href="https://buy.stripe.com/00wdRag1B6eff9bgz35wI03" aria-label="Pay now — $49 for a speed report">Pay now — $49</a>
+            <a class="buy secondary" data-mail="Speed report" href="mailto:johnnassersingh@gmail.com?subject=Speed%20report&amp;body=Store%20address%3A%20" aria-label="Start a project: speed report, by email">Start a project</a>
+          </div>
+        </div>
+      </div>
+      <p class="fixes-lead">Fixing what the report finds, at a fixed price, with the report included
+      if you haven’t ordered one:</p>
+      <table>
+        <thead>
+          <tr><th scope="col">Work</th><th scope="col" class="num">Price</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="../services/#speed-fix-one">Speed fix, one template</a><span class="days">5 working days</span></td><td class="num">$550</td></tr>
+          <tr><td><a href="../services/#speed-fix-three">Speed fix, home, collection and product</a><span class="days">7 working days</span></td><td class="num">$1,200</td></tr>
+        </tbody>
+      </table>
+      <p>The full scope, what I guarantee and how ordering works are on the
+      <a href="../services/">services page</a>. Questions first? Email
+      <a id="offer-mail" href="mailto:johnnassersingh@gmail.com?subject=Speed%20check">johnnassersingh@gmail.com</a>.</p>
+    </div>
+    <p id="offer-other" hidden></p>
+  </section>
+
+  <h2>What the check measures</h2>
+  <dl class="glossary">
+    <dt>Real-shopper data</dt>
+    <dd>When a store has enough visitors, Chrome reports what they actually experienced on their
+    phones over the last 28 days. It’s the truest measure of what your customers feel, so it comes
+    first when Google has it.</dd>
+    <dt>Performance score</dt>
+    <dd>Google’s 0 to 100 summary of one test load on an emulated mid-range phone over a slow 4G
+    connection. 90 and above is good; under 50 is poor. It’s useful for finding causes, and it moves
+    a little from one run to the next.</dd>
+    <dt>Main image or headline on screen</dt>
+    <dd>Largest Contentful Paint: how long until the biggest thing on the screen, usually the hero
+    or product photo, appears. Good is 2.5 seconds or less.</dd>
+    <dt>Time the page is frozen</dt>
+    <dd>Total Blocking Time: how long scripts keep the phone too busy to answer a tap while the page
+    loads. Good is 200 milliseconds or less.</dd>
+    <dt>How much the page jumps</dt>
+    <dd>Cumulative Layout Shift: how far things move as late content pushes them around. Good is 0.1
+    or less.</dd>
+    <dt>Response to a tap</dt>
+    <dd>Interaction to Next Paint, from real shoppers only: how long the page takes to respond after
+    a tap. Good is 200 milliseconds or less.</dd>
+  </dl>
+  <p class="fine">Not affiliated with Google or Shopify.</p>
+
+  <footer>
+    <a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a>
+  </footer>
+
+</div>
+<script>
+(() => {
+  'use strict';
+
+  // Google's PageSpeed Insights API. Without a key, Google turns every request away, so the button
+  // opens the test on Google's own site and this page shows how to read it. A free key restricted
+  // to this site's address and to the PageSpeed Insights API, set here, lets the page show the
+  // results itself.
+  const PSI_KEY = '';
+  const API = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
+  const TIMEOUT_MS = 120000;
+  const SLOW_MS = 30000;
+  const EMAIL = 'johnnassersingh@gmail.com';
+
+  const $ = (id) => document.getElementById(id);
+  const form = $('check'), input = $('url'), button = $('go'), err = $('url-error');
+  const status = $('status'), slow = $('slow'), slowLink = $('slow-link');
+  const results = $('results'), fallback = $('fallback'), offer = $('offer');
+
+  let current = null; // { url, controller, timers }
+
+  if (PSI_KEY) {
+    $('lede').textContent = 'Enter your store’s address, or a single product page. Google loads it the way a shopper’s phone would, and this page explains what comes back: how fast it feels, what your shoppers notice, and the three changes to start with.';
+  }
+
+  /* ---------- small helpers ---------- */
+
+  function el(tag, attrs, ...kids) {
+    const n = document.createElement(tag);
+    if (attrs) for (const [k, v] of Object.entries(attrs)) {
+      if (v == null || v === false) continue;
+      if (k === 'class') n.className = v; else if (k === 'text') n.textContent = v; else n.setAttribute(k, v);
+    }
+    for (const k of kids.flat()) if (k != null && k !== false) n.append(k);
+    return n;
+  }
+  const nb = ' '; // a non-breaking space, so a number never parts from its unit
+  const fmtMs = (ms) => ms >= 1000 ? (ms / 1000).toFixed(1) + nb + 's' : Math.max(10, Math.round(ms / 10) * 10) + nb + 'ms';
+  const fmtField = (ms) => ms >= 1000 ? fmtMs(ms) : Math.round(ms) + nb + 'ms'; // real-shopper times, to the millisecond as Google shows them
+  const fmtCls = (v) => v < 0.0005 ? '0' : v < 0.01 ? v.toFixed(3) : v.toFixed(2);
+  const fmtBytes = (b) => b >= 1048576 ? (b / 1048576).toFixed(1) + nb + 'MB' : Math.round(b / 1024) + nb + 'KB';
+  const googleLink = (url) => 'https://pagespeed.web.dev/analysis?url=' + encodeURIComponent(url) + '&form_factor=mobile';
+  const hostOf = (url) => { try { return new URL(url).host.replace(/^www\./, ''); } catch (e) { return url; } };
+  const short = (url) => { try { const u = new URL(url); return (u.host.replace(/^www\./, '') + (u.pathname === '/' ? '' : u.pathname)); } catch (e) { return url; } };
+  const mailto = (subject, body) => 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body).replace(/%0A/g, '%0D%0A');
+
+  // Google's thresholds: [good at or below, poor above]
+  const T = { lcp: [2500, 4000], tbt: [200, 600], cls: [0.1, 0.25], inp: [200, 500], fcp: [1800, 3000] };
+  const rate = (k, v) => v <= T[k][0] ? 'good' : v <= T[k][1] ? 'avg' : 'poor';
+  const RATING = { good: 'Good', avg: 'Needs improvement', poor: 'Poor' };
+  const ratingEl = (r, text) => el('span', { class: 'rating r-' + r, text: text || RATING[r] });
+  const scoreRating = (s) => s >= 90 ? 'good' : s >= 50 ? 'avg' : 'poor';
+  const worst = (rs) => rs.includes('poor') ? 'poor' : rs.includes('avg') ? 'avg' : 'good';
+
+  /* ---------- the address ---------- */
+
+  function normalise(raw) {
+    let s = String(raw || '').trim().replace(/\s+/g, '');
+    if (!s) return { error: 'Enter your store’s address, for example yourstore.com.' };
+    if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(s)) s = 'https://' + s.replace(/^\/+/, '');
+    let u;
+    try { u = new URL(s); } catch (e) { return { error: 'That doesn’t look like a web address. Try something like yourstore.com.' }; }
+    if (!/^https?:$/.test(u.protocol)) return { error: 'Enter a web address that starts with https://, or just the domain.' };
+    const h = u.hostname;
+    if (/^(localhost|127\.|10\.|192\.168\.|169\.254\.|0\.)/.test(h) || /\.(local|localhost|test|internal)$/.test(h) || h === '[::1]')
+      return { error: 'Google can only test a page that’s on the public internet.' };
+    if (!/\./.test(h) || /^\.|\.$/.test(h)) return { error: 'That doesn’t look like a web address. Try something like yourstore.com.' };
+    u.hash = '';
+    return { url: u.href };
+  }
+
+  function showError(msg) {
+    status.classList.remove('sr-only');
+    err.textContent = msg; err.hidden = false;
+    input.setAttribute('aria-invalid', 'true');
+    input.focus();
+  }
+  function clearError() {
+    err.hidden = true; err.textContent = '';
+    input.removeAttribute('aria-invalid');
+  }
+
+  /* ---------- running a test ---------- */
+
+  function setBusy(on) {
+    button.textContent = on ? 'Checking…' : 'Check speed';
+    if (on) button.setAttribute('aria-disabled', 'true'); else button.removeAttribute('aria-disabled');
+    results.setAttribute('aria-busy', on ? 'true' : 'false');
+    status.classList.toggle('busy', on);
+  }
+
+  function stop() {
+    if (!current) return;
+    current.controller.abort();
+    current.timers.forEach(clearTimeout);
+    current = null;
+    setBusy(false);
+  }
+
+  function reset() {
+    stop();
+    clearError();
+    results.hidden = true; results.textContent = '';
+    fallback.hidden = true; offer.hidden = true; slow.hidden = true;
+  }
+
+  async function run(url) {
+    if (!PSI_KEY) return showGuide(url, false); // without a key, Google refuses every request
+    reset();
+    setBusy(true);
+    status.classList.remove('sr-only');
+    status.textContent = 'Testing ' + short(url) + ' on an emulated phone over a slow 4G connection. This usually takes 20 to 60 seconds.';
+    slowLink.href = googleLink(url);
+
+    const controller = new AbortController();
+    const me = { url, controller, timers: [] };
+    current = me;
+    me.timers.push(setTimeout(() => {
+      if (current !== me) return;
+      status.textContent = 'Still testing ' + short(url) + '. Large pages can take a minute or more.';
+      slow.hidden = false;
+    }, SLOW_MS));
+    me.timers.push(setTimeout(() => { if (current === me) controller.abort('timeout'); }, TIMEOUT_MS));
+
+    const q = API + '?url=' + encodeURIComponent(url) + '&strategy=mobile&category=performance&key=' + encodeURIComponent(PSI_KEY);
+    let res, data;
+    try {
+      res = await fetch(q, { signal: controller.signal, credentials: 'omit', referrerPolicy: 'origin' });
+      data = await res.json().catch(() => null);
+    } catch (e) {
+      if (current !== me) return; // replaced by a newer test
+      finish(me);
+      return showFallback(url, controller.signal.aborted
+        ? 'Google’s test took longer than two minutes to come back, which happens with very heavy pages.'
+        : 'This page couldn’t reach Google’s test service just now (the connection dropped or was blocked).');
+    }
+    if (current !== me) return;
+    finish(me);
+
+    const lighthouse = data && data.lighthouseResult;
+    if (!res.ok || !lighthouse || lighthouse.runtimeError && lighthouse.runtimeError.code && lighthouse.runtimeError.code !== 'NO_ERROR') {
+      return handleFailure(url, res.status, data);
+    }
+    try {
+      render(url, data);
+    } catch (e) {
+      showFallback(url, 'Google’s answer came back in a shape this page didn’t expect.');
+    }
+  }
+
+  function finish(me) {
+    me.timers.forEach(clearTimeout);
+    if (current === me) current = null;
+    setBusy(false);
+    slow.hidden = true;
+  }
+
+  function handleFailure(url, httpStatus, data) {
+    const e = data && data.error || {};
+    const lr = data && data.lighthouseResult;
+    const text = String(e.message || (lr && lr.runtimeError && (lr.runtimeError.code + ' ' + (lr.runtimeError.message || ''))) || '');
+    const code = (text.match(/\b(DNS_FAILURE|FAILED_DOCUMENT_REQUEST|ERRORED_DOCUMENT_REQUEST|NOT_HTML|NO_FCP|NO_LCP|PAGE_HUNG|PROTOCOL_TIMEOUT|TARGET_CRASHED|INSECURE_DOCUMENT_REQUEST|CHROME_INTERSTITIAL_ERROR)\b/) || [])[1];
+    const host = hostOf(url);
+
+    // A problem with this page's key is ours, not the visitor's address.
+    if (/API key|API_KEY|referer|SERVICE_DISABLED|PERMISSION_DENIED/i.test(text + ' ' + (e.status || '') + ' ' + JSON.stringify(e.details || []))) {
+      return showFallback(url, 'This page’s connection to Google’s test isn’t working right now.');
+    }
+    if (code === 'DNS_FAILURE') {
+      status.textContent = '';
+      return showError('Google couldn’t find ' + host + '. Check the spelling and try again.');
+    }
+    if (httpStatus === 400 && !code) {
+      status.textContent = '';
+      return showError('Google didn’t accept that address. Check it and try again.');
+    }
+    let why;
+    if (httpStatus === 429 || /quota|rate ?limit/i.test(text)) {
+      why = 'Google’s test service didn’t accept a test from this page just now: it limits how many tests it runs for free.';
+    } else if (code === 'FAILED_DOCUMENT_REQUEST' || code === 'ERRORED_DOCUMENT_REQUEST' || code === 'INSECURE_DOCUMENT_REQUEST' || code === 'CHROME_INTERSTITIAL_ERROR') {
+      why = 'Google couldn’t load ' + host + '. If the address is right, the site may be turning away automated visits, or returned an error.';
+    } else if (code === 'NOT_HTML') {
+      why = 'That address isn’t a web page Google can test. Try your store’s home page or a product page.';
+    } else if (code) {
+      why = 'Google’s test phone couldn’t finish loading the page, which very heavy pages sometimes cause.';
+    } else {
+      why = 'Google’s test service didn’t return results to this page just now.';
+    }
+    showFallback(url, why);
+  }
+
+  // The guide to Google's own report: after a test opens there, or when this page can't show results.
+  function guide(url, title, why, linkText, primary, statusText) {
+    $('fallback-title').textContent = title;
+    $('fallback-why').textContent = why;
+    const link = $('fallback-link');
+    link.href = googleLink(url);
+    link.textContent = linkText;
+    link.className = primary ? 'buy' : 'buy secondary';
+    status.textContent = statusText;
+    status.classList.add('sr-only');
+    fallback.hidden = false;
+    setOffer('unknown', url, null);
+    fallback.focus();
+  }
+
+  function showGuide(url, opened) {
+    reset();
+    if (opened) {
+      guide(url, 'Reading Google’s results', 'Google’s test for ' + short(url) + ' is open in a new tab. It takes about a minute.',
+        'Open Google’s test again', false, 'Google’s test for ' + short(url) + ' opened in a new tab. How to read it is below.');
+    } else {
+      guide(url, 'Reading Google’s results', 'Google’s test for ' + short(url) + ' runs on its own site, and takes about a minute.',
+        'Open the test on Google’s site', true, 'How to read Google’s test is below.');
+    }
+  }
+
+  function showFallback(url, why) {
+    guide(url, 'Run it on Google’s site', why + ' The same test runs on Google’s own site, and takes about a minute.',
+      'Open the test on Google’s site', true, 'No results on this page this time. You can run the same test on Google’s site.');
+  }
+
+  /* ---------- reading Google's answer ---------- */
+
+  function detectPlatform(lh, finalUrl) {
+    let origin = '', hostname = '';
+    try { const u = new URL(finalUrl); origin = u.origin; hostname = u.hostname; } catch (e) {}
+    const items = (((lh.audits || {})['network-requests'] || {}).details || {}).items || [];
+    let theme = /\.myshopify\.com$/i.test(hostname), shopifyFiles = false;
+    for (const it of items) {
+      const u = String(it.url || '');
+      if (origin && (u.startsWith(origin + '/cdn/shop/') || u.startsWith(origin + '/cdn/shopifycloud/') ||
+          u.startsWith(origin + '/checkouts/internal/') || u.startsWith(origin + '/.well-known/shopify/'))) theme = true;
+      else if (/^https:\/\/cdn\.shopify\.com\/s\/files\/[^?#]*\/t\/\d+\/assets\//.test(u)) theme = true;
+      else if (/^https:\/\/cdn\.shopify\.com\//.test(u) || /^https:\/\/[^/]+\.myshopify\.com\//.test(u)) shopifyFiles = true;
+    }
+    if (!items.length && (lh.entities || []).some((e) => e.name === 'Shopify')) theme = true;
+    return theme ? 'shopify' : shopifyFiles ? 'headless' : 'other';
+  }
+
+  function pickField(data) {
+    const has = (x) => x && x.metrics && Object.keys(x.metrics).length;
+    const le = data.loadingExperience, ole = data.originLoadingExperience;
+    if (has(le) && !le.origin_fallback) return { scope: 'page', m: le.metrics };
+    if (has(ole)) return { scope: 'origin', m: ole.metrics };
+    if (has(le)) return { scope: 'origin', m: le.metrics };
+    return null;
+  }
+
+  const savingsOf = (a) => {
+    const s = a.metricSavings || {}, d = a.details || {};
+    let bytes = +d.overallSavingsBytes || 0;
+    if (!bytes && Array.isArray(d.items)) bytes = d.items.reduce((t, i) => t + (+(i && i.wastedBytes) || 0), 0);
+    return { lcp: +s.LCP || 0, fcp: +s.FCP || 0, tbt: +s.TBT || 0, cls: +s.CLS || 0, ms: +d.overallSavingsMs || 0, bytes };
+  };
+  const failing = (a) => a && a.score != null && a.score < 0.9 && !/^(notApplicable|error|manual)$/.test(a.scoreDisplayMode || '');
+
+  // Lighthouse's findings, grouped into the plain-English changes a store owner would recognise.
+  // g is true of any site; s is added for Shopify stores, o for everything else.
+  const THEMES = [
+    { key: 'js', title: 'Scripts keep the phone busy',
+      g: 'While the page loads, JavaScript keeps the phone’s processor busy, so taps and scrolls wait their turn.',
+      s: 'On Shopify stores most of it usually comes from apps, tracking tags, and review or chat widgets, often running before anyone needs them.',
+      ids: ['bootup-time', 'mainthread-work-breakdown', 'long-tasks', 'forced-reflow-insight', 'third-parties-insight', 'third-party-summary', 'third-party-facades'] },
+    { key: 'shift', title: 'The page jumps as it loads',
+      g: 'Images without a set size, and banners or app widgets that arrive late, push the page down while a shopper is reading or reaching for a button. Reserving the space they need stops it.',
+      ids: ['cls-culprits-insight', 'layout-shifts', 'unsized-images', 'layout-shift-elements'] },
+    { key: 'lcp', title: 'The main image is found late',
+      g: 'The biggest thing on screen, usually the hero or product photo, isn’t requested early, or is set to load lazily.',
+      s: 'A Shopify theme can mark that one image to load first.',
+      o: 'The page can mark that one image to load first.',
+      ids: ['lcp-discovery-insight', 'prioritize-lcp-image', 'lcp-lazy-loaded'] },
+    { key: 'images', title: 'Images heavier than a phone needs',
+      g: 'Photos are sent larger than the screen shows them, or heavier than they need to be.',
+      s: 'Shopify already sends modern formats such as WebP on its own; the theme has to ask for each image at the width it’s shown.',
+      o: 'Serving each one at the size it’s shown, in a modern format, fixes it.',
+      ids: ['image-delivery-insight', 'uses-responsive-images', 'modern-image-formats', 'uses-optimized-images', 'offscreen-images', 'efficient-animated-content'] },
+    { key: 'blocking', title: 'Files that hold up the first paint',
+      g: 'Stylesheets, fonts and scripts have to arrive before anything appears, so shoppers look at a blank screen.',
+      s: 'On Shopify these are often app scripts added to the theme, and fonts loaded the slow way.',
+      ids: ['render-blocking-insight', 'render-blocking-resources', 'font-display-insight', 'font-display', 'network-dependency-tree-insight', 'critical-request-chains', 'uses-rel-preconnect'] },
+    { key: 'unused', title: 'Code downloaded but never used',
+      g: 'Much of the JavaScript and CSS sent to the phone isn’t used on this page.',
+      s: 'On Shopify that’s often leftovers from old apps, whole libraries loaded for one feature, or code for every page loaded on every page.',
+      o: 'Often it’s whole libraries loaded for one feature, or code for every page loaded on every page.',
+      ids: ['unused-javascript', 'unused-css-rules', 'legacy-javascript-insight', 'legacy-javascript', 'duplicated-javascript-insight', 'duplicated-javascript', 'unminified-css', 'unminified-javascript'] },
+    { key: 'server', title: 'The page itself is slow to arrive',
+      g: 'Before anything else can load, the page’s HTML takes a while to come back.',
+      s: 'On Shopify that’s usually heavy Liquid, such as big loops on collection pages, or a redirect before the page.',
+      o: 'That’s usually the server, or a redirect before the page.',
+      ids: ['document-latency-insight', 'server-response-time', 'redirects', 'uses-text-compression'] },
+    { key: 'cache', title: 'Files fetched again on every visit',
+      g: 'Some files tell the browser to keep them only briefly, so returning shoppers download them again.',
+      s: 'On Shopify these are mostly from apps and other outside services.',
+      ids: ['cache-insight', 'uses-long-cache-ttl'] },
+    { key: 'dom', title: 'A very large page',
+      g: 'The page is built from a very large number of elements, so every change on screen takes the phone longer.',
+      s: 'On Shopify stores that’s often mega menus, hidden drawers and long product grids.',
+      ids: ['dom-size-insight', 'dom-size'] },
+    { key: 'viewport', title: 'Not set up for phones',
+      g: 'The page doesn’t tell phones how wide it is, so text can render tiny and taps can be delayed.',
+      ids: ['viewport-insight', 'viewport'] },
+  ];
+
+  function topFixes(lh, lab, fieldPass) {
+    const audits = lh.audits || {};
+    const out = [];
+    for (const t of THEMES) {
+      const found = t.ids.map((id) => audits[id]).filter(Boolean);
+      if (!found.length) continue;
+      const bad = found.filter(failing);
+      const sv = { lcp: 0, fcp: 0, tbt: 0, bytes: 0 };
+      for (const a of found) {
+        const s = savingsOf(a);
+        sv.lcp = Math.max(sv.lcp, s.lcp, s.ms); sv.fcp = Math.max(sv.fcp, s.fcp); sv.tbt = Math.max(sv.tbt, s.tbt);
+        if (failing(a)) sv.bytes = Math.max(sv.bytes, s.bytes);
+      }
+      let impact = 0;
+      if (t.key === 'shift') {
+        if (lab.cls == null || lab.cls <= T.cls[0]) continue;
+        impact = (lab.cls - T.cls[0]) * 10000 + 300;
+      } else if (t.key === 'js') {
+        if (!bad.length && !(lab.tbt > T.tbt[0])) continue;
+        impact = Math.max(sv.tbt, (lab.tbt || 0) - T.tbt[0]);
+      } else if (t.key === 'dom') {
+        const n = (audits['dom-size-insight'] || audits['dom-size'] || {}).numericValue || 0;
+        if (n < 1500) continue;
+        impact = 60; t.count = n;
+      } else {
+        if (!bad.length) continue;
+        impact = Math.max(sv.lcp, sv.fcp * 0.6) + sv.bytes * 0.0003;
+        if (t.key === 'cache') impact *= 0.5;
+        if (t.key === 'viewport') impact = Math.max(impact, 400);
+        if (impact < 1) impact = 40; // flagged by Google, with no estimate attached
+      }
+      out.push(Object.assign({}, t, { impact, sv }));
+    }
+    const fast = lab.score != null && lab.score >= 90 && fieldPass !== false;
+    return out.filter((t) => !fast || t.impact > 40).sort((a, b) => b.impact - a.impact).slice(0, 3);
+  }
+
+  function savingLine(t, lab) {
+    if (t.key === 'shift') return 'In this test, layout shift was ' + fmtCls(lab.cls) + '. Good is 0.1 or less.';
+    if (t.key === 'js') { const ms = lab.tbt != null ? Math.min(t.sv.tbt, lab.tbt) : t.sv.tbt; return ms >= 50 ? 'Google’s estimate: up to ' + fmtMs(ms) + ' less time frozen.' : ''; }
+    if (t.key === 'dom') return 'About ' + Math.round(t.count).toLocaleString('en-US') + ' elements on this page.';
+    const parts = [];
+    if (t.sv.lcp >= 50) parts.push('the main image about ' + fmtMs(t.sv.lcp) + ' sooner');
+    else if (t.sv.fcp >= 50) parts.push('the first text about ' + fmtMs(t.sv.fcp) + ' sooner');
+    if (t.sv.bytes >= 20000) parts.push(fmtBytes(t.sv.bytes) + ' less to download');
+    if (!parts.length) return '';
+    return 'Google’s estimate: ' + parts.join(', and ') + (t.key === 'cache' ? ', for returning shoppers.' : '.');
+  }
+
+  function thirdPartyLine(lh, platformHost) {
+    const a = (lh.audits || {})['third-parties-insight'] || (lh.audits || {})['third-party-summary'];
+    const items = a && a.details && a.details.items || [];
+    const first = new Set((lh.entities || []).filter((e) => e.isFirstParty).map((e) => e.name));
+    const top = items
+      .map((i) => ({ name: typeof i.entity === 'string' ? i.entity : (i.entity && i.entity.text) || '', ms: +i.mainThreadTime || +i.blockingTime || 0 }))
+      .filter((i) => i.name && i.ms >= 100 && !first.has(i.name) && i.name !== 'Shopify' && i.name !== platformHost)
+      .sort((x, y) => y.ms - x.ms).slice(0, 3);
+    if (!top.length) return '';
+    const names = top.map((i) => i.name + ' (' + fmtMs(i.ms) + ' of processing)');
+    const list = names.length === 1 ? names[0] : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+    return 'The outside services keeping the phone busiest here: ' + list + '.';
+  }
+
+  /* ---------- drawing the results ---------- */
+
+  function metricRow(name, value, tech, rating, good, feel) {
+    return el('li', { class: 'metric' },
+      el('div', { class: 'metric-head' },
+        el('p', { class: 'metric-name', text: name }),
+        el('p', { class: 'metric-val', text: value })),
+      el('p', { class: 'metric-tech' }, tech + ' · ', ratingEl(rating), el('span', { class: 'sep2', text: ' · ' }), el('span', { class: 'nw', text: 'good is ' + good })),
+      el('p', { class: 'metric-feel', text: feel }));
+  }
+
+  function summaryRow(name, value, tech) {
+    return el('li', { class: 'metric' },
+      el('div', { class: 'metric-head' },
+        el('p', { class: 'metric-name', text: name }),
+        el('p', { class: 'metric-val' }, value)),
+      el('p', { class: 'metric-tech', text: tech }));
+  }
+
+  // Lab lines describe Google's test phone, never the store's shoppers, because real shoppers
+  // can (and often do) have a very different experience.
+  function feelLab(k, v, x, r, ctx) {
+    if (k === 'lcp') return r === 'good' ? 'On Google’s test phone, the main photo or headline was on screen in ' + x + '. That feels quick.'
+      : (r === 'avg' ? 'On Google’s test phone, the main photo or headline took ' + x + ' to appear. On a phone, that feels slow.'
+        : 'On Google’s test phone, the main photo or headline took ' + x + ' to appear.')
+        + (ctx.field ? '' : ' Shoppers on slower phones get something close to this.');
+    if (k === 'tbt') return r === 'good' ? 'On the test phone, the page answered taps almost straight away while it loaded.'
+      : 'On the test phone, the page was too busy to answer taps for about ' + x + ' in all'
+        + (r === 'poor' && (!ctx.field || ctx.inp !== 'good') ? ', so a tap on a menu or button can seem to do nothing.' : '.');
+    return r === 'good' ? (v <= 0.05 ? 'In the test, nothing noticeable moved while the page loaded.' : 'In the test, very little moved while the page loaded.')
+      : r === 'avg' ? 'In the test, some things moved while the page loaded, enough for shoppers to notice.'
+      : 'In the test, the page jumped while it loaded, so a shopper reaching for a button can tap the wrong thing.';
+  }
+
+  function render(url, data) {
+    const lh = data.lighthouseResult;
+    const audits = lh.audits || {};
+    const finalUrl = lh.finalDisplayedUrl || lh.finalUrl || url;
+    const platform = detectPlatform(lh, finalUrl);
+    const num = (id) => { const a = audits[id]; return a && typeof a.numericValue === 'number' ? a.numericValue : null; };
+    const shown = (id, fallbackText) => { const a = audits[id]; return a && typeof a.displayValue === 'string' && a.displayValue ? a.displayValue : fallbackText; };
+    const perf = lh.categories && lh.categories.performance;
+    const score = perf && typeof perf.score === 'number' ? Math.round(perf.score * 100) : null;
+    const lab = { lcp: num('largest-contentful-paint'), tbt: num('total-blocking-time'), cls: num('cumulative-layout-shift'), score };
+    const field = pickField(data);
+    const when = new Date(data.analysisUTCTimestamp || lh.fetchTime || Date.now());
+    const whenText = isNaN(when) ? '' : ' · ' + when.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }).replace(/ /g, nb)
+      + ',' + nb + when.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }).replace(/\s/g, nb);
+
+    const kids = [];
+    kids.push(el('p', { class: 'tested', id: 'results-title' }, 'Results for ', el('strong', { text: short(finalUrl) }), ' · mobile' + whenText));
+
+    let pathname = '';
+    try { pathname = new URL(finalUrl).pathname; } catch (e) {}
+    if (/^\/password\/?$/.test(pathname)) {
+      kids.push(el('p', { class: 'flag', text: 'This store is password-protected, so Google tested the password page rather than your shop. Check again once the store is open.' }));
+    } else if (hostOf(finalUrl) !== hostOf(url)) {
+      kids.push(el('p', { class: 'flag', text: 'Google was sent on to ' + hostOf(finalUrl) + ', so these are the results for that page.' }));
+    }
+
+    // Real shoppers.
+    let fieldPass = null, fieldWorst = null, fieldInp = null;
+    const fieldKids = [];
+    if (field) {
+      const m = field.m;
+      const rows = [];
+      const verdicts = [];
+      const lcp = m.LARGEST_CONTENTFUL_PAINT_MS, inp = m.INTERACTION_TO_NEXT_PAINT, cls = m.CUMULATIVE_LAYOUT_SHIFT_SCORE;
+      if (lcp && lcp.percentile != null) {
+        const r = rate('lcp', lcp.percentile); verdicts.push(r);
+        rows.push(metricRow('Main image or headline on screen', fmtField(lcp.percentile), 'Largest Contentful Paint', r, '2.5' + nb + 's or less',
+          'Three visits in four saw the main photo or headline within ' + fmtField(lcp.percentile) + '.'));
+      }
+      if (inp && inp.percentile != null) {
+        const r = rate('inp', inp.percentile); verdicts.push(r); fieldInp = r;
+        rows.push(metricRow('Response to a tap', fmtField(inp.percentile), 'Interaction to Next Paint', r, '200' + nb + 'ms or less',
+          'Three visits in four, the page answered a tap within ' + fmtField(inp.percentile) + '.'));
+      }
+      if (cls && cls.percentile != null) {
+        const v = cls.percentile / 100, r = rate('cls', v); verdicts.push(r);
+        rows.push(metricRow('How much the page jumps', fmtCls(v), 'Cumulative Layout Shift', r, '0.1 or less',
+          v === 0 ? 'Three visits in four, nothing on the page moved.' : 'Three visits in four, the page shifted by ' + fmtCls(v) + ' or less.'));
+      }
+      if (rows.length) {
+        // Google's rule: LCP and CLS must both be there and Good; INP must be Good when it's there.
+        const assessable = !!(lcp && lcp.percentile != null && cls && cls.percentile != null);
+        fieldPass = assessable ? verdicts.every((r) => r === 'good') : null;
+        fieldWorst = worst(verdicts);
+        const who = field.scope === 'page' ? 'This page ' : 'Your store as a whole ';
+        fieldKids.push(el('h2', { text: 'Real shoppers, last 28 days' }));
+        fieldKids.push(el('p', { class: 'intro', text: field.scope === 'page'
+          ? 'From Chrome users who visited this page on a phone. This is what your customers actually felt, so it comes first.'
+          : 'From Chrome users on phones across your whole store, because this page alone doesn’t have enough visits yet. This is what your customers actually felt, so it comes first.' }));
+        fieldKids.push(fieldPass === null
+          ? el('p', { class: 'verdict', text: 'Google doesn’t have enough real-shopper data to judge Core Web Vitals here.' })
+          : el('p', { class: 'verdict' }, el('span', { class: 'glyph r-' + fieldWorst, 'aria-hidden': 'true' }),
+              who + (fieldPass ? 'passes' : 'doesn’t pass') + ' Google’s Core Web Vitals, the three measures Google uses for how a page feels.'));
+        fieldKids.push(el('ul', { class: 'metrics' }, rows));
+      }
+    }
+    const hasField = fieldKids.length > 0;
+
+    // At a glance: the real shoppers first, then the lab score, so the louder number never wins on its own.
+    const sumRows = [];
+    sumRows.push(hasField
+      ? summaryRow('Real shoppers', fieldPass === null ? el('span', { class: 'none', text: 'Not enough to judge' }) : ratingEl(fieldWorst),
+          (field.scope === 'page' ? 'This page' : 'Your whole store') + ', last 28 days' + (fieldPass === null ? '' : fieldPass ? ' · passes Core Web Vitals' : ' · doesn’t pass Core Web Vitals'))
+      : summaryRow('Real shoppers', el('span', { class: 'none', text: 'No data yet' }), 'Google needs more visits to this store to report it'));
+    sumRows.push(summaryRow('Google’s lab test', score != null ? [score + ' out of 100 ', ratingEl(scoreRating(score))] : el('span', { class: 'none', text: 'No score' }),
+      'One load on an emulated phone, just now'));
+    kids.push(el('ul', { class: 'metrics summary', 'aria-label': 'At a glance' }, sumRows));
+
+    kids.push(...fieldKids);
+
+    // The lab test.
+    kids.push(el('h2', { text: 'Google’s lab test, just now' }));
+    if (score != null) {
+      kids.push(el('div', { class: 'score' + (hasField ? ' second' : '') },
+        el('span', { class: 'score-num', text: String(score) }),
+        el('span', { class: 'score-of', text: 'out of 100' }),
+        ratingEl(scoreRating(score))));
+    }
+    kids.push(el('p', { class: 'intro', text: (hasField ? '' : 'Google doesn’t have enough real-shopper data for this page yet, which is common for smaller stores, so this test is the best guide. ')
+      + 'It’s one load of the page on an emulated mid-range phone over a slow 4G connection.'
+      + (hasField ? ' Real shoppers usually have faster phones and connections, so the times here tend to look slower than the ones above. The lab only watches the first load, so it can miss jumps that happen later. It’s most useful for finding causes.' : '') }));
+    const ctx = { field: hasField, inp: fieldInp };
+    const labRows = [];
+    if (lab.lcp != null) { const r = rate('lcp', lab.lcp), x = shown('largest-contentful-paint', fmtMs(lab.lcp)); labRows.push(metricRow('Main image or headline on screen', x, 'Largest Contentful Paint', r, '2.5' + nb + 's or less', feelLab('lcp', lab.lcp, x, r, ctx))); }
+    if (lab.tbt != null) { const r = rate('tbt', lab.tbt), x = shown('total-blocking-time', fmtMs(lab.tbt)); labRows.push(metricRow('Time the page is frozen', x, 'Total Blocking Time', r, '200' + nb + 'ms or less', feelLab('tbt', lab.tbt, x, r, ctx))); }
+    if (lab.cls != null) { const r = rate('cls', lab.cls), x = shown('cumulative-layout-shift', fmtCls(lab.cls)); labRows.push(metricRow('How much the page jumps', x, 'Cumulative Layout Shift', r, '0.1 or less', feelLab('cls', lab.cls, x, r, ctx))); }
+    if (labRows.length) kids.push(el('ul', { class: 'metrics' }, labRows));
+
+    // Where to start.
+    const fixes = topFixes(lh, lab, fieldPass);
+    kids.push(el('h2', { text: 'Where to start' }));
+    if (fixes.length) {
+      if (score != null && score >= 90) kids.push(el('p', { text: fieldPass === false
+        ? 'The lab test scores this page well, but real shoppers don’t pass Core Web Vitals yet, so these are worth a look:'
+        : 'This page is already fast. Google still noticed a few smaller things:' }));
+      const tp = thirdPartyLine(lh, hostOf(finalUrl));
+      const isShop = platform === 'shopify';
+      kids.push(el('ol', { class: 'steps fixes' }, fixes.map((t) => {
+        const line = savingLine(t, lab);
+        return el('li', null,
+          el('h3', { text: t.title }),
+          el('p', { text: [t.g, isShop ? t.s : t.o, t.key === 'js' ? tp : ''].filter(Boolean).join(' ') }),
+          line ? el('p', { class: 'saving', text: line }) : null);
+      })));
+    } else {
+      kids.push(el('p', { text: 'Google didn’t find anything large to fix on this page. If the store still feels slow, the real-shopper numbers above, or another page such as a collection, are the place to look.' }));
+    }
+
+    kids.push(el('p', { class: 'note', text: 'A note on the score: lab scores vary from run to run, because the test phone, the network and the apps and scripts on your page change a little every time. Test twice and the number may move by several points. Real-shopper data, where Google has it, is the steadier guide.' }));
+    kids.push(el('p', { class: 'links' }, el('a', { href: googleLink(finalUrl), target: '_blank', rel: 'noopener', text: 'See Google’s full report' }), ' (it runs the test again)'));
+
+    results.replaceChildren(...kids);
+    results.hidden = false;
+
+    const summary = { url: finalUrl, score, lab, fieldPass };
+    setOffer(platform, finalUrl, summary);
+
+    status.textContent = score != null
+      ? 'Results are ready: Google’s mobile score for ' + short(finalUrl) + ' is ' + score + ' out of 100, ' + RATING[scoreRating(score)].toLowerCase() + '.'
+      : 'Results are ready for ' + short(finalUrl) + '.';
+    status.classList.add('sr-only');
+    results.focus();
+  }
+
+  /* ---------- the offer ---------- */
+
+  const HOW = 'at a fixed price, on a duplicate of your theme, so your live store doesn’t change until you say so.';
+  const ME = 'I’m John Singh: I’ve been building websites and Shopify stores for more than ten years, and I do the work myself.';
+  const APPS = 'Apps and tags you rely on stay: I make their scripts wait until the page is showing, and tell you what each one costs.';
+
+  function setOffer(platform, url, summary) {
+    const list = $('offer-list'), other = $('offer-other'), intro = $('offer-intro'), title = $('offer-title');
+    const lines = ['Store address: ' + url];
+    if (summary) {
+      if (summary.score != null) lines.push('Mobile score in the speed check: ' + summary.score + ' out of 100');
+      if (summary.lab.lcp != null) lines.push('Main image on screen: ' + fmtMs(summary.lab.lcp).replace(nb, ' '));
+      if (summary.lab.tbt != null) lines.push('Time frozen: ' + fmtMs(summary.lab.tbt).replace(nb, ' '));
+      if (summary.lab.cls != null) lines.push('Layout shift: ' + fmtCls(summary.lab.cls));
+    }
+    const body = lines.join('\n') + '\n\n';
+    for (const a of offer.querySelectorAll('[data-mail]')) {
+      a.href = mailto(a.getAttribute('data-mail'), body);
+    }
+    $('offer-mail').href = mailto('Speed check: ' + hostOf(url), body + 'My question: ');
+
+    if (platform === 'other' || platform === 'headless') {
+      title.textContent = 'About fixes';
+      list.hidden = true; other.hidden = false;
+      other.replaceChildren(
+        platform === 'other'
+          ? 'This doesn’t look like a Shopify store: none of Shopify’s files appear in what Google loaded. Everything I offer at a fixed price is built for Shopify themes, so there’s nothing here to buy for this site. The results above apply to any site, though. If I’ve got it wrong, '
+          : 'This page uses Shopify, but not through a Shopify theme I can see; it may be a custom-built storefront. My fixed prices are for Shopify themes, so I’d rather look first. ',
+        el('a', { href: mailto('Speed check: ' + hostOf(url), body + 'My question: '), text: platform === 'other' ? 'email me' : 'Email me' }),
+        platform === 'other' ? ' and I’ll take a look.' : ' and I’ll tell you honestly whether I can help.');
+    } else {
+      list.hidden = false; other.hidden = true;
+      const fast = !!summary && summary.score >= 90 && summary.fieldPass !== false;
+      const shoppersPass = !!summary && summary.fieldPass === true && !(summary.score >= 90);
+      if (!summary) {
+        title.textContent = 'If it turns out slow';
+        intro.textContent = 'If Google’s test shows your store is slow, I fix it ' + HOW + ' ' + ME + ' ' + APPS;
+      } else if (fast) {
+        title.textContent = 'The rest of your store';
+        intro.textContent = 'This page is already fast. If you’d like the rest of the store checked, the report covers your home, collection and product pages together, and says so plainly if they’re fine too. When there is something to fix, I fix it ' + HOW + ' ' + ME;
+      } else if (shoppersPass) {
+        title.textContent = 'If you want it faster';
+        intro.textContent = 'Your real shoppers already pass Google’s Core Web Vitals here, so this may not need fixing. If you’d still like the causes the lab test found fixed, I do it ' + HOW + ' ' + ME + ' ' + APPS;
+      } else {
+        title.textContent = 'Want it fixed?';
+        intro.textContent = 'I’m John Singh. I’ve been building websites and Shopify stores for more than ten years, and I fix this kind of problem myself, ' + HOW + ' ' + APPS;
+      }
+    }
+    offer.hidden = false;
+  }
+
+  /* ---------- wiring ---------- */
+
+  form.addEventListener('submit', (e) => {
+    const n = normalise(input.value);
+    if (n.error) { e.preventDefault(); status.textContent = ''; return showError(n.error); }
+    if (!PSI_KEY) {
+      // No key: the form goes on to open Google's own test in a new tab, with the cleaned-up
+      // address, and this page shows how to read it.
+      input.value = n.url;
+      showGuide(n.url, true);
+      return;
+    }
+    e.preventDefault();
+    if (current && current.url === n.url) return; // already testing this one
+    run(n.url);
+  });
+  input.addEventListener('input', () => { if (!err.hidden) clearError(); });
+
+  // A link such as /speed-check/?url=yourstore.com fills the box in and starts the test (or, without
+  // a key, gets Google's test ready to open, since a new tab needs the visitor's own tap).
+  try {
+    const pre = new URLSearchParams(location.search).get('url');
+    if (pre) {
+      input.value = pre;
+      const n = normalise(pre);
+      if (n.error) showError(n.error); else run(n.url);
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

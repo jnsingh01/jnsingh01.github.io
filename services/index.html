@@ -10,14 +10,12 @@
   :root{
     --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
     --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
-    --todo:#a4470f;
     --measure:38rem;
     --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
   }
   @media (prefers-color-scheme: dark){
     :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
-           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328;
-           --todo:#f0a46b; }
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328; }
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -35,6 +33,7 @@
   .site-nav a:hover{color:var(--fg)}
   .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
     text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
 
   h1{
     font:600 1.5rem/1.25 var(--sans);
@@ -154,6 +153,7 @@
     <a href="../">Home</a>
     <a href="./" aria-current="page">Services</a>
     <a href="../speed-demo/">Speed demo</a>
+    <a href="../speed-check/">Speed check</a>
   </nav>
 
   <h1>Fixed-price Shopify work</h1>
@@ -189,6 +189,8 @@
   There’s no rush option and no rush fee.</p>
 
   <h2>Speed</h2>
+  <p class="glance-note">Not sure yet? The <a href="../speed-check/">free speed check</a> runs Google’s
+  mobile test on one page in about a minute and shows you how to read it.</p>
   <div class="offers">
 
     <div class="offer" id="speed-report">
@@ -281,9 +283,9 @@
       </div>
       <p class="offer-when">Three working days. For stores below Plus that had tracking in Additional Scripts.</p>
       <p>26 August 2026 was Shopify’s deadline for stores below Plus to upgrade their Thank you and Order
-      status pages. Stores that hadn’t were upgraded automatically, and the new pages don’t run Additional
-      Scripts, so anything that lived there (Google Analytics, the Meta pixel, an affiliate or conversion
-      snippet) stopped running. I move Google Analytics,
+      status pages. The new pages don’t run Additional Scripts, so on an upgraded store anything that
+      lived there (Google Analytics, the Meta pixel, an affiliate or conversion snippet) has stopped
+      running. I move Google Analytics,
       Meta, TikTok and one affiliate or conversion snippet to where Shopify now expects them, and check
       them with a real order.</p>
       <dl>
