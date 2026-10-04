@@ -3,15 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Services and prices | John Singh</title>
 <meta name="description" content="Fixed-price Shopify work with a written scope and turnaround in working days: a $49 speed report, speed fixes from $550, purchase-tracking repair, front-end fixes, custom sections and structured product data.">
-<!--
-  TODO before publishing (find them all with: grep -n TODO services/index.html)
-  - Three pay buttons point at #TODO-stripe-… : paste a Stripe Payment Link from the "John Singh"
-    account into each. Until then they draw dashed and say "TODO: Stripe link".
-  - The four existing links ($49, $150, $350, $850) are the live ones from the current page.
-    Check their Stripe product text: the $49 one may still say 24 hours, the $850 one 7 days.
--->
 <style>
   :root{
     --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
@@ -66,10 +60,6 @@
     background:var(--code-bg); padding:.1em .35em; border-radius:3px;
   }
   .lede{font-size:1.06rem}
-  .note{
-    border-left:2px solid var(--rule); padding-left:1rem; color:var(--muted);
-    font-size:.95rem; margin:0 0 1.25rem;
-  }
 
   /* ---- at a glance ---- */
   table{width:100%; border-collapse:collapse; font:.92rem/1.4 var(--sans); margin:0 0 .6rem}
@@ -108,7 +98,7 @@
   }
   .offer dd{margin:0}
 
-  /* ---- buttons: start by email (filled), pay directly (outlined) ---- */
+  /* ---- buttons: the main action filled, the other outlined ---- */
   .actions{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.15rem}
   .buy{
     display:inline-block; border:0; border-radius:4px;
@@ -118,13 +108,11 @@
   }
   .buy:hover{border:0; filter:brightness(1.08)}
   .buy:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
-  .buy.pay{background:transparent; color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
-  .buy.pay:hover{filter:none; background:color-mix(in srgb, var(--accent) 7%, transparent)}
-  /* TODO(stripe): a pay button still pointing at #TODO-… is drawn dashed and labelled so it
-     can't be missed in review. Paste the Payment Link into its href and the marking disappears. */
-  .buy.pay[href^="#TODO"]{color:var(--todo); box-shadow:none;
+  .buy.secondary{background:transparent; color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+  .buy.secondary:hover{filter:none; background:color-mix(in srgb, var(--accent) 7%, transparent)}
+  .buy[href^="#TODO"]{background:transparent; color:var(--todo); box-shadow:none;
     outline:1.5px dashed var(--todo); outline-offset:-1.5px; line-height:1.25; padding:.7rem 1.3rem}
-  .buy.pay[href^="#TODO"]::after{content:"TODO: Stripe link"; display:block;
+  .buy[href^="#TODO"]::after{content:"TODO: Stripe link"; display:block;
     font-weight:500; font-size:.7rem; letter-spacing:.05em}
   @media (max-width:30rem){
     .actions .buy{flex:1 1 100%}
@@ -152,8 +140,8 @@
     gap:1rem; padding:.85rem 0; font:600 .98rem/1.4 var(--sans);
   }
   .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+"; color:var(--muted); font-weight:400; font-size:1.15rem; line-height:1}
-  .faq details[open] summary::after{content:"\2212"}
+  .faq summary::after{content:"+"; content:"+" / ""; color:var(--muted); font-weight:400; font-size:1.15rem; line-height:1}
+  .faq details[open] summary::after{content:"\2212"; content:"\2212" / ""}
   .faq details p{margin:0 0 1rem; font-size:.985rem}
 
   footer{
@@ -175,9 +163,15 @@
   <h1>Fixed-price Shopify work</h1>
   <p class="role">John Singh · scope, price and turnaround written down before anything starts</p>
 
-  <p class="lede">Five kinds of work, each with a price, a written scope and a turnaround in working
-  days. You can start any of them by email or pay for it directly: no call, no proposal, no discovery
-  meeting. If it turns out the work can’t be done as described, you get your money back the same day.</p>
+  <p class="lede">Each piece of work below has a price, a written scope and a turnaround in working
+  days. You can start any of them by email, at
+  <a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a>, or pay for it directly: no
+  call, no proposal, no discovery meeting. If it turns out the work can’t be done as described, I refund
+  you that day.</p>
+
+  <p>You can check the work first: a <a href="../speed-demo/">speed demo page</a> I built, where
+  Google’s mobile score goes from 68 to 96 with both reports public, a
+  <a href="#work">demo store</a> and a <a href="../#worked-example">worked example</a>.</p>
 
   <h2>At a glance</h2>
   <table>
@@ -191,19 +185,19 @@
       <tr><td><a href="#tracking">Purchase tracking, repaired</a><span class="days">3 working days</span></td><td class="num">$300</td></tr>
       <tr><td><a href="#front-end-fix">A front-end fix</a><span class="days">2 working days</span></td><td class="num">$150</td></tr>
       <tr><td><a href="#custom-section">A custom section</a><span class="days">4 working days</span></td><td class="num">$350</td></tr>
-      <tr><td><a href="#product-data">Product data, structured</a><span class="days">10 working days</span></td><td class="num">$850</td></tr>
-      <tr><td><a href="#store-care">Store care, after a first job</a><span class="days">Replies within 1 working day</span></td><td class="num">$300 a month</td></tr>
+      <tr><td><a href="#product-data">Product data, structured</a><span class="days">10 working days</span></td><td class="num">$1,200</td></tr>
     </tbody>
   </table>
-  <p class="glance-note">Working days start when I have what the job needs: your store’s address for
-  the report, approved access for everything else. There’s no rush option and no rush fee.</p>
+  <p class="glance-note">Working days start when I have what the job needs and pause while I’m
+  waiting on you. Ask for adjustments within 7 days of delivery; after that, the job is complete.
+  There’s no rush option and no rush fee.</p>
 
   <h2>Speed</h2>
   <div class="offers">
 
     <div class="offer" id="speed-report">
       <div class="offer-head">
-        <p class="offer-name">A speed report</p>
+        <h3 class="offer-name">A speed report</h3>
         <p class="offer-price">$49</p>
       </div>
       <p class="offer-when">Within two working days. The place to start if your store feels slow on a phone.</p>
@@ -216,23 +210,24 @@
         <dt>You send</dt>
         <dd>Your store’s web address. Nothing else: no access, no passwords.</dd>
         <dt>You get</dt>
-        <dd>Results for three pages, the causes ranked by how much each one costs you, and a fixed
-        price for fixing them.</dd>
+        <dd>Results for three pages; each cause, ranked by how much time it adds, with the written check
+        that will show it’s fixed; and a fixed price for fixing them. Anything only you can decide, such
+        as removing an app, is listed separately.</dd>
         <dt>Then</dt>
         <dd>If you book the fix, the $49 comes off its price.</dd>
       </dl>
       <div class="actions">
-        <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Speed%20report&amp;body=Store%20address%3A%20" aria-label="Start a project: speed report, by email">Start a project</a>
-        <a class="buy pay" href="https://buy.stripe.com/00wdRag1B6eff9bgz35wI03" aria-label="Pay for a speed report, $49">Pay now — $49</a>
+        <a class="buy" href="https://buy.stripe.com/00wdRag1B6eff9bgz35wI03" aria-label="Pay now — $49 for a speed report">Pay now — $49</a>
+        <a class="buy secondary" href="mailto:johnnassersingh@gmail.com?subject=Speed%20report&amp;body=Store%20address%3A%20" aria-label="Start a project: speed report, by email">Start a project</a>
       </div>
     </div>
 
     <div class="offer" id="speed-fix-one">
       <div class="offer-head">
-        <p class="offer-name">A speed fix, one template</p>
+        <h3 class="offer-name">A speed fix, one template</h3>
         <p class="offer-price">$550</p>
       </div>
-      <p class="offer-when">Five working days. The issues the report found on one template, usually the product page.</p>
+      <p class="offer-when">Five working days. The causes the report found on one template, usually the product page.</p>
       <p>Fixed on a duplicate theme, measured before and after with the same tool. Typically that means
       images served at the size the screen needs, fonts that don’t hold the page up, app and third-party
       scripts that wait until the page is showing, and space kept for anything that arrives late, so
@@ -241,27 +236,27 @@
         <dt>You send</dt>
         <dd>Collaborator access, and a list of the apps you can’t do without.</dd>
         <dt>You get</dt>
-        <dd>Every issue the report named for that template, fixed. Before and after PageSpeed reports,
+        <dd>Every cause the report listed for that template, fixed. Before and after PageSpeed reports,
         both public links you can check, and plain-English notes on what changed. The report is
         included if you haven’t ordered one.</dd>
         <dt>Not included</dt>
-        <dd>Removing apps you rely on (I’ll tell you what each one costs; you decide), redesigns,
-        checkout changes, and Shopify’s older “vintage” themes, which I quote instead.</dd>
+        <dd>Removing apps you rely on (I’ll tell you what each one costs; you decide), changes inside an
+        app’s own code, redesigns, checkout changes, and Shopify’s older “vintage” themes, which I quote
+        instead.</dd>
         <dt>Guarantee</dt>
-        <dd>Every issue the report named is fixed and shows in the after-report, or I keep working at
-        no charge. Not a particular score: lab scores move from one run to the next, and apps can add
-        weight after I’ve finished.</dd>
+        <dd>Each cause the report listed for that template passes its written check in the
+        after-report, or I refund the fix. Not a particular score: lab scores move from one run to the
+        next, and apps can add weight after I’ve finished.</dd>
       </dl>
       <div class="actions">
         <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Speed%20fix%3A%20one%20template&amp;body=Store%20address%3A%20%0D%0A%0D%0AWhich%20template%20%28product%2C%20collection%20or%20home%29%3A%20" aria-label="Start a project: speed fix for one template, by email">Start a project</a>
-        <!-- TODO(stripe): Payment Link, speed fix one template, $550 (allow promotion codes; $49 code for report buyers) -->
-        <a class="buy pay" href="#TODO-stripe-speed-fix-one-template" aria-label="Pay for a speed fix on one template, $550">Pay now — $550</a>
+        <a class="buy secondary" href="#TODO-stripe-speed-fix-one-template" aria-label="Pay now — $550 for a speed fix on one template">Pay now — $550</a>
       </div>
     </div>
 
     <div class="offer" id="speed-fix-three">
       <div class="offer-head">
-        <p class="offer-name">A speed fix, home, collection and product</p>
+        <h3 class="offer-name">A speed fix, home, collection and product</h3>
         <p class="offer-price">$1,200</p>
       </div>
       <p class="offer-when">Seven working days. The three templates most shoppers pass through.</p>
@@ -274,8 +269,7 @@
       </dl>
       <div class="actions">
         <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Speed%20fix%3A%20home%2C%20collection%20and%20product&amp;body=Store%20address%3A%20" aria-label="Start a project: speed fix for home, collection and product, by email">Start a project</a>
-        <!-- TODO(stripe): Payment Link, speed fix three templates, $1,200 (allow promotion codes; $49 code for report buyers) -->
-        <a class="buy pay" href="#TODO-stripe-speed-fix-three-templates" aria-label="Pay for a speed fix on home, collection and product, $1,200">Pay now — $1,200</a>
+        <a class="buy secondary" href="#TODO-stripe-speed-fix-three-templates" aria-label="Pay now — $1,200 for a speed fix on home, collection and product">Pay now — $1,200</a>
       </div>
     </div>
 
@@ -286,33 +280,42 @@
 
     <div class="offer" id="tracking">
       <div class="offer-head">
-        <p class="offer-name">Purchase tracking, repaired</p>
+        <h3 class="offer-name">Purchase tracking, repaired</h3>
         <p class="offer-price">$300</p>
       </div>
-      <p class="offer-when">Three working days. For stores below Plus whose purchase tracking stopped in late August.</p>
+      <p class="offer-when">Three working days. For stores below Plus that had tracking in Additional Scripts.</p>
       <p>On 26 August 2026, Shopify retired the Additional Scripts box on the Thank you and Order status
-      pages for every store below Plus. Anything pasted there (Google Analytics, the Meta pixel, an
-      affiliate or conversion snippet) stopped running, with no warning and no way back. I move each one
-      to where Shopify now expects it, and prove it with a test order.</p>
+      pages for stores below Plus. If your store hadn’t moved what was in it by then (Google Analytics,
+      the Meta pixel, an affiliate or conversion snippet), it no longer runs. I move Google Analytics,
+      Meta, TikTok and one affiliate or conversion snippet to where Shopify now expects them, and check
+      them with a real order.</p>
       <dl>
         <dt>You send</dt>
         <dd>Collaborator access; a copy or screenshot of what was in Additional Scripts, if you have one;
-        the platforms you want checked, with read-only access to them or screenshots from you; and one
-        test order, in Shopify’s test mode or a real order you refund.</dd>
+        and read-only access to each platform you use, or screenshots from its live view while we
+        check.</dd>
+        <dt>You do</dt>
+        <dd>Sign in to whichever of your Google, Meta and TikTok accounts you use when Shopify’s apps ask,
+        following the steps I send: they connect only with your own login. Then place one real order of an
+        inexpensive product and refund it, so I never touch your payment settings.</dd>
         <dt>You get</dt>
-        <dd>Google Analytics, Meta and TikTok purchases running through Shopify’s own channel apps or a
-        custom pixel, one affiliate or conversion snippet moved to a custom pixel, duplicates removed so
-        nothing counts twice, and a short note of what now lives where.</dd>
+        <dd>Google Analytics, Meta and TikTok purchases running through Shopify’s own apps or a custom
+        pixel, one affiliate or conversion snippet moved to a custom pixel, duplicates removed so nothing
+        counts twice, and a short note of what now lives where. Other platforms, such as Google Ads,
+        Pinterest or Klaviyo, are quoted before I start.</dd>
         <dt>Not included</dt>
-        <dd>Server-side tracking, new checkout extensions, checkout rules built with Shopify Functions
-        (quoted separately), and anything inside your ad accounts.</dd>
+        <dd>Custom server-side setups (a server-side tag manager, Elevar, Stape and similar), new checkout
+        extensions, checkout rules built with Shopify Functions (quoted separately), and anything inside
+        your ad accounts.</dd>
         <dt>Guarantee</dt>
-        <dd>The test order appears exactly once in every platform you named, or you get a full refund.</dd>
+        <dd>With cookie consent accepted, your order appears exactly once in Google Analytics, Meta and
+        TikTok (whichever you use), checked in each one’s live or test-events view, since Google
+        Analytics’ standard reports take a day or two to catch up. If it doesn’t, you get a full
+        refund.</dd>
       </dl>
       <div class="actions">
-        <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Purchase%20tracking%20repair&amp;body=Store%20address%3A%20%0D%0A%0D%0APlatforms%20to%20check%20%28for%20example%20Google%20Analytics%2C%20Meta%2C%20TikTok%29%3A%20" aria-label="Start a project: purchase tracking repair, by email">Start a project</a>
-        <!-- TODO(stripe): Payment Link, purchase tracking repair, $300 (ask: store address; platforms to check) -->
-        <a class="buy pay" href="#TODO-stripe-tracking-repair" aria-label="Pay for purchase tracking repair, $300">Pay now — $300</a>
+        <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Purchase%20tracking%20repair&amp;body=Store%20address%3A%20%0D%0A%0D%0AWhich%20of%20Google%20Analytics%2C%20Meta%20and%20TikTok%20you%20use%3A%20" aria-label="Start a project: purchase tracking repair, by email">Start a project</a>
+        <a class="buy secondary" href="#TODO-stripe-tracking-repair" aria-label="Pay now — $300 for purchase tracking repair">Pay now — $300</a>
       </div>
     </div>
 
@@ -323,13 +326,12 @@
 
     <div class="offer" id="front-end-fix">
       <div class="offer-head">
-        <p class="offer-name">A front-end fix</p>
+        <h3 class="offer-name">A front-end fix</h3>
         <p class="offer-price">$150</p>
       </div>
       <p class="offer-when">Two working days. One specific problem, on one template.</p>
       <p>A section that breaks on a phone, a layout that jumps while the page loads, elements that
-      overlap at one particular width, a script blocking the first render, an app block that doesn’t sit
-      right in your theme. One reproducible issue that you can point at.</p>
+      overlap at one particular width. One reproducible issue in your theme that you can point at.</p>
       <dl>
         <dt>You send</dt>
         <dd>The page address, what it does now, what it should do instead, and collaborator access.</dd>
@@ -337,23 +339,24 @@
         <dd>The fix built on a duplicate theme, a short note on what was actually causing it, and one
         round of adjustment after you look at it.</dd>
         <dt>Not included</dt>
-        <dd>Redesigns, new features, or anything spanning more than one template.</dd>
+        <dd>Speed work (that’s the speed fix), problems inside an app’s own code, redesigns, new
+        features, or anything spanning more than one template.</dd>
       </dl>
       <div class="actions">
         <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Front-end%20fix&amp;body=Store%20address%3A%20%0D%0A%0D%0APage%20address%3A%20%0D%0A%0D%0AWhat%20it%20does%20now%3A%20%0D%0A%0D%0AWhat%20it%20should%20do%3A%20" aria-label="Start a project: front-end fix, by email">Start a project</a>
-        <a class="buy pay" href="https://buy.stripe.com/fZucN616HdGH5yB96B5wI00" aria-label="Pay for a front-end fix, $150">Pay now — $150</a>
+        <a class="buy secondary" href="https://buy.stripe.com/fZucN616HdGH5yB96B5wI00" aria-label="Pay now — $150 for a front-end fix">Pay now — $150</a>
       </div>
     </div>
 
     <div class="offer" id="custom-section">
       <div class="offer-head">
-        <p class="offer-name">A custom section</p>
+        <h3 class="offer-name">A custom section</h3>
         <p class="offer-price">$350</p>
       </div>
       <p class="offer-when">Four working days. One Liquid section, built to your specification.</p>
-      <p>A section your theme does not have and no app does properly: a comparison table, a
-      specification block, a staged process, a filtered grid. Built with theme-editor settings so
-      your team changes the content afterwards without needing me again.</p>
+      <p>A section your theme does not have and no app does properly: a specification block, a staged
+      process, a size guide. Built with theme-editor settings so your team changes the content
+      afterwards without needing me again.</p>
       <dl>
         <dt>You send</dt>
         <dd>A description, a sketch, or a link to something similar, your store address, and
@@ -363,12 +366,12 @@
         phone, and correct when a field is left empty. One round of adjustment once you see it with
         your own content.</dd>
         <dt>Not included</dt>
-        <dd>Checkout changes, app integrations, or anything that depends on a paid third-party
-        service.</dd>
+        <dd>Sections that filter or compare products, which I quote instead; checkout changes; app
+        integrations; or anything that depends on a paid third-party service.</dd>
       </dl>
       <div class="actions">
         <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Custom%20section&amp;body=Store%20address%3A%20%0D%0A%0D%0AWhat%20the%20section%20should%20do%20%28a%20link%20to%20something%20similar%20helps%29%3A%20" aria-label="Start a project: custom section, by email">Start a project</a>
-        <a class="buy pay" href="https://buy.stripe.com/9B600kdTt3235yB82x5wI01" aria-label="Pay for a custom section, $350">Pay now — $350</a>
+        <a class="buy secondary" href="https://buy.stripe.com/9B600kdTt3235yB82x5wI01" aria-label="Pay now — $350 for a custom section">Pay now — $350</a>
       </div>
     </div>
 
@@ -379,8 +382,8 @@
 
     <div class="offer" id="product-data">
       <div class="offer-head">
-        <p class="offer-name">Product data, structured</p>
-        <p class="offer-price">$850</p>
+        <h3 class="offer-name">Product data, structured</h3>
+        <p class="offer-price">$1,200</p>
       </div>
       <p class="offer-when">Ten working days. For stores that have outgrown the theme editor.</p>
       <p>The metafield and metaobject structure from <a href="../#worked-example">the worked example on
@@ -401,53 +404,23 @@
         The field plan is agreed in writing before anything moves, with one round of adjustment after
         you see it working.</dd>
         <dt>Covers</dt>
-        <dd>Up to three product templates and twenty-five products of content moved across. Beyond that
-        is quoted at the same rate before any of it starts.</dd>
+        <dd>Up to three product templates and twenty-five products of content moved across. Anything
+        beyond that gets its own fixed price before any of it starts.</dd>
       </dl>
       <div class="actions">
         <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Product%20data%2C%20structured&amp;body=Store%20address%3A%20%0D%0A%0D%0ARoughly%20how%20many%20products%3A%20" aria-label="Start a project: product data, structured, by email">Start a project</a>
-        <a class="buy pay" href="https://buy.stripe.com/fZu14o7v5eKLgdf6Yt5wI02" aria-label="Pay for product data, structured, $850">Pay now — $850</a>
+        <a class="buy secondary" href="#TODO-stripe-product-data" aria-label="Pay now — $1,200 for product data, structured">Pay now — $1,200</a>
       </div>
     </div>
 
   </div>
 
-  <!-- Store care: the only offer with an ongoing commitment. Nasser's call whether it stays;
-       delete this whole section (h2 + .offers) and its row in the table above to remove it. -->
-  <h2>After a first job</h2>
-  <div class="offers">
-
-    <div class="offer" id="store-care">
-      <div class="offer-head">
-        <p class="offer-name">Store care</p>
-        <p class="offer-price">$300 a month</p>
-      </div>
-      <p class="offer-when">Requests answered within one working day, small jobs done within three.</p>
-      <p>Once we’ve done one fixed-price job together, I can stay on hand for the small things: a
-      banner that needs moving, an app that needs to sit right, a section that needs one more setting.
-      It’s offered after a first job so that I know your store before I promise to look after it.</p>
-      <dl>
-        <dt>You get</dt>
-        <dd>Up to three hours of work a month, on a duplicate theme as always, and a short note each
-        month of what changed.</dd>
-        <dt>Not included</dt>
-        <dd>New sections or projects, which get a fixed price like everything above. Unused hours don’t
-        roll over.</dd>
-        <dt>Terms</dt>
-        <dd>Billed monthly in advance. Cancel any time; there’s no minimum term.</dd>
-      </dl>
-      <div class="actions">
-        <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Store%20care&amp;body=Store%20address%3A%20%0D%0A%0D%0AThe%20job%20we%20did%20together%3A%20" aria-label="Ask about store care, by email">Ask about store care</a>
-      </div>
-    </div>
-
-  </div>
-
-  <h2>Work you can check</h2>
+  <h2 id="work">Work you can check</h2>
   <ul>
-    <li>A speed rebuild of a product page: Google’s mobile score goes from 68 to 96, and the main
-    product photo appears in 2.7 seconds instead of 24. Both reports are public.
-    <a href="../speed-demo/">See the before and after</a>.</li>
+    <li>A speed demo: a product page I built with the six problems that most often slow a store down,
+    then fixed. Google’s mobile score goes from 68 to 96, and the main product photo appears in 2.7
+    seconds instead of 24. Both reports are public. <a href="../speed-demo/">See the before and
+    after</a>.</li>
     <li>A demo store on Shopify’s Horizon theme with two sections I built: a spec sheet driven by
     metaobjects, and a comparison table that reads the same data. It’s a demo store, not a client’s,
     and says so. <a href="https://john-singh-demo-store.myshopify.com/products/loft-standing-desk-60-in">Open
@@ -459,12 +432,12 @@
 
   <h2>What I guarantee</h2>
   <ul>
-    <li>If I look at your store and the work can’t be done as described, I refund you in full the same
-    day and tell you what I found. You don’t pay for a diagnosis.</li>
-    <li>Speed fixes: every issue the report names is fixed and shows in the after-report, or I keep
-    working at no charge.</li>
-    <li>Tracking repair: the test order appears exactly once in every platform you named, or a full
-    refund.</li>
+    <li>If I look at your store and the work can’t be done as described, I refund you in full that day
+    and tell you what I found. You don’t pay for a diagnosis.</li>
+    <li>Speed fixes: each cause the report lists passes its written check in the after-report, or I
+    refund the fix.</li>
+    <li>Tracking repair: your order appears exactly once in Google Analytics, Meta and TikTok
+    (whichever you use), or a full refund.</li>
     <li>Product data and sections: an empty field never breaks a page.</li>
     <li>For 14 days after delivery, anything my change broke is fixed free.</li>
   </ul>
@@ -476,22 +449,25 @@
     <li>Start a project by email, or pay directly if the offer already fits. Either way, tell me your
     store’s address and what you want.</li>
     <li>I confirm within one working day that it can be done as described. If it can’t and you’ve
-    paid, you’re refunded in full that day.</li>
+    paid, I refund you in full that day.</li>
     <li>You approve my collaborator request, and the working days start. I build on a duplicate theme,
-    so your live store doesn’t move.</li>
-    <li>You see it working on your own products, ask for the adjustment, and publish when you’re
-    ready.</li>
+    so your live store doesn’t move. If I’m waiting on you for feedback, content, an account sign-in
+    or your sign-off on a plan, the days pause until I have it.</li>
+    <li>You see it working on your own products and ask for any adjustment within 7 days. Once that’s
+    done, or the 7 days pass, the job is complete, and you publish when you’re ready.</li>
   </ol>
 
   <h2 id="start">Start a project</h2>
-  <p>Email me your store’s address and what you’d like done. I reply within one working day: yes, with
-  the price and a payment link, or an honest no. Nothing is billed until the scope is agreed, and
+  <p>Email <a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a> with your store’s
+  address and what you’d like done. I reply within one working day: yes, with the price and a payment
+  link, or an honest no. If you start by email, nothing is billed until the scope is agreed, and
   anything not on this page still gets a fixed price and a written scope before it starts.</p>
-  <div class="actions start"><a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Shopify%20project&amp;body=Store%20address%3A%20%0D%0A%0D%0AWhat%20I%27d%20like%20done%3A%20">Start a project</a></div>
+  <div class="actions start"><a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Shopify%20project&amp;body=Store%20address%3A%20%0D%0A%0D%0AWhat%20I%27d%20like%20done%3A%20" aria-label="Start a project, by email">Start a project</a></div>
 
   <h2>Work I quote instead of pricing here</h2>
   <ul>
     <li>Custom product, collection and landing-page templates in Liquid</li>
+    <li>Sections that filter or compare products</li>
     <li>Bulk migration of product content into a structure your team can edit from the admin</li>
     <li>Front-end performance work across a whole storefront</li>
     <li>Theme work carried across a store with several markets or languages</li>
@@ -515,13 +491,14 @@
     </details>
     <details>
       <summary>What if it can’t be done as described?</summary>
-      <p>I tell you what I found and refund you in full the same day. You don’t pay for a diagnosis.</p>
+      <p>I tell you what I found and refund you in full that day. You don’t pay for a diagnosis.</p>
     </details>
     <details>
       <summary>Do you guarantee a PageSpeed score?</summary>
       <p>No. Lab scores move from one run to the next, and apps can add weight after I’ve finished.
-      I guarantee that every issue the report names is fixed, with before and after reports you can
-      check yourself. Where Google has data from your real shoppers, I show you that too.</p>
+      I guarantee that each cause the report lists passes its written check, with before and after
+      reports you can check yourself. Where Google has data from your real shoppers, I show you that
+      too.</p>
     </details>
     <details>
       <summary>My theme is old, or heavily customized.</summary>
@@ -542,7 +519,7 @@
     <details>
       <summary>How do I pay, and do I get a receipt?</summary>
       <p>By card through Stripe, from the button on each offer or from a link I email you. Stripe emails
-      the receipt. Store care is billed monthly in advance, and you can cancel any time.</p>
+      the receipt.</p>
     </details>
     <details>
       <summary>Can it be ready before Black Friday?</summary>
@@ -553,8 +530,9 @@
     </details>
     <details>
       <summary>What happens after you deliver?</summary>
-      <p>You get plain-English notes on what changed. For 14 days, anything my change broke is fixed
-      free. If you’d like someone on hand after that, there’s store care, by the month.</p>
+      <p>You get plain-English notes on what changed. Ask for any adjustment within 7 days; after that,
+      the job is complete. For 14 days after delivery, anything my change broke is fixed free, and
+      anything new gets its own fixed price.</p>
     </details>
   </div>
 
