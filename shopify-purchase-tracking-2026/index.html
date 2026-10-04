@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Shopify purchase tracking stopped after the Thank you page upgrade? How to check and fix it | John Singh</title>
+<meta name="description" content="Purchases missing or doubled in Google Analytics, Meta or TikTok since late August 2026? What Shopify changed, a fifteen-minute check, and what the fix involves.">
+<link rel="canonical" href="https://jnsingh01.github.io/shopify-purchase-tracking-2026/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="John Singh">
+<meta property="og:title" content="Shopify purchase tracking stopped after the Thank you page upgrade? How to check and fix it">
+<meta property="og:description" content="What Shopify changed on the Thank you and Order status pages, a fifteen-minute check of your own store, and what fixing your purchase tracking involves.">
+<meta property="og:url" content="https://jnsingh01.github.io/shopify-purchase-tracking-2026/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-10-04">
+<meta property="article:modified_time" content="2026-10-04">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Shopify purchase tracking stopped after the Thank you page upgrade? How to check and fix it",
+  "description": "Purchases missing or doubled in Google Analytics, Meta or TikTok since late August 2026? What Shopify changed, a fifteen-minute check, and what the fix involves.",
+  "datePublished": "2026-10-04",
+  "dateModified": "2026-10-04",
+  "inLanguage": "en-US",
+  "mainEntityOfPage": "https://jnsingh01.github.io/shopify-purchase-tracking-2026/",
+  "url": "https://jnsingh01.github.io/shopify-purchase-tracking-2026/",
+  "author": {"@type": "Person", "name": "John Singh", "url": "https://jnsingh01.github.io/"},
+  "publisher": {"@type": "Person", "name": "John Singh", "url": "https://jnsingh01.github.io/"},
+  "citation": [
+    "https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status",
+    "https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status/upgrade-guide",
+    "https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status/additional-scripts",
+    "https://help.shopify.com/en/manual/promoting-marketing/pixels/app-pixels",
+    "https://help.shopify.com/en/manual/promoting-marketing/pixels/custom-pixels/code",
+    "https://help.shopify.com/en/manual/promoting-marketing/pixels/custom-pixels/testing",
+    "https://help.shopify.com/en/manual/promoting-marketing/pixels/pixel-migration",
+    "https://help.shopify.com/en/manual/customers/customer-accounts/customize-customer-accounts/connect-domain-customer-account",
+    "https://changelog.shopify.com/posts/new-default-setting-for-pixel-data-sharing",
+    "https://changelog.shopify.com/posts/shopify-analytics-session-measurement-improvements",
+    "https://shopify.dev/changelog/posts/web-pixels-now-run-on-customer-accounts-and-order-status-page",
+    "https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/order-status",
+    "https://shopify.dev/docs/api/web-pixels-api/standard-events/checkout_completed",
+    "https://support.google.com/analytics/answer/9271392",
+    "https://support.google.com/analytics/answer/11198161",
+    "https://support.google.com/google-ads/answer/3123169"
+  ]
+}
+</script>
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
+    --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
+    --measure:38rem;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16.5px/1.65 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding:clamp(2rem,7vw,5.5rem) clamp(1.25rem,6vw,2rem) 5rem;
+  }
+  .wrap{max-width:var(--measure); margin:0 auto}
+
+  /* ---- site navigation (same on every page) ---- */
+  .site-nav{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:-.75rem 0 1.4rem;
+    font:500 .9rem/1.4 var(--sans)}
+  .site-nav a{display:inline-block; padding:.75rem 0; color:var(--muted); border:0}
+  .site-nav a:hover{color:var(--fg)}
+  .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
+
+  h1{
+    font:600 1.5rem/1.25 var(--sans);
+    margin:0 0 .15rem; letter-spacing:-.01em; text-wrap:balance;
+  }
+  .role{
+    font:400 1.0rem/1.4 var(--sans);
+    color:var(--muted); margin:.5rem 0 2.25rem;
+  }
+  h2{
+    font:600 .78rem/1.4 var(--sans);
+    text-transform:uppercase; letter-spacing:.09em; color:var(--muted);
+    margin:2.75rem 0 .85rem; padding-bottom:.4rem; border-bottom:1px solid var(--rule);
+    scroll-margin-top:1rem;
+  }
+  p{margin:0 0 1.05rem}
+  ul{margin:0 0 1.05rem; padding-left:1.15rem}
+  li{margin-bottom:.45rem}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+  code{
+    font:0.86em/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:var(--code-bg); padding:.1em .35em; border-radius:3px;
+    white-space:nowrap;
+  }
+  @media (max-width:22.5rem){ p code{white-space:normal; overflow-wrap:anywhere} }
+  .nw{white-space:nowrap}
+  .lede{font-size:1.06rem}
+  .wrap p, .wrap li{text-wrap-style:pretty}
+  .fine{font:400 .86rem/1.5 var(--sans); color:var(--muted)}
+
+  .steps{
+    list-style:none; padding:0; margin:0 0 1.05rem; counter-reset:step;
+  }
+  .steps > li{
+    position:relative; padding-left:1.9rem; margin-bottom:.85rem; counter-increment:step;
+  }
+  .steps > li::before{
+    content:counter(step); position:absolute; left:0; top:.2em;
+    font:600 .72rem/1.35rem var(--sans);
+    width:1.35rem; height:1.35rem; text-align:center; border-radius:50%;
+    background:var(--tag-bg); color:var(--muted);
+  }
+  .steps p{margin:0}
+
+  /* ---- buttons: the main action filled, the other outlined ---- */
+  .actions{display:flex; flex-wrap:wrap; gap:.6rem; margin:1.15rem 0 0}
+  .buy{
+    display:inline-block; border:0; border-radius:4px;
+    background:var(--accent); color:var(--btn-fg);
+    font:600 .93rem/1 var(--sans);
+    padding:.95rem 1.3rem; letter-spacing:.005em; text-align:center;
+  }
+  .buy:hover{border:0; filter:brightness(1.08)}
+  .buy:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .buy.secondary{background:transparent; color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+  .buy.secondary:hover{filter:none; background:color-mix(in srgb, var(--accent) 7%, transparent)}
+  @media (max-width:30rem){
+    .actions .buy{flex:1 1 100%}
+  }
+
+  footer{
+    margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule);
+    font:400 .9rem/1.6 var(--sans);
+    color:var(--muted);
+  }
+  footer p{margin:0}
+  .foot-links{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:.3rem 0 -.35rem}
+  .foot-links a{display:inline-block; padding:.35rem 0; color:var(--muted); border:0}
+  .foot-links a:hover{color:var(--fg)}
+  .foot-links a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  .foot-break{display:none}
+  @media (max-width:36rem){ .foot-break{display:block; flex-basis:100%; height:0} }
+  @media (max-width:23.25rem){ .foot-links{column-gap:1rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Home</a>
+    <a href="../services/">Services</a>
+    <a href="../speed-demo/">Speed demo</a>
+    <a href="../speed-check/">Speed check</a>
+  </nav>
+
+  <article>
+  <h1>Shopify purchase tracking stopped after the Thank&nbsp;you page upgrade? How to check and fix it</h1>
+  <p class="role">John Singh · <time datetime="2026-10-04">4&nbsp;October 2026</time></p>
+
+  <p class="lede">If Google Analytics, Meta or TikTok started showing fewer purchases than your Shopify
+  orders from late August 2026, the first thing to check is Shopify’s new Thank you and Order status
+  pages: tracking code pasted into the Additional Scripts box doesn’t run on them. If they show more
+  purchases than orders, a replacement may be counting twice. You can check both in about fifteen minutes,
+  from your Shopify admin and with one test order.</p>
+
+  <h2 id="what-changed">What changed, and when</h2>
+  <p>A common way to track purchases on Shopify was to paste each platform’s code into the Additional
+  Scripts box in the checkout settings, where it ran on the Thank you page. Shopify has replaced those
+  pages with a new version. In the words of its
+  <a href="https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status">help
+  center</a>: “August&nbsp;26, 2026 was the deadline to upgrade and replace your Thank you and Order status
+  pages. Stores that weren’t upgraded by that date were upgraded automatically.”</p>
+  <p>Two things about the new pages matter for tracking. They don’t run what was in the box:
+  “Additional scripts for tracking and analytics and page customizations aren’t supported on the new
+  Thank you and Order status pages.” And there’s no switching it back on: “If your Thank you and Order
+  status pages are upgraded, then you can’t reactivate your additional script.” Both are from Shopify’s
+  page on
+  <a href="https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status/additional-scripts">replacing
+  additional scripts</a>.</p>
+  <p>The box itself had been frozen for a year by then. Shopify’s
+  <a href="https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status/upgrade-guide">upgrade
+  guide for stores below Plus</a> says: “As of August&nbsp;28, 2025, the additional scripts section in the
+  Checkout settings is view-only.” So if nobody moved the code during that year, whatever was in it
+  stopped running when the store’s pages were upgraded.</p>
+  <p>What kept working is the route Shopify wants tracking to take now: pixels, which you manage under
+  Settings → Customer events. App pixels are installed by an app, such as the Google &amp; YouTube,
+  Facebook &amp; Instagram or TikTok app. Custom pixels are code someone adds by hand. Shopify’s
+  <a href="https://shopify.dev/changelog/posts/web-pixels-now-run-on-customer-accounts-and-order-status-page">developer
+  changelog</a> of 21&nbsp;July 2025 says “Web pixels now automatically load on Customer Account and
+  Order Status pages”.</p>
+  <p>Apps that added code to the Order status page through script tags stopped there too, on
+  26&nbsp;August 2026 for stores below Plus, according to Shopify’s
+  <a href="https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/order-status">developer
+  documentation</a>. The same page shows Plus stores a year ahead, on 28&nbsp;August 2025. This guide is
+  written for stores below Plus, but the checks work the same way on Plus. Script tags on the rest of
+  your storefront stop on 1&nbsp;March 2027, which <a href="../shopify-script-tags-2027/">a separate
+  note</a> covers.</p>
+
+  <h2 id="signs">Signs your tracking is affected</h2>
+  <ul>
+    <li><strong>Fewer purchases than orders, from a particular date.</strong> Google Analytics, Meta or
+    TikTok shows purchases falling from late August 2026, or from whenever your pages were upgraded,
+    while your orders in Shopify didn’t.</li>
+    <li><strong>Ads that suddenly look worse.</strong> Your ad platforms see fewer purchases for the same
+    sales, so the cost per purchase they report goes up even if nothing changed for your customers.</li>
+    <li><strong>Purchases counted twice.</strong> A platform shows more purchases than you have orders,
+    or one test order arrives twice. That usually means two setups are sending the same purchase. In
+    Shopify’s <a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/pixel-migration">guide
+    to migrating pixels</a>: “A common issue when migrating is tracking the same event more than
+    1&nbsp;time.”</li>
+    <li><strong>A partner stopped recording sales.</strong> Affiliate, influencer and conversion snippets
+    often lived in Additional Scripts too, and when one stops, nothing in your admin shows an
+    error.</li>
+    <li><strong>Something disappeared from the Thank you page.</strong> A post-purchase survey, a review
+    request or an upsell that came from code rather than from an app’s block on the new page.</li>
+  </ul>
+  <p>Some gap is normal and isn’t a fault. Shopify says that once additional scripts are replaced with
+  pixels, “you might notice a decrease in events received by the third-party platform. This is because
+  app pixels and custom pixels only track customer behavior with consent”. Each platform also counts in
+  its own way. What points to a fault is a sudden drop from a particular date, a platform showing no
+  purchases at all, or more purchases than orders.</p>
+
+  <h2 id="check">A fifteen-minute check</h2>
+  <p>You need your Shopify admin, access to whichever of Google Analytics, Meta and TikTok you use, and
+  an inexpensive product you can buy and refund. Nothing here changes your settings.</p>
+  <ol class="steps">
+    <li><p><strong>See which pages you have.</strong> Go to Settings → Checkout and look at the
+    Configurations section. Shopify says that if a notice to upgrade your Thank you and Order status
+    pages appears there, you’re still on the old pages. If there’s no notice, you’re on the new ones, and
+    nothing in Additional Scripts runs.</p></li>
+    <li><p><strong>Write down what used to run.</strong> If your admin still shows the Additional scripts
+    section on that page, it’s view-only. Copy or screenshot what’s in it: that’s the list of what used
+    to run on your Thank you page. Look for <code>gtag</code> or an ID starting <code>G-</code> (Google
+    Analytics) or <code>AW-</code> (Google Ads), <code>GTM-</code> (Google Tag Manager, which can hold
+    several of these inside it), <code>fbq</code> (Meta), <code>ttq</code> (TikTok), and
+    anything carrying an affiliate or partner’s name.</p></li>
+    <li><p><strong>Find each one’s replacement.</strong> Go to Settings → Customer events, which lists your
+    app pixels and custom pixels. For each item on your list, find the pixel that now does its job. An
+    item with no replacement isn’t running on your new pages.</p></li>
+    <li><p><strong>Look for doubles.</strong> On the same page, check that each platform is there only
+    once. Google Analytics through the Google &amp; YouTube app and again in a custom pixel (directly or
+    through Google Tag Manager) can send every purchase twice.</p></li>
+    <li><p><strong>Check how much data each app pixel may share.</strong> On the same page, click each
+    app pixel’s name: its page shows Optimized, Shopify’s default, or Always on (analytics apps’ pixels
+    stay Always on). On 13&nbsp;January 2026, Shopify
+    <a href="https://changelog.shopify.com/posts/new-default-setting-for-pixel-data-sharing">announced</a>
+    a new default for marketing pixels: “When we see zero signals coming from a pixel over days or weeks,
+    we will pause data sharing until we see new signals”. On a quiet store, a pause can look like broken
+    tracking. Always on keeps sharing running, and in
+    <a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/app-pixels">Shopify’s
+    words</a> gives the pixel “access to all of your customer and business data, without limitations”,
+    so choose it deliberately.</p></li>
+    <li><p><strong>Check your customer accounts address.</strong> If your store uses its own domain, open
+    Settings → Customer accounts and look at the URL shown there.
+    <a href="https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status/additional-scripts">Shopify
+    says</a> it must be a subdomain of your store’s domain, such as <code>account.yourstore.com</code>.
+    “Otherwise, pixels and cookie consent won’t work for the Order status page”.</p></li>
+    <li><p><strong>Place a test order.</strong> Open your store in a Chrome Incognito window, or a normal
+    window with any ad blocker off. Avoid Safari’s and Firefox’s private windows: they can block tracking
+    scripts by default, so working tracking can look broken. Accept the cookie banner if one appears, and
+    buy an inexpensive product with a real payment. Then refund it from the order in your admin. The
+    order still shows in your reports, and your payment provider may keep its fee.</p></li>
+    <li><p><strong>Check that it arrived, once.</strong> In Google Analytics, open Reports → Realtime,
+    which <a href="https://support.google.com/analytics/answer/9271392">covers the last 30 minutes</a>,
+    and look for one purchase. Then look for it in Meta’s and TikTok’s Events Manager, which can take a
+    little longer to show it. One purchase at the right value is a pass. None after half an hour usually
+    means that platform isn’t receiving purchases; two means something is sending them twice. Google
+    Analytics’ standard reports lag behind: Google says
+    “<a href="https://support.google.com/analytics/answer/11198161">Data processing can take 24-48
+    hours</a>.”</p></li>
+    <li><p><strong>Look at the Thank you page itself.</strong> While you’re there, check that anything
+    you expect after a purchase, such as a survey, an upsell or a review request, still appears. If
+    something is missing, the app that provides it usually needs its block added to the new page in
+    Shopify’s checkout and accounts editor.</p></li>
+  </ol>
+  <p>To test one custom pixel on its own, Shopify’s
+  <a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/custom-pixels/testing">steps</a>
+  are Settings → Customer events, check that the pixel’s status is Connected, click the pixel, then
+  Test. If its Pixel helper says “Pixel is
+  awaiting consent”, accept tracking on your store’s cookie banner.</p>
+
+  <h2 id="fix">What the fix involves</h2>
+  <p>The work is moving each item on your list to a pixel, and making sure each purchase is sent
+  once.</p>
+  <ul>
+    <li><strong>Use the platform’s app where there is one.</strong> For Google Analytics, Meta and
+    TikTok, that’s usually the Google &amp; YouTube, Facebook &amp; Instagram or TikTok app, which adds
+    its app pixel when you connect your account with your own login.
+    <a href="https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status/additional-scripts">Shopify
+    recommends</a> app pixels, and a custom pixel “if there isn’t an app that meets your needs”.</li>
+    <li><strong>A custom pixel for the rest.</strong> An affiliate or conversion snippet with no app goes
+    into a custom pixel, under Settings → Customer events. It usually needs rewriting rather than
+    pasting: Shopify’s pixel sandbox
+    “<a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/custom-pixels/code">only
+    supports JavaScript</a>”, and the code has to subscribe to Shopify’s purchase event,
+    <code>checkout_completed</code>, and take the order details from it.</li>
+    <li><strong>Remove the doubles.</strong> Once the replacement works, make sure nothing else sends the
+    same purchase: a second pixel for the same platform, or the same tag inside Google Tag Manager.</li>
+    <li><strong>Pass consent through.</strong>
+    <a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/pixel-migration">Shopify
+    says</a> “Web pixels always respect your store’s
+    privacy settings”, so if you use a third-party cookie banner, Shopify’s advice is to “ensure that your
+    consent banner is integrated with the Customer Privacy API”.</li>
+    <li><strong>Check it with a real order.</strong> Steps 7 and 8 above: one purchase in each platform,
+    at the right value.</li>
+  </ul>
+  <p>Afterwards, Google Analytics, Meta and TikTok will usually still show fewer purchases than Shopify.
+  That’s the consent rule above, not a fault.</p>
+
+  <h2 id="mistakes">Common mistakes</h2>
+  <ul>
+    <li><strong>Reading Shopify’s conversion rate across 21&nbsp;September.</strong> Shopify changed how
+    it counts sessions from 21&nbsp;September 2026 and
+    <a href="https://changelog.shopify.com/posts/shopify-analytics-session-measurement-improvements">says</a>
+    to “treat this as a new baseline for session-based metrics”. Orders and sales weren’t affected. A
+    different conversion rate in Shopify’s own analytics across that date isn’t a tracking
+    problem.</li>
+    <li><strong>Adding a second copy to be safe.</strong> Two pixels for one platform can count every
+    purchase twice, so your reports look better than your sales and your ad platforms learn from numbers
+    that aren’t real.</li>
+    <li><strong>Testing with tracking declined.</strong> With the cookie banner declined, Shopify holds
+    back what pixels send, by design, and an ad blocker, or Safari’s or Firefox’s private window, can
+    stop the rest. Test with consent accepted and blockers off.</li>
+    <li><strong>Pasting the old code into a custom pixel as it was.</strong> Code written for the old
+    Thank you page relied on that page, and a custom pixel runs in Shopify’s sandbox instead, so it needs
+    rewriting to use the purchase event.</li>
+    <li><strong>Expecting every platform to match Shopify.</strong> They won’t, because of consent and
+    because each counts in its own way. What matters is that a test order arrives once in each, at the
+    right value.</li>
+    <li><strong>Judging a test from Google Analytics’ standard reports.</strong> They can take a day or
+    two to catch up. Use Realtime.</li>
+    <li><strong>Forgetting the snippet nobody owns.</strong> The affiliate or conversion code someone
+    added years ago is the easiest one to miss, until a partner asks about missing sales.</li>
+  </ul>
+
+  <h2 id="help">If you’d like a hand</h2>
+  <p>My <a href="../services/#tracking">purchase tracking repair</a> ($300&nbsp;USD, three working
+  days) moves Google Analytics, Meta, TikTok and one affiliate or conversion snippet to where Shopify now
+  expects them, removes duplicates, and leaves you a short note of what now lives where. It’s checked
+  with a real order: with cookie consent accepted, your order appears exactly once in Google Analytics,
+  Meta and TikTok (whichever you use), or you get a full refund. The services page has the full scope
+  and what isn’t included, and Google Ads’ own conversion tracking is quoted before I start. If you run Google Ads,
+  ask for it with the repair and order by 21&nbsp;October: by default, Google Ads
+  <a href="https://support.google.com/google-ads/answer/3123169">credits a sale to a click</a> up to
+  30&nbsp;days earlier, so tracking settled by late October gives your Black Friday numbers one
+  setup.</p>
+  <p>If you’d rather have tracking checked alongside the rest of your store before Black Friday, with
+  nothing changed, the <a href="../services/#readiness">Black Friday readiness pass</a>
+  ($199&nbsp;USD, three working days, order by Friday 6&nbsp;November 2026) includes a real test order
+  checked in each platform, and your customer accounts address and pixel settings. You get a written
+  pass or fail for each item, and a fixed price for fixing anything that failed.</p>
+  <p>Or email me your store’s address at
+  <a href="mailto:johnnassersingh@gmail.com?subject=Purchase%20tracking%20repair">johnnassersingh@gmail.com</a>
+  and tell me which platforms you use. Within one working day, and before you pay anything, I’ll tell
+  you honestly whether the repair fits your store as described.</p>
+  <div class="actions">
+    <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Purchase%20tracking%20repair&amp;body=Store%20address%3A%20%0D%0A%0D%0AWhich%20of%20Google%20Analytics%2C%20Meta%20and%20TikTok%20you%20use%3A%20" aria-label="Start a project: purchase tracking repair, by email">Start a project</a>
+    <a class="buy secondary" href="https://buy.stripe.com/9B6fZi02DdGHf9b6Yt5wI06" aria-label="Pay now — $300 for purchase tracking repair">Pay now — $300</a>
+  </div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li>Shopify Help Center:
+    <a href="https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status">Upgrading
+    and replacing your Thank you and Order status pages</a>, the
+    <a href="https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status/upgrade-guide">upgrade
+    guide for stores below Plus</a>, and
+    <a href="https://help.shopify.com/en/manual/checkout-settings/customize-checkout-configurations/upgrade-thank-you-order-status/additional-scripts">Reviewing
+    and replacing additional scripts</a></li>
+    <li>Shopify Help Center:
+    <a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/app-pixels">App pixels</a>,
+    <a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/custom-pixels/code">Create
+    custom pixel code</a>,
+    <a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/custom-pixels/testing">Testing
+    custom pixels</a>,
+    <a href="https://help.shopify.com/en/manual/promoting-marketing/pixels/pixel-migration">Migrating
+    pixels</a> and
+    <a href="https://help.shopify.com/en/manual/customers/customer-accounts/customize-customer-accounts/connect-domain-customer-account">custom
+    domains on customer account pages</a></li>
+    <li>Shopify changelog, 13&nbsp;January 2026:
+    <a href="https://changelog.shopify.com/posts/new-default-setting-for-pixel-data-sharing">New default
+    setting for marketing pixel data sharing</a>; 21&nbsp;September 2026:
+    <a href="https://changelog.shopify.com/posts/shopify-analytics-session-measurement-improvements">Shopify
+    Analytics session measurement improvements</a></li>
+    <li>Shopify developer changelog, 21&nbsp;July 2025:
+    <a href="https://shopify.dev/changelog/posts/web-pixels-now-run-on-customer-accounts-and-order-status-page">Web
+    Pixels now run on Customer Accounts and Order Status Page</a>; developer documentation:
+    <a href="https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/order-status">Order
+    status script tags</a> and
+    <a href="https://shopify.dev/docs/api/web-pixels-api/standard-events/checkout_completed">checkout_completed</a></li>
+    <li>Google:
+    <a href="https://support.google.com/analytics/answer/9271392">Realtime report</a>,
+    <a href="https://support.google.com/analytics/answer/11198161">Data freshness</a> and
+    <a href="https://support.google.com/google-ads/answer/3123169">About conversion windows</a></li>
+  </ul>
+  <p class="fine">Checked against Shopify’s and Google’s documentation on 4&nbsp;October 2026. Not
+  affiliated with Shopify.</p>
+  </article>
+
+  <footer>
+    <p><a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a></p>
+    <nav class="foot-links" aria-label="Terms and notes">
+      <a href="../terms/">Terms</a>
+      <a href="../terms/#refunds">Refunds</a>
+      <a href="../privacy/">Privacy</a>
+      <span class="foot-break" aria-hidden="true"></span>
+      <a href="../shopify-script-tags-2027/">Script tags in 2027</a>
+      <a href="./" aria-current="page">Purchase tracking</a>
+    </nav>
+  </footer>
+
+</div>
+</body>
+</html>

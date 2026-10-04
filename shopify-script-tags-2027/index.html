@@ -143,6 +143,8 @@
   .foot-links a:hover{color:var(--fg)}
   .foot-links a[aria-current="page"]{color:var(--fg); text-decoration:underline;
     text-decoration-thickness:1px; text-underline-offset:.32em}
+  .foot-break{display:none}
+  @media (max-width:36rem){ .foot-break{display:block; flex-basis:100%; height:0} }
   @media (max-width:23.25rem){ .foot-links{column-gap:1rem} }
 </style>
 </head>
@@ -199,7 +201,8 @@
   for the Order status page</a> ended them there on 28&nbsp;August 2025 for Plus stores and on
   26&nbsp;August 2026 for every other store. If something disappeared from your Thank you or Order
   status page around then, such as tracking or an upsell, an app’s script tag is one possible cause.
-  Another is the upgrade of those pages: 26&nbsp;August 2026 was the deadline for stores below Plus, and
+  Another is <a href="../shopify-purchase-tracking-2026/">the upgrade of those pages</a>: 26&nbsp;August 2026
+  was the deadline for stores below Plus, and
   the new pages don’t run Additional Scripts. Tracking that lived in Additional Scripts is what
   my <a href="../services/#tracking">purchase tracking repair</a> puts back.</p>
 
@@ -290,7 +293,9 @@
       <a href="../terms/">Terms</a>
       <a href="../terms/#refunds">Refunds</a>
       <a href="../privacy/">Privacy</a>
+      <span class="foot-break" aria-hidden="true"></span>
       <a href="./" aria-current="page">Script tags in 2027</a>
+      <a href="../shopify-purchase-tracking-2026/">Purchase tracking</a>
     </nav>
   </footer>
 
