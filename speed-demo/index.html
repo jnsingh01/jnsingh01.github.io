@@ -63,10 +63,24 @@
   td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
   .links a{margin-right:1.1rem}
   ol li{margin-bottom:.7rem}
+
+  /* ---- site navigation (same on every page) ---- */
+  .site-nav{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:-.75rem 0 1.4rem;
+    font:500 .9rem/1.4 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .site-nav a{display:inline-block; padding:.75rem 0; margin:0; color:var(--muted); border:0}
+  .site-nav a:hover{color:var(--fg)}
+  .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Home</a>
+    <a href="../services/">Services</a>
+    <a href="./" aria-current="page">Speed demo</a>
+  </nav>
   <p class="role"><a href="../">John Singh</a> · Shopify theme development</p>
   <h1>Speed demo: one product page, before and after</h1>
   <p class="lede">The same product page built twice. The first version has the six problems I most often find
@@ -121,7 +135,7 @@
   <code>image_tag</code> widths, <code>preload: true</code> on the product image, app embeds deferred or
   removed, and space reserved for anything an app injects. I work on a duplicate theme, measure before and after
   with the same tool, and send you both reports.</p>
-  <p><a href="../">Fixed-price work and ordering</a></p>
+  <p><a href="../services/#speed-report">Fixed-price speed work and ordering</a></p>
 </div>
 </body>
 </html>
