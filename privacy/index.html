@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Privacy | John Singh</title>
+<meta name="description" content="What John Singh collects and what he doesn’t: no analytics and no cookies on this site; your contact, billing and store details only when you buy or email; Stripe processes payments.">
+<link rel="canonical" href="https://jnsingh01.github.io/privacy/">
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
+    --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
+    --measure:38rem;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16.5px/1.65 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding:clamp(2rem,7vw,5.5rem) clamp(1.25rem,6vw,2rem) 5rem;
+  }
+  .wrap{max-width:var(--measure); margin:0 auto}
+
+  /* ---- site navigation (same on every page) ---- */
+  .site-nav{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:-.75rem 0 1.4rem;
+    font:500 .9rem/1.4 var(--sans)}
+  .site-nav a{display:inline-block; padding:.75rem 0; color:var(--muted); border:0}
+  .site-nav a:hover{color:var(--fg)}
+  .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
+
+  h1{
+    font:600 1.5rem/1.25 var(--sans);
+    margin:0 0 .15rem; letter-spacing:-.01em;
+  }
+  .role{
+    font:400 1.0rem/1.4 var(--sans);
+    color:var(--muted); margin:0 0 2.25rem;
+  }
+  h2{
+    font:600 .78rem/1.4 var(--sans);
+    text-transform:uppercase; letter-spacing:.09em; color:var(--muted);
+    margin:2.75rem 0 .85rem; padding-bottom:.4rem; border-bottom:1px solid var(--rule);
+    scroll-margin-top:1rem;
+  }
+  p{margin:0 0 1.05rem}
+  ul{margin:0 0 1.05rem; padding-left:1.15rem}
+  li{margin-bottom:.45rem}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+  .lede{font-size:1.06rem}
+  .wrap p, .wrap li{text-wrap-style:pretty}
+
+  footer{
+    margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule);
+    font:400 .9rem/1.6 var(--sans);
+    color:var(--muted);
+  }
+  footer p{margin:0}
+  .foot-links{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:.3rem 0 -.35rem}
+  .foot-links a{display:inline-block; padding:.35rem 0; color:var(--muted); border:0}
+  .foot-links a:hover{color:var(--fg)}
+  .foot-links a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .foot-links{column-gap:1rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Home</a>
+    <a href="../services/">Services</a>
+    <a href="../speed-demo/">Speed demo</a>
+    <a href="../speed-check/">Speed check</a>
+  </nav>
+
+  <h1>Privacy</h1>
+  <p class="role">John Singh · what I collect, and what I don’t · updated 4&nbsp;October 2026</p>
+
+  <p class="lede">The short version: this site doesn’t track you. If you buy something or email me,
+  what you send is used only for the job, and you can ask me to delete it.</p>
+
+  <h2 id="site">This website</h2>
+  <ul>
+    <li>No analytics, no cookies, no tracking scripts, and no forms that send anything to me.</li>
+    <li>The site is hosted on GitHub Pages, and
+    <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub
+    logs visitors’ IP addresses</a> for security. I don’t see those logs.</li>
+    <li>The <a href="../speed-check/">speed check</a> sends the address you type from your browser
+    straight to Google PageSpeed Insights, which opens on Google’s own site, under Google’s privacy
+    policy and cookies. This site doesn’t receive or store it.</li>
+    <li>The speed demo’s before and after pages load fonts from Google Fonts, and the before page loads
+    scripts from cdnjs (Cloudflare), the way a real store would. Like any site you visit, those services
+    see your browser’s request.</li>
+    <li>Stripe’s checkout, the demo store (hosted by Shopify) and the Google and Shopify pages I link to
+    are those companies’ own sites, under their own privacy policies.</li>
+  </ul>
+
+  <h2 id="buying">If you buy something or email me</h2>
+  <ul>
+    <li><strong>What I get:</strong> your email address and the name and billing details you enter at
+    Stripe’s checkout (such as country and postal code), your store’s address, and whatever you write
+    to me.</li>
+    <li><strong>Payments:</strong> Stripe processes them, under
+    <a href="https://stripe.com/privacy">Stripe’s privacy policy</a>. Your card details go to Stripe.
+    I never see your full card number; Stripe shows me details such as the card’s brand, last four
+    digits, expiry and country, and the results of its fraud checks.</li>
+    <li><strong>Your store:</strong> during a job I have the collaborator access you approve, and I use
+    it only for that job. I don’t copy your customers’ personal details out of your store. You can
+    remove my access at any time from your Shopify admin.</li>
+    <li><strong>What it’s used for:</strong> doing the job, replying to you, receipts and refunds, and
+    tax records. It’s never sold, never used for advertising, and never added to a mailing list.</li>
+    <li><strong>Who else handles it:</strong> the services I run the work on, such as Stripe for
+    payments and Google for email, each under its own privacy policy.</li>
+  </ul>
+
+  <h2 id="keeping">How long I keep it</h2>
+  <p>Our emails stay in my mailbox, and the job’s notes in my files, so I can answer questions, fixes,
+  refunds or a card dispute about the work. I delete them when you ask, unless a dispute is still open.
+  Payment records are kept as long as US tax rules require, and Stripe keeps its own records under its
+  privacy policy.</p>
+
+  <h2 id="choices">Seeing or deleting your details</h2>
+  <p>Email <a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a> to see what I hold
+  about you, to correct it or to delete it. I reply within one working day. The only things I can’t
+  delete are what tax rules say I must keep, what Stripe holds under its own policy, and, while a card
+  dispute is open, the records it needs.</p>
+
+  <h2 id="changes">Changes</h2>
+  <p>If this page changes, the date at the top changes too. The terms for jobs are on the
+  <a href="../terms/">terms page</a>.</p>
+
+  <footer>
+    <p><a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a></p>
+    <nav class="foot-links" aria-label="Terms and notes">
+      <a href="../terms/">Terms</a>
+      <a href="../terms/#refunds">Refunds</a>
+      <a href="./" aria-current="page">Privacy</a>
+      <a href="../shopify-script-tags-2027/">Script tags in 2027</a>
+    </nav>
+  </footer>
+
+</div>
+</body>
+</html>

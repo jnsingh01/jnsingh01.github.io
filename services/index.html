@@ -96,6 +96,8 @@
     margin:.85rem 0 .3rem;
   }
   .offer dd{margin:0}
+  .offer .checks{margin:.15rem 0 0; padding-left:1.15rem}
+  .offer .checks li{margin-bottom:.35rem}
 
   /* ---- buttons: the main action filled, the other outlined ---- */
   .actions{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.15rem}
@@ -144,6 +146,13 @@
     font:400 .9rem/1.6 var(--sans);
     color:var(--muted);
   }
+  footer p{margin:0}
+  .foot-links{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:.3rem 0 -.35rem}
+  .foot-links a{display:inline-block; padding:.35rem 0; color:var(--muted); border:0}
+  .foot-links a:hover{color:var(--fg)}
+  .foot-links a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .foot-links{column-gap:1rem} }
 </style>
 </head>
 <body>
@@ -163,7 +172,7 @@
   days. You can start any of them by email, at
   <a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a>, or pay for it directly: no
   call, no proposal, no discovery meeting. If it turns out the work can’t be done as described, I refund
-  you that day.</p>
+  you in full within one business day.</p>
 
   <p>You can check the work first: a <a href="../speed-demo/">speed demo page</a> I built, where
   Google’s mobile score goes from 68 to 96 with both reports public, a
@@ -179,13 +188,14 @@
       <tr><td><a href="#speed-fix-one">Speed fix, one template</a><span class="days">5 working days</span></td><td class="num">$550</td></tr>
       <tr><td><a href="#speed-fix-three">Speed fix, home, collection and product</a><span class="days">7 working days</span></td><td class="num">$1,200</td></tr>
       <tr><td><a href="#tracking">Purchase tracking, repaired</a><span class="days">3 working days</span></td><td class="num">$300</td></tr>
+      <tr id="row-readiness"><td><a href="#readiness">Black Friday readiness pass</a><span class="days">3 working days · order by 6&nbsp;November</span></td><td class="num">$199</td></tr>
       <tr><td><a href="#front-end-fix">A front-end fix</a><span class="days">2 working days</span></td><td class="num">$150</td></tr>
       <tr><td><a href="#custom-section">A custom section</a><span class="days">4 working days</span></td><td class="num">$350</td></tr>
       <tr><td><a href="#product-data">Product data, structured</a><span class="days">10 working days</span></td><td class="num">$1,200</td></tr>
     </tbody>
   </table>
-  <p class="glance-note">Working days start when I have what the job needs and pause while I’m
-  waiting on you. Ask for adjustments within 7 days of delivery; after that, the job is complete.
+  <p class="glance-note">Prices are in US dollars (USD). Working days start when I have what the job
+  needs and pause while I’m waiting on you. Ask for adjustments within 7 days of delivery; after that, the job is complete.
   There’s no rush option and no rush fee.</p>
 
   <h2>Speed</h2>
@@ -320,6 +330,73 @@
 
   </div>
 
+  <h2 id="black-friday">Before Black Friday</h2>
+  <div class="offers">
+
+    <div class="offer" id="readiness">
+      <div class="offer-head">
+        <h3 class="offer-name">Black Friday readiness pass</h3>
+        <p class="offer-price">$199</p>
+      </div>
+      <p class="offer-when">Three working days. Seasonal: order by Friday 6&nbsp;November 2026. Ordered after
+      19&nbsp;October, it still shows you what’s broken before Black Friday week, but fixes that change your
+      theme or tracking wait until December.</p>
+      <p>A written pass or fail on the things that commonly go wrong on a Shopify store in Black Friday
+      week, each checked on your live store, not guessed at. I change nothing in your theme or
+      settings.</p>
+      <dl>
+        <dt>You send</dt>
+        <dd>Collaborator access; read-only access to Google Analytics, Meta and TikTok (whichever you
+        use), or screenshots from each one’s live or test-events view while we check; the discounts you
+        plan to run; and any links from last year’s sale that are still out there, if you have them.</dd>
+        <dt>You do</dt>
+        <dd>Place one real order of an inexpensive product and refund it, so I never touch your payment
+        settings. The order shows in your reports and ad platforms, and your payment provider may keep
+        its fee when you refund it.</dd>
+        <dt>I check</dt>
+        <dd>
+          <ul class="checks">
+            <li>Your test purchase appears exactly once in Google Analytics, Meta and TikTok (whichever
+            you use), with cookie consent accepted, seen in each one’s live or test-events view.</li>
+            <li>Your Thank you and Order status pages still show what you expect, such as upsells,
+            surveys and reviews.</li>
+            <li>Your customer-account domain and pixel settings, which can quietly stop tracking.</li>
+            <li>Load speed on your home, collection and product pages, against Google’s “good” marks
+            (the ones the <a href="../speed-check/">free speed check</a> explains): from your real
+            shoppers where Google has that data, and from Google PageSpeed Insights where it
+            doesn’t.</li>
+            <li>Apps your store’s public pages show loading through script tags, which Shopify stops
+            running on 1&nbsp;March 2027 (<a href="../shopify-script-tags-2027/">what that means</a>), and
+            code left behind by apps you’ve removed.</li>
+            <li>Your Black Friday discounts as set up in your admin: their dates, products, minimums and
+            how they combine, checked against what you plan to run. Any that are already live, I also try
+            in a real cart.</li>
+            <li>Last year’s sale and landing-page links, so none of them lands on a 404.</li>
+            <li>Adding a non-default variant to the cart and reaching checkout at phone size.</li>
+          </ul>
+        </dd>
+        <dt>You get</dt>
+        <dd>Each item marked pass or fail, with how I checked it, and a fixed price for fixing anything
+        that failed.</dd>
+        <dt>Then</dt>
+        <dd>Book a fixed-price fix from its findings by 23&nbsp;October and the $199 comes off that fix’s
+        price, up to its full price. The pass takes three working days, so order it by 19&nbsp;October if
+        you want the credit.</dd>
+        <dt>Not included</dt>
+        <dd>Any changes (those are the fixed-price fixes), load testing, and changes inside your ad
+        accounts.</dd>
+        <dt>Guarantee</dt>
+        <dd>If I can’t complete the checks as described, you get a full refund, issued within one
+        business day.</dd>
+      </dl>
+      <div class="actions">
+        <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Black%20Friday%20readiness%20pass&amp;body=Store%20address%3A%20%0D%0A%0D%0AThe%20discounts%20I%20plan%20to%20run%3A%20" aria-label="Start a project: Black Friday readiness pass, by email">Start a project</a>
+        <a class="buy secondary" href="https://buy.stripe.com/bJe7sM5mX1XZaSVgz35wI08" aria-label="Pay now — $199 for a Black Friday readiness pass">Pay now — $199</a>
+      </div>
+    </div>
+
+  </div>
+
   <h2>Theme work</h2>
   <div class="offers">
 
@@ -431,8 +508,8 @@
 
   <h2>What I guarantee</h2>
   <ul>
-    <li>If I look at your store and the work can’t be done as described, I refund you in full that day
-    and tell you what I found. You don’t pay for a diagnosis.</li>
+    <li>If I look at your store and the work can’t be done as described, I refund you in full within
+    one business day and tell you what I found. You don’t pay for a diagnosis.</li>
     <li>Speed fixes: each cause the report lists passes its written check in the after-report, or I
     refund the fix.</li>
     <li>Tracking repair: your order appears exactly once in Google Analytics, Meta and TikTok
@@ -448,13 +525,15 @@
     <li>Start a project by email, or pay directly if the offer already fits. Either way, tell me your
     store’s address and what you want.</li>
     <li>I confirm within one working day that it can be done as described. If it can’t and you’ve
-    paid, I refund you in full that day.</li>
+    paid, I refund you in full within one business day.</li>
     <li>You approve my collaborator request, and the working days start. I build on a duplicate theme,
     so your live store doesn’t move. If I’m waiting on you for feedback, content, an account sign-in
     or your sign-off on a plan, the days pause until I have it.</li>
     <li>You see it working on your own products and ask for any adjustment within 7 days. Once that’s
     done, or the 7 days pass, the job is complete, and you publish when you’re ready.</li>
   </ol>
+  <p>The <a href="../terms/">terms</a> are short and in plain English, including
+  <a href="../terms/#refunds">cancellations and refunds</a>.</p>
 
   <h2 id="start">Start a project</h2>
   <p>Email <a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a> with your store’s
@@ -490,7 +569,8 @@
     </details>
     <details>
       <summary>What if it can’t be done as described?</summary>
-      <p>I tell you what I found and refund you in full that day. You don’t pay for a diagnosis.</p>
+      <p>I tell you what I found and refund you in full within one business day. You don’t pay for a
+      diagnosis.</p>
     </details>
     <details>
       <summary>Do you guarantee a PageSpeed score?</summary>
@@ -517,15 +597,19 @@
     </details>
     <details>
       <summary>How do I pay, and do I get a receipt?</summary>
-      <p>By card through Stripe, from the button on each offer or from a link I email you. Stripe emails
-      the receipt.</p>
+      <p>Through Stripe, by card or another payment method its checkout offers, from the button on each
+      offer or from a link I email you. You get a receipt by email.</p>
     </details>
     <details>
       <summary>Can it be ready before Black Friday?</summary>
       <p>There’s no rush option and no rush fee: the working days listed are what careful work takes.
-      The usual advice is to stop changing your theme about a week before Black Friday, so for anything
-      that needs to be live by then, early November is the practical cut-off. After that, I’ll suggest we
-      schedule it for December.</p>
+      Shopify’s own Black Friday guide suggests testing theme and app changes two to four weeks
+      beforehand, so this year anything that changes your theme should be ordered by 23&nbsp;October, and
+      purchase tracking by 21&nbsp;October: Google Ads can credit a Black Friday sale to a click up to 30
+      days earlier, so tracking changed after late October mixes two setups in your Black Friday numbers.
+      After those dates, I’ll suggest we schedule it for December. The <a href="#readiness">readiness
+      pass</a> changes nothing in your theme or settings, so it stays open longer: order by
+      Friday 6&nbsp;November 2026.</p>
     </details>
     <details>
       <summary>What happens after you deliver?</summary>
@@ -536,7 +620,13 @@
   </div>
 
   <footer>
-    <a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a>
+    <p><a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a></p>
+    <nav class="foot-links" aria-label="Terms and notes">
+      <a href="../terms/">Terms</a>
+      <a href="../terms/#refunds">Refunds</a>
+      <a href="../privacy/">Privacy</a>
+      <a href="../shopify-script-tags-2027/">Script tags in 2027</a>
+    </nav>
   </footer>
 
 </div>

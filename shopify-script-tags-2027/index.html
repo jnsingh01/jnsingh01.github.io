@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Shopify script tags stop on 1 March 2027: what to check | John Singh</title>
+<meta name="description" content="On 1 March 2027 Shopify stops loading the scripts apps add to storefronts through script tags. How to see which apps on your store still use them, what to ask each app, and what to do.">
+<link rel="canonical" href="https://jnsingh01.github.io/shopify-script-tags-2027/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="John Singh">
+<meta property="og:title" content="Shopify stops running script tags on 1 March 2027: what store owners need to check">
+<meta property="og:description" content="How to see which apps on your Shopify store still load through script tags, what to ask each one, and what to do before 1 March 2027.">
+<meta property="og:url" content="https://jnsingh01.github.io/shopify-script-tags-2027/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-10-04">
+<meta property="article:modified_time" content="2026-10-04">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Shopify stops running script tags on 1 March 2027: what store owners need to check",
+  "description": "On 1 March 2027 Shopify stops loading the scripts apps add to storefronts through script tags. How to see which apps on your store still use them, what to ask each app, and what to do.",
+  "datePublished": "2026-10-04",
+  "dateModified": "2026-10-04",
+  "inLanguage": "en-US",
+  "mainEntityOfPage": "https://jnsingh01.github.io/shopify-script-tags-2027/",
+  "url": "https://jnsingh01.github.io/shopify-script-tags-2027/",
+  "author": {"@type": "Person", "name": "John Singh", "url": "https://jnsingh01.github.io/"},
+  "publisher": {"@type": "Person", "name": "John Singh", "url": "https://jnsingh01.github.io/"},
+  "citation": [
+    "https://shopify.dev/changelog/online-store-script-tags-deprecation",
+    "https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/storefront",
+    "https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/order-status"
+  ]
+}
+</script>
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
+    --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
+    --measure:38rem;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16.5px/1.65 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding:clamp(2rem,7vw,5.5rem) clamp(1.25rem,6vw,2rem) 5rem;
+  }
+  .wrap{max-width:var(--measure); margin:0 auto}
+
+  /* ---- site navigation (same on every page) ---- */
+  .site-nav{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:-.75rem 0 1.4rem;
+    font:500 .9rem/1.4 var(--sans)}
+  .site-nav a{display:inline-block; padding:.75rem 0; color:var(--muted); border:0}
+  .site-nav a:hover{color:var(--fg)}
+  .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
+
+  h1{
+    font:600 1.5rem/1.25 var(--sans);
+    margin:0 0 .15rem; letter-spacing:-.01em; text-wrap:balance;
+  }
+  .role{
+    font:400 1.0rem/1.4 var(--sans);
+    color:var(--muted); margin:.5rem 0 2.25rem;
+  }
+  h2{
+    font:600 .78rem/1.4 var(--sans);
+    text-transform:uppercase; letter-spacing:.09em; color:var(--muted);
+    margin:2.75rem 0 .85rem; padding-bottom:.4rem; border-bottom:1px solid var(--rule);
+    scroll-margin-top:1rem;
+  }
+  p{margin:0 0 1.05rem}
+  ul{margin:0 0 1.05rem; padding-left:1.15rem}
+  li{margin-bottom:.45rem}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+  code{
+    font:0.86em/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:var(--code-bg); padding:.1em .35em; border-radius:3px;
+    white-space:nowrap;
+  }
+  pre{
+    background:var(--code-bg); border:1px solid var(--rule); border-radius:5px;
+    padding:1rem 1.1rem; overflow-x:auto; margin:.5rem 0 .4rem;
+  }
+  pre code{background:none; padding:0; font-size:0.8rem; line-height:1.6; white-space:pre}
+  @media (max-width:22.5rem){ p code{white-space:normal; overflow-wrap:anywhere} }
+  .nw{white-space:nowrap}
+  .lede{font-size:1.06rem}
+  .wrap p, .wrap li{text-wrap-style:pretty}
+  .caption{font:400 .86rem/1.5 var(--sans); color:var(--muted); margin:0 0 .6rem}
+  .fine{font:400 .86rem/1.5 var(--sans); color:var(--muted)}
+
+  .steps{
+    list-style:none; padding:0; margin:0 0 1.05rem; counter-reset:step;
+  }
+  .steps > li{
+    position:relative; padding-left:1.9rem; margin-bottom:.85rem; counter-increment:step;
+  }
+  .steps > li::before{
+    content:counter(step); position:absolute; left:0; top:.2em;
+    font:600 .72rem/1.35rem var(--sans);
+    width:1.35rem; height:1.35rem; text-align:center; border-radius:50%;
+    background:var(--tag-bg); color:var(--muted);
+  }
+  .steps p{margin:0}
+
+  /* ---- buttons: the main action filled, the other outlined ---- */
+  .actions{display:flex; flex-wrap:wrap; gap:.6rem; margin:1.15rem 0 0}
+  .buy{
+    display:inline-block; border:0; border-radius:4px;
+    background:var(--accent); color:var(--btn-fg);
+    font:600 .93rem/1 var(--sans);
+    padding:.95rem 1.3rem; letter-spacing:.005em; text-align:center;
+  }
+  .buy:hover{border:0; filter:brightness(1.08)}
+  .buy:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .buy.secondary{background:transparent; color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+  .buy.secondary:hover{filter:none; background:color-mix(in srgb, var(--accent) 7%, transparent)}
+  @media (max-width:30rem){
+    .actions .buy{flex:1 1 100%}
+  }
+
+  footer{
+    margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule);
+    font:400 .9rem/1.6 var(--sans);
+    color:var(--muted);
+  }
+  footer p{margin:0}
+  .foot-links{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:.3rem 0 -.35rem}
+  .foot-links a{display:inline-block; padding:.35rem 0; color:var(--muted); border:0}
+  .foot-links a:hover{color:var(--fg)}
+  .foot-links a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .foot-links{column-gap:1rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Home</a>
+    <a href="../services/">Services</a>
+    <a href="../speed-demo/">Speed demo</a>
+    <a href="../speed-check/">Speed check</a>
+  </nav>
+
+  <article>
+  <h1>Shopify stops running script tags on 1 March 2027: what store owners need to check</h1>
+  <p class="role">John Singh · <time datetime="2026-10-04">4&nbsp;October 2026</time></p>
+
+  <p class="lede">On 1&nbsp;March 2027, Shopify stops loading the scripts that apps add to storefronts
+  through script tags. If an app on your store still works that way and hasn’t moved by then, whatever
+  it does on your storefront stops working. You can usually see which apps are affected from your
+  store’s own page source in a few minutes, without signing in to anything.</p>
+
+  <h2 id="whats-changing">What’s changing</h2>
+  <p>Shopify told app developers on 24&nbsp;August 2026, in a developer changelog post:
+  <a href="https://shopify.dev/changelog/online-store-script-tags-deprecation">Script tags are
+  deprecated and will stop running on March 1, 2027</a>. In Shopify’s words, on that date “Shopify
+  will stop injecting script tags into storefronts.”</p>
+  <p>Since 1&nbsp;October 2026, apps can’t create or update script tags. The ones already on your store
+  keep running until 1&nbsp;March 2027. After that, according to Shopify’s
+  <a href="https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/storefront">documentation
+  for developers</a>, the script no longer loads, and any feature that depends on it stops working for
+  that store.</p>
+  <p>The same documentation says Shopify had planned a banner warning store owners who install an app
+  that still uses script tags, and has “decided not to show this banner for now”. When this was
+  written there was also no post about it in Shopify’s changelog for merchants. Unless your apps tell
+  you, you may not hear about it.</p>
+
+  <h2 id="what-it-is">What a script tag is</h2>
+  <p>A script tag is an older way for an app to add its JavaScript to your storefront without touching
+  your theme’s code. It never appears in your theme editor, which makes it hard to see and control, and
+  that’s Shopify’s stated reason for retiring it.</p>
+  <p>The replacement is an app embed. The app ships it in a theme app extension, and you switch it on
+  in your theme editor, under App embeds, where you can see it and turn it off. An app that only
+  collects analytics or conversion data can move to a web pixel instead, which needs nothing in your
+  theme editor (the app may ask you to approve updated permissions).</p>
+  <p>Code pasted straight into your theme’s files isn’t a script tag, and neither are the pixels under
+  Settings → Customer events. This change doesn’t touch them.</p>
+
+  <h2 id="what-stops">What stops working</h2>
+  <p>Whatever the script does on your storefront: a reviews widget, a pop-up, a chat bubble, a size
+  chart, an upsell, a tracking or affiliate tag. It depends entirely on the app.</p>
+  <p>Script tags have already stopped on one page. Shopify’s
+  <a href="https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/order-status">timeline
+  for the Order status page</a> ended them there on 28&nbsp;August 2025 for Plus stores and on
+  26&nbsp;August 2026 for every other store. If something disappeared from your Thank you or Order
+  status page around then, such as tracking or an upsell, an app’s script tag is one possible cause.
+  Another is the upgrade of those pages: 26&nbsp;August 2026 was the deadline for stores below Plus, and
+  the new pages don’t run Additional Scripts. Tracking that lived in Additional Scripts is what
+  my <a href="../services/#tracking">purchase tracking repair</a> puts back.</p>
+
+  <h2 id="check">How to check your own store</h2>
+  <p>Shopify doesn’t document this method, and says that part of a page’s code can change, but today a
+  store’s public page source lists the scripts that apps load through script tags. You need a computer
+  for this, and your home page is enough, because these scripts load on every page.</p>
+  <ol class="steps">
+    <li><p>Open your store’s page source. In Chrome, Edge or Firefox, type
+    <code class="nw">view-source:</code> in front of your store’s address, as in
+    <code><span class="nw">view-source:</span><wbr>https://yourstore.com</code>, and press Enter. In Safari, turn on Settings → Advanced → “Show features for web developers”, open your store,
+    then choose Develop → Show Page Source.</p></li>
+    <li><p>Search the page (Ctrl+F, or Command-F on a Mac) for <code>asyncLoad</code>. If it isn’t
+    there, your storefront most likely has no script tags left, and you’re done.</p></li>
+    <li><p>Just below it is a line starting <code>var urls =</code>, followed by a list of addresses.
+    Each one is a script an app loads through a script tag. In the source, the slashes appear as
+    <code>\/</code>, and each address usually ends in <code>?shop=</code> and your store’s
+    myshopify.com name. It looks like this:</p>
+<pre><code>function asyncLoad() {
+  if (isLoaded) return;
+  isLoaded = true;
+  var urls = ["https:\/\/cdn.example-reviews.com\/widget.js?shop=yourstore.myshopify.com","\/\/app.example-popups.com\/load.js?shop=yourstore.myshopify.com"];</code></pre>
+    <p class="caption">The addresses above are made up.</p></li>
+    <li><p>Match each address to an app. The address usually carries the app’s or its maker’s name;
+    compare it with Settings → Apps in your Shopify admin. If one doesn’t match anything you recognise,
+    it may be a custom app someone built for your store.</p></li>
+    <li><p>Open your theme editor (Online Store → Themes → Customize) and choose App embeds. Apps listed
+    there already use the newer method. An app can appear in both places while it moves over.</p></li>
+  </ol>
+
+  <h2 id="what-to-do">What to do about each one</h2>
+  <ul>
+    <li><strong>Ask the app.</strong> A short message is enough: “Your app still loads on my storefront
+    through a script tag. Will it move to an app embed or a web pixel before 1&nbsp;March 2027, and is
+    there anything I need to do?”</li>
+    <li><strong>Switch the embed on.</strong> When an app moves to an app embed, it stays off until you
+    turn it on in your theme editor. It’s switched on per theme, so if you publish a different theme,
+    for a sale for example, turn it on there too.</li>
+    <li><strong>Check it shows once.</strong> Shopify warns that while an old script tag and its
+    replacement both run, the script loads twice, which can count analytics events twice or show the
+    app’s widget twice. Once the app removes its script tag, its address drops off the list.</li>
+    <li><strong>Plan for the quiet ones.</strong> If an app is no longer updated, or nobody answers,
+    plan to replace it before March. A custom app built for your store depends on how it was made: one
+    built with Shopify’s developer tools can move to an app embed or a web pixel, but one created
+    directly in your Shopify admin can’t use either, so Shopify’s advice is to move its script into your
+    theme’s code, or for whoever maintains it to build a proper app. If a service had you create an app
+    in your admin and paste a token into their dashboard, that service needs to release a real
+    app.</li>
+    <li><strong>Don’t rush it into Black Friday week.</strong> The date is 1&nbsp;March, so December or
+    January, after your sale, is a calm time to make the changes. The useful thing now is knowing
+    what’s on the list.</li>
+  </ul>
+
+  <h2 id="help">If you’d like a hand</h2>
+  <p>The <a href="../services/#readiness">Black Friday readiness pass</a> ($199&nbsp;USD, three working
+  days, order by Friday 6&nbsp;November 2026) includes this check, alongside a real test order, your
+  tracking, your discounts and your page speed. You get a written pass or fail for each, and a fixed
+  price for fixing anything that failed.</p>
+  <p>Or email me your store’s address at
+  <a href="mailto:johnnassersingh@gmail.com?subject=Script%20tags">johnnassersingh@gmail.com</a>. The
+  list shows in your store’s public pages, so I can read it without any access. I’ll tell you which app
+  each address belongs to, and quote a fixed price, before anything starts, for whatever is mine to
+  fix: replacing an app that won’t move in time, or moving a custom app’s script into your theme.</p>
+  <div class="actions">
+    <a class="buy" href="mailto:johnnassersingh@gmail.com?subject=Script%20tags&amp;body=Store%20address%3A%20" aria-label="Email about script tags on your store">Email about script tags</a>
+    <a class="buy secondary" href="../services/#readiness">See the readiness pass</a>
+  </div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li>Shopify developer changelog, 24&nbsp;August 2026:
+    <a href="https://shopify.dev/changelog/online-store-script-tags-deprecation">Script tags are
+    deprecated and will stop running on March 1, 2027</a></li>
+    <li>Shopify developer documentation:
+    <a href="https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/storefront">Storefront
+    script tags</a></li>
+    <li>Shopify developer documentation:
+    <a href="https://shopify.dev/docs/apps/build/online-store/script-tag-deprecation/order-status">Order
+    status script tags</a></li>
+  </ul>
+  <p class="fine">Checked against Shopify’s documentation on 4&nbsp;October 2026. Not affiliated with
+  Shopify.</p>
+  </article>
+
+  <footer>
+    <p><a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a></p>
+    <nav class="foot-links" aria-label="Terms and notes">
+      <a href="../terms/">Terms</a>
+      <a href="../terms/#refunds">Refunds</a>
+      <a href="../privacy/">Privacy</a>
+      <a href="./" aria-current="page">Script tags in 2027</a>
+    </nav>
+  </footer>
+
+</div>
+</body>
+</html>

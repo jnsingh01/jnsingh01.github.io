@@ -91,6 +91,11 @@
     font:400 .9rem/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
     color:var(--muted);
   }
+  footer p{margin:0}
+  .foot-links{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:.3rem 0 -.35rem}
+  .foot-links a{display:inline-block; padding:.35rem 0; color:var(--muted); border:0}
+  .foot-links a:hover{color:var(--fg)}
+  @media (max-width:23.25rem){ .foot-links{column-gap:1rem} }
 </style>
 </head>
 <body>
@@ -124,13 +129,15 @@
       <tr><td><a href="services/#speed-fix-one">Speed fix, one template</a><span class="days">5 working days</span></td><td class="num">$550</td></tr>
       <tr><td><a href="services/#speed-fix-three">Speed fix, home, collection and product</a><span class="days">7 working days</span></td><td class="num">$1,200</td></tr>
       <tr><td><a href="services/#tracking">Purchase tracking, repaired</a><span class="days">3 working days</span></td><td class="num">$300</td></tr>
+      <tr id="row-readiness"><td><a href="services/#readiness">Black Friday readiness pass</a><span class="days">3 working days · order by 6&nbsp;November</span></td><td class="num">$199</td></tr>
       <tr><td><a href="services/#front-end-fix">A front-end fix</a><span class="days">2 working days</span></td><td class="num">$150</td></tr>
       <tr><td><a href="services/#custom-section">A custom section</a><span class="days">4 working days</span></td><td class="num">$350</td></tr>
       <tr><td><a href="services/#product-data">Product data, structured</a><span class="days">10 working days</span></td><td class="num">$1,200</td></tr>
     </tbody>
   </table>
-  <p class="glance-note">Not sure where your store stands? The <a href="speed-check/">free speed check</a>
-  runs Google’s mobile test on one page and shows you how to read it.</p>
+  <p class="glance-note">Prices are in US dollars (USD). Not sure where your store stands? The
+  <a href="speed-check/">free speed check</a> runs Google’s mobile test on one page and shows you how to
+  read it.</p>
   <p><a class="buy" href="services/">Scope, guarantees and ordering</a></p>
 
   <h2 id="worked-example">A worked example</h2>
@@ -198,7 +205,13 @@
   </ul>
 
   <footer>
-    <a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a>
+    <p><a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a></p>
+    <nav class="foot-links" aria-label="Terms and notes">
+      <a href="terms/">Terms</a>
+      <a href="terms/#refunds">Refunds</a>
+      <a href="privacy/">Privacy</a>
+      <a href="shopify-script-tags-2027/">Script tags in 2027</a>
+    </nav>
   </footer>
 
 </div>
