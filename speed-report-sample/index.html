@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Sample: a $49 Shopify speed report | John Singh</title>
+<meta name="description" content="A sample $49 speed report, run on the product page of my own speed demo: lab and Google PageSpeed numbers, six causes ranked by the time each adds, the check for each, and the price to fix them.">
+<link rel="canonical" href="https://jnsingh01.github.io/speed-report-sample/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="John Singh">
+<meta property="og:title" content="Sample: a $49 Shopify speed report">
+<meta property="og:description" content="What the $49 speed report looks like, run on my own speed demo’s product page: the numbers, six causes ranked by time added, the check for each, and the fixed price.">
+<meta property="og:url" content="https://jnsingh01.github.io/speed-report-sample/">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-10-05">
+<meta property="article:modified_time" content="2026-10-05">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Sample: a $49 Shopify speed report",
+  "description": "A sample $49 speed report, run on the product page of my own speed demo: lab and Google PageSpeed numbers, six causes ranked by the time each adds, the check for each, and the price to fix them.",
+  "datePublished": "2026-10-05",
+  "dateModified": "2026-10-05",
+  "inLanguage": "en-US",
+  "mainEntityOfPage": "https://jnsingh01.github.io/speed-report-sample/",
+  "url": "https://jnsingh01.github.io/speed-report-sample/",
+  "author": {"@type": "Person", "name": "John Singh", "url": "https://jnsingh01.github.io/"},
+  "publisher": {"@type": "Person", "name": "John Singh", "url": "https://jnsingh01.github.io/"},
+  "about": "https://jnsingh01.github.io/speed-demo/before.html",
+  "citation": [
+    "https://pagespeed.web.dev/analysis/https-jnsingh01-github-io-speed-demo-before-html/92jiskrzoh?form_factor=mobile",
+    "https://pagespeed.web.dev/analysis/https-jnsingh01-github-io-speed-demo-after-html/1c3gy5h1hm?form_factor=mobile"
+  ]
+}
+</script>
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
+    --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
+    --measure:38rem;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16.5px/1.65 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding:clamp(2rem,7vw,5.5rem) clamp(1.25rem,6vw,2rem) 5rem;
+  }
+  .wrap{max-width:var(--measure); margin:0 auto}
+
+  /* ---- site navigation (same on every page) ---- */
+  .site-nav{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:-.75rem 0 1.4rem;
+    font:500 .9rem/1.4 var(--sans)}
+  .site-nav a{display:inline-block; padding:.75rem 0; color:var(--muted); border:0}
+  .site-nav a:hover{color:var(--fg)}
+  .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
+
+  h1{
+    font:600 1.5rem/1.25 var(--sans);
+    margin:0 0 .15rem; letter-spacing:-.01em; text-wrap:balance;
+  }
+  .role{
+    font:400 1.0rem/1.4 var(--sans);
+    color:var(--muted); margin:.5rem 0 2.25rem;
+  }
+  h2{
+    font:600 .78rem/1.4 var(--sans);
+    text-transform:uppercase; letter-spacing:.09em; color:var(--muted);
+    margin:2.75rem 0 .85rem; padding-bottom:.4rem; border-bottom:1px solid var(--rule);
+    scroll-margin-top:1rem;
+  }
+  p{margin:0 0 1.05rem}
+  ul{margin:0 0 1.05rem; padding-left:1.15rem}
+  li{margin-bottom:.45rem}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+  code{
+    font:0.86em/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:var(--code-bg); padding:.1em .35em; border-radius:3px;
+    white-space:nowrap;
+  }
+  .nw{white-space:nowrap}
+  .lede{font-size:1.06rem}
+  .wrap p, .wrap li, .wrap dd{text-wrap-style:pretty}
+  .fine{font:400 .86rem/1.5 var(--sans); color:var(--muted)}
+  .note{
+    border-left:2px solid var(--rule); padding-left:1rem; color:var(--muted);
+    font-size:.95rem; margin:0 0 1.25rem;
+  }
+
+  /* ---- how it was measured ---- */
+  .facts{margin:0 0 1.05rem}
+  .facts dt{
+    font:600 .74rem/1.4 var(--sans);
+    text-transform:uppercase; letter-spacing:.07em; color:var(--muted);
+    margin:1rem 0 .25rem;
+  }
+  .facts dt:first-child{margin-top:0}
+  .facts dd{margin:0; font-size:.985rem}
+
+  /* ---- tables (as on the services page) ---- */
+  table{width:100%; border-collapse:collapse; font:.92rem/1.4 var(--sans); margin:0 0 .6rem}
+  th,td{text-align:left; padding:.6rem .5rem; border-bottom:1px solid var(--rule); vertical-align:top}
+  th:first-child, td:first-child{padding-left:0}
+  th:last-child, td:last-child{padding-right:0}
+  th{font-weight:600; color:var(--muted); font-size:.74rem; text-transform:uppercase; letter-spacing:.07em}
+  td.num, th.num{font-variant-numeric:tabular-nums; white-space:nowrap; text-align:right}
+  .days{display:block; margin-top:.15rem; font-size:.82rem; color:var(--muted)}
+  .glance-note{font:400 .86rem/1.5 var(--sans); color:var(--muted); margin:0 0 1rem}
+
+  /* ---- causes, ranked ---- */
+  .causes{margin:0 0 .5rem; padding:0; list-style:none}
+  .cause{padding:1.5rem 0; border-top:1px solid var(--rule); margin:0; scroll-margin-top:1rem}
+  .cause:first-child{border-top:0; padding-top:.5rem}
+  .cause:last-child{padding-bottom:.25rem}
+  .cause-head{display:flex; align-items:baseline; gap:.5rem 1rem}
+  .cause-name{font:600 1.08rem/1.3 var(--sans); margin:0; flex:1 1 auto; letter-spacing:-.005em; text-wrap:balance}
+  .cause-rank{color:var(--muted); font-weight:500; margin-right:.35rem; font-variant-numeric:tabular-nums}
+  .cause-time{font:600 1.08rem/1.3 var(--sans); font-variant-numeric:tabular-nums; white-space:nowrap; flex:0 0 auto; margin:0}
+  .cause-when{font:400 .86rem/1.5 var(--sans); color:var(--muted); margin:.3rem 0 .75rem}
+  .cause dl{margin:0; font-size:.985rem}
+  .cause dt{
+    font:600 .74rem/1.4 var(--sans);
+    text-transform:uppercase; letter-spacing:.07em; color:var(--muted);
+    margin:.85rem 0 .3rem;
+  }
+  .cause dd{margin:0}
+
+  /* ---- what you get: an offer, as on the services page ---- */
+  .order{scroll-margin-top:1rem}
+  .order-head{display:flex; align-items:baseline; gap:.5rem 1rem}
+  .order-name{font:600 1.08rem/1.3 var(--sans); margin:0; flex:1 1 auto; letter-spacing:-.005em}
+  .order-price{font:600 1.08rem/1.3 var(--sans); font-variant-numeric:tabular-nums; white-space:nowrap; flex:0 0 auto; margin:0}
+  .order-when{font:400 .86rem/1.5 var(--sans); color:var(--muted); margin:.3rem 0 .75rem}
+  .order ul{font-size:.985rem}
+  .order p{font-size:.985rem}
+  .order .fine{font-size:.86rem; margin:1rem 0 0}
+  .after-order{margin-top:1.25rem}
+
+  /* ---- buttons: the main action filled, the other outlined ---- */
+  .actions{display:flex; flex-wrap:wrap; gap:.6rem; margin:1.15rem 0 0}
+  .buy{
+    display:inline-block; border:0; border-radius:4px;
+    background:var(--accent); color:var(--btn-fg);
+    font:600 .93rem/1 var(--sans);
+    padding:.95rem 1.3rem; letter-spacing:.005em; text-align:center;
+  }
+  .buy:hover{border:0; filter:brightness(1.08)}
+  .buy:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .buy.secondary{background:transparent; color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+  .buy.secondary:hover{filter:none; background:color-mix(in srgb, var(--accent) 7%, transparent)}
+  @media (max-width:30rem){
+    .actions .buy{flex:1 1 100%}
+  }
+
+  footer{
+    margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule);
+    font:400 .9rem/1.6 var(--sans);
+    color:var(--muted);
+  }
+  footer p{margin:0}
+  .foot-links{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:.3rem 0 -.35rem}
+  .foot-links a{display:inline-block; padding:.35rem 0; color:var(--muted); border:0}
+  .foot-links a:hover{color:var(--fg)}
+  .foot-links a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  .foot-break{display:none}
+  @media (max-width:36rem){ .foot-break{display:block; flex-basis:100%; height:0} }
+  @media (max-width:23.25rem){ .foot-links{column-gap:1rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Home</a>
+    <a href="../services/">Services</a>
+    <a href="../speed-demo/">Speed demo</a>
+    <a href="../speed-check/">Speed check</a>
+  </nav>
+
+  <article>
+  <h1>Sample: a $49 Shopify speed report</h1>
+  <p class="role">John Singh · <time datetime="2026-10-05">5&nbsp;October 2026</time></p>
+
+  <p class="note">This is a sample, not a client’s report. It covers the “before” page of my own
+  <a href="../speed-demo/">speed demo</a>: a mock product page for a made-up desk brand, which I built
+  with six common problems. A report on your store covers your home, collection and product pages; this
+  sample covers the demo’s product page only.</p>
+
+  <p class="lede">It’s laid out the way your report would be: what was measured, the headline numbers,
+  each cause ranked by how much time it adds with the check that will show it’s fixed, what’s already
+  fine, and a fixed price. Every number can be checked: both of Google’s reports are public, and the
+  demo’s before and after pages are live for anyone to measure again.</p>
+
+  <h2 id="method">What was measured, and how</h2>
+  <dl class="facts">
+    <dt>Page</dt>
+    <dd>The demo’s product page, <a href="../speed-demo/before.html">before.html</a>, on a phone.
+    Google’s reports were run at 2:49&nbsp;a.m. Eastern time on 22&nbsp;September 2026. Minutes later I
+    added one line of CSS to the before and after pages, which sets the two “In the room” photos in a
+    3:2 frame, and neither page has changed since. It doesn’t change what either page downloads, but
+    it’s why Google’s report shows the second of those photos at 364&nbsp;×&nbsp;364, where the page
+    today shows it at 364&nbsp;×&nbsp;243.</dd>
+    <dt>Real shoppers</dt>
+    <dd>Google has no data from real visitors for this page (its report says “No Data”), so everything
+    here comes from lab tests. When Google has that data for your store, the report starts there.</dd>
+    <dt>Google’s test</dt>
+    <dd>PageSpeed Insights, mobile, run on 22&nbsp;September 2026: Lighthouse 13.5.0, emulating a
+    Moto G Power on a slow 4G connection.
+    <a href="https://pagespeed.web.dev/analysis/https-jnsingh01-github-io-speed-demo-before-html/92jiskrzoh?form_factor=mobile">The
+    public report</a>.</dd>
+    <dt>My lab runs</dt>
+    <dd>5&nbsp;October 2026, on my Mac, with Playwright driving Chromium&nbsp;148: a fresh browser with
+    an empty cache for every run, a 412&nbsp;×&nbsp;823 phone screen at 1.75× pixel density, and the
+    settings Lighthouse uses when it slows a real browser to slow 4G, applied through the Chrome
+    DevTools Protocol: <span class="nw">562.5 ms</span> added to every request,
+    <span class="nw">1,474.56 kbit/s</span> down, <span class="nw">675 kbit/s</span> up, and the
+    processor slowed 4×. Three runs of each page; every lab figure is the median of the three. To count
+    one jump that happens on some loads and not others (<a href="#cause-libs">cause&nbsp;3</a>), I loaded
+    the live before page 18 more times, 13 of them without the phone emulation.</dd>
+    <dt>Read from</dt>
+    <dd>The browser’s own timings (first paint, largest paint, layout shifts and long tasks), and its
+    network log for page weight and for the requests that hold up the first paint. Sizes in the tables
+    and evidence are in KiB, as Google’s report shows them (1&nbsp;KiB is 1,024 bytes).</dd>
+    <dt>Time per cause</dt>
+    <dd>Six copies of the page, each with only one cause fixed, the way the after page fixes it,
+    measured the same way alongside the unchanged page, both served from my Mac. The difference
+    between them is the time that cause adds. Nothing on the live page was changed. On your store I
+    have no access, so the test browser rewrites the page as it arrives instead, one cause at a time,
+    while everything else loads from your store as normal. Tried that way on the live demo page, it
+    gave the same order, with every time within 0.05&nbsp;s of the ones below.</dd>
+  </dl>
+
+  <h2 id="numbers">The headline numbers</h2>
+  <p>In plain English: text appears after two to three seconds, but the main product photo takes about
+  25 seconds to finish drawing. The photos come to more than 4&nbsp;MB, all downloading at once over
+  the same slow connection, and the main photo, the biggest at 2.3&nbsp;MB, finishes last. Fixing that
+  one photo accounts for most of the difference.</p>
+  <table>
+    <thead>
+      <tr><th scope="col">Measure</th><th scope="col" class="num">Google</th><th scope="col" class="num">My lab</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Main photo on screen<span class="days">Largest Contentful Paint · good is 2.5&nbsp;s or less</span></td><td class="num">24.3&nbsp;s</td><td class="num">25.6&nbsp;s</td></tr>
+      <tr><td>First text on screen<span class="days">First Contentful Paint · good is 1.8&nbsp;s or less</span></td><td class="num">2.8&nbsp;s</td><td class="num">2.1&nbsp;s</td></tr>
+      <tr><td>How much the page jumps<span class="days">Cumulative Layout Shift · good is 0.1 or less</span></td><td class="num">0.007</td><td class="num">0.008</td></tr>
+      <tr><td>Time frozen after first paint<span class="days">Total Blocking Time · good is 200&nbsp;ms or less</span></td><td class="num">0&nbsp;ms</td><td class="num">0&nbsp;ms</td></tr>
+      <tr><td>How fast the screen fills<span class="days">Speed Index · good is 3.4&nbsp;s or less</span></td><td class="num">4.5&nbsp;s</td><td class="num">—</td></tr>
+      <tr><td>Page weight<span class="days">everything downloaded · 13 requests in my runs</span></td><td class="num">4,487&nbsp;KiB</td><td class="num">4,484&nbsp;KiB</td></tr>
+      <tr><td>Performance score<span class="days">out of 100 · good is 90 or more</span></td><td class="num">68</td><td class="num">—</td></tr>
+    </tbody>
+  </table>
+  <p class="glance-note">Google: 22&nbsp;September 2026. My lab: 5&nbsp;October 2026, median of three runs.
+  Two sets of three runs that morning differed by up to 0.07&nbsp;s, so a re-run can round 0.1&nbsp;s either
+  way. Google estimates its timings by simulating the slow phone and connection from one fast load; my runs
+  slow the browser down for real, so the two don’t match to the decimal, but they agree on what’s slow.
+  My runs don’t compute Google’s score or Speed Index. Neither layout-shift figure includes a jump that
+  happens on about half of loads, which <a href="#cause-libs">cause&nbsp;3</a> explains: on a load where
+  it’s counted, the score is 0.31, in Google’s poor range.</p>
+
+  <h2 id="causes">Causes, ranked by time added</h2>
+  <p>Each time is the median for the unchanged page minus the median for a copy with only that cause
+  fixed. The causes overlap, mostly because they share one slow connection, so their times don’t add up
+  to the total: fixing all six together is what the <a href="#after">after page</a> shows. The copies were
+  served from my Mac, so the unchanged page’s figures here (25.5&nbsp;s and 2.14&nbsp;s) differ a little
+  from the live page’s above.</p>
+  <ol class="causes">
+    <li class="cause" id="cause-photo">
+      <div class="cause-head">
+        <h3 class="cause-name"><span class="cause-rank">1</span>The main photo is a full-size 2.3&nbsp;MB JPEG</h3>
+        <p class="cause-time">+23.2&nbsp;s</p>
+      </div>
+      <p class="cause-when">Main photo on screen: 25.5&nbsp;s for the unchanged page, 2.3&nbsp;s with only this fixed.</p>
+      <dl>
+        <dt>What it is</dt>
+        <dd>The product’s main photo is a 2400&nbsp;×&nbsp;2400&nbsp;px JPEG, shown 364&nbsp;px wide on a phone. It
+        downloads at the same time as every other photo on the page, with nothing marking it as the one that
+        matters, so on a slow connection it’s the last to finish. The thumbnails under it use the same
+        full-size files.</dd>
+        <dt>Evidence</dt>
+        <dd>Google’s “Improve image delivery” puts it at 2,263.7&nbsp;KiB, with 2,242.1&nbsp;KiB to save, and
+        “LCP request discovery” flags that it isn’t marked high priority. In my runs it started downloading at
+        0.6&nbsp;s and finished at 25.6&nbsp;s. Until then it draws in from the top, a strip at a time; the
+        moment it’s complete is what Google’s measure counts.</dd>
+        <dt>The written check</dt>
+        <dd>The main photo downloads at under 100&nbsp;KiB, and Google’s report no longer flags “LCP request
+        discovery”.</dd>
+        <dt>Effort</dt>
+        <dd>Small: the product template’s image tags, using Shopify’s <code>image_url</code> with a set of
+        widths, <code>preload: true</code> and high priority on the first photo, and thumbnail-sized files for
+        the thumbnails.</dd>
+      </dl>
+    </li>
+    <li class="cause" id="cause-below">
+      <div class="cause-head">
+        <h3 class="cause-name"><span class="cause-rank">2</span>Photos further down download at full size, straight away</h3>
+        <p class="cause-time">+5.2&nbsp;s</p>
+      </div>
+      <p class="cause-when">Main photo on screen: 25.5&nbsp;s for the unchanged page, 20.3&nbsp;s with only this fixed.</p>
+      <dl>
+        <dt>What it is</dt>
+        <dd>Two photos below the first screen, of 1,067&nbsp;KiB and 1,016&nbsp;KiB, download the moment the page
+        opens and compete with the main photo for the same connection. Neither has width and height set
+        in the HTML (on the page today, its CSS holds their 3:2 frame).</dd>
+        <dt>Evidence</dt>
+        <dd>Google’s “Improve image delivery” lists both: a 2000&nbsp;×&nbsp;1333 photo shown at
+        364&nbsp;×&nbsp;243, with 1,053&nbsp;KiB to save, and a 1600&nbsp;×&nbsp;1600 photo shown at
+        364&nbsp;×&nbsp;364, with 994&nbsp;KiB. “Image elements do not have explicit width and height” lists
+        them too. In my runs both started downloading at 0.6&nbsp;s. The second is also the gallery’s second
+        slide, so it still downloads in the copy with only this fixed; the time here comes from the first
+        alone.</dd>
+        <dt>The written check</dt>
+        <dd>Every photo below the first screen has <code>loading="lazy"</code> and its width and height set,
+        and downloads at under 100&nbsp;KiB.</dd>
+        <dt>Effort</dt>
+        <dd>Small: the same image tags, lazy-loaded below the first screen. On a page this short, the browser
+        may still fetch them early, because lazy loading starts some way before a photo scrolls into view, so
+        most of the saving here is their size.</dd>
+      </dl>
+    </li>
+    <li class="cause" id="cause-libs">
+      <div class="cause-head">
+        <h3 class="cause-name"><span class="cause-rank">3</span>jQuery and a carousel plugin hold up the first paint</h3>
+        <p class="cause-time">+0.54&nbsp;s</p>
+      </div>
+      <p class="cause-when">First text on screen: 2.14&nbsp;s for the unchanged page, 1.60&nbsp;s with only this
+      fixed. On about half of loads, it also makes the page jump.</p>
+      <dl>
+        <dt>What it is</dt>
+        <dd>Four files from another server (jQuery, the Slick carousel and its two stylesheets) load in the
+        page’s head, so the browser can’t show anything until all four have arrived. The gallery then stays
+        hidden until the carousel starts.</dd>
+        <dt>Evidence</dt>
+        <dd>Google’s “Render-blocking requests” lists all four (40.7&nbsp;KiB), with jQuery the slowest at
+        1,350&nbsp;ms. In my runs jQuery took 1.12&nbsp;s to arrive and the carousel script 0.83&nbsp;s.
+        On 11 of my 21 loads of the live page, the text and the Add to cart button showed first, and less
+        than a tenth of a second later the gallery appeared above them and pushed them 364&nbsp;px down; on
+        the rest, the carousel started before the first paint and nothing moved. With the phone emulation on,
+        Chrome marks that jump as following an input, so it isn’t counted in my figures; without the
+        emulation it is, and that load’s layout-shift score is 0.31, which Google rates poor. Google’s report
+        doesn’t show it.</dd>
+        <dt>The written check</dt>
+        <dd>Google’s report no longer flags “Render-blocking requests”, and the page makes no request for
+        jQuery or the carousel.</dd>
+        <dt>Effort</dt>
+        <dd>Medium: the gallery rebuilt as a strip of photos that swipes with CSS alone (scroll snap), after
+        checking what else in the theme relies on jQuery.</dd>
+      </dl>
+    </li>
+    <li class="cause" id="cause-app">
+      <div class="cause-head">
+        <h3 class="cause-name"><span class="cause-rank">4</span>An app’s script runs before the page can show</h3>
+        <p class="cause-time">+0.38&nbsp;s</p>
+      </div>
+      <p class="cause-when">First text on screen: 2.14&nbsp;s for the unchanged page, 1.76&nbsp;s with only this fixed.</p>
+      <dl>
+        <dt>What it is</dt>
+        <dd>A script in the page’s head, standing in for a typical review or upsell app, does 350&nbsp;ms of
+        start-up work before the browser may show anything.</dd>
+        <dt>Evidence</dt>
+        <dd>Every one of my runs shows a task of about 350&nbsp;ms just before the first paint; in the copy with
+        only this fixed, it’s gone. Google flags one long task, of 424&nbsp;ms, and puts it down to the
+        carousel’s script file, which loads just before the app’s. Google’s Total Blocking Time stays at
+        0&nbsp;ms because it only counts what happens after the first paint.</dd>
+        <dt>The written check</dt>
+        <dd>Google’s report no longer flags “Avoid long main-thread tasks”, and the app’s code starts only
+        after the page has loaded.</dd>
+        <dt>Effort</dt>
+        <dd>Small here: the script sits in the page itself, the way code pasted into a theme does, so it
+        can be made to wait for the page. On a store where the delay comes from an app’s own embed that
+        only its maker can change, the report lists it under “Yours to decide” instead, outside the fixed
+        price. Whether to keep the app at all is <a href="#decide">yours to decide</a>.</dd>
+      </dl>
+    </li>
+    <li class="cause" id="cause-fonts">
+      <div class="cause-head">
+        <h3 class="cause-name"><span class="cause-rank">5</span>Web fonts hold up the first paint</h3>
+        <p class="cause-time">under 0.1&nbsp;s</p>
+      </div>
+      <p class="cause-when">First text on screen: 2.14&nbsp;s either way, because jQuery still holds the page up
+      for longer.</p>
+      <dl>
+        <dt>What it is</dt>
+        <dd>The font stylesheet asks for two families in fifteen weights, far more than the page uses, with no
+        early connection to the font server and no instruction to show text before the fonts arrive. It’s
+        loaded in a way that stops the page showing until it’s back.</dd>
+        <dt>Evidence</dt>
+        <dd>Google’s “Render-blocking requests” lists the font stylesheet (1.9&nbsp;KiB, 780&nbsp;ms), and
+        “Font display” lists both font files (10&nbsp;ms each). In my runs the stylesheet took 0.68&nbsp;s, less
+        than jQuery’s 1.12&nbsp;s, so fixing it alone moved the first paint by under 0.1&nbsp;s. With jQuery
+        gone, it’s the slowest thing left in the way, which is why it’s fixed with the rest. Fixed alone, it
+        also lets text show first in a fallback font, which shifts the text very slightly when the web fonts
+        arrive, well inside the 0.1 mark.</dd>
+        <dt>The written check</dt>
+        <dd>Google’s report lists no fonts.googleapis.com request under “Render-blocking requests”, and no
+        Google font under “Font display”.</dd>
+        <dt>Effort</dt>
+        <dd>Small: one change in the theme’s layout file.</dd>
+      </dl>
+    </li>
+    <li class="cause" id="cause-reviews">
+      <div class="cause-head">
+        <h3 class="cause-name"><span class="cause-rank">6</span>A reviews widget pushes the Add to cart button down</h3>
+        <p class="cause-time">0&nbsp;s</p>
+      </div>
+      <p class="cause-when">Adds no load time. About 3.4&nbsp;s in, it moves the Add to cart button 101&nbsp;px
+      down.</p>
+      <dl>
+        <dt>What it is</dt>
+        <dd>The reviews summary is added by a script 1.2&nbsp;s after the page’s HTML is ready, above the Add to
+        cart button, so the button moves just as a shopper may be reaching for it.</dd>
+        <dt>Evidence</dt>
+        <dd>Google’s “Layout shift culprits” names the Add to cart button (0.007), the whole of the page’s
+        layout-shift score in its test. In my runs the button moved 101&nbsp;px down at 3.4&nbsp;s; with only
+        this fixed, the score fell from 0.008 to 0.001.</dd>
+        <dt>The written check</dt>
+        <dd>The reviews summary is on the page from the first paint, and Google’s “Layout shift culprits” no
+        longer names the Add to cart button.</dd>
+        <dt>Effort</dt>
+        <dd>Small: the reviews summary rendered with the page, or its space kept with CSS.</dd>
+      </dl>
+    </li>
+  </ol>
+
+  <h2 id="decide">Yours to decide</h2>
+  <p>Two things in the fixes change more than speed, so they’re your call rather than mine:</p>
+  <ul>
+    <li><strong>The app.</strong> Making it wait removes its delay before the first paint, but its
+    350&nbsp;ms of work still runs on every page view, a little later. If you don’t use what it does,
+    removing it saves more, and costs nothing. I tell you what each app costs; you decide which
+    stay.</li>
+    <li><strong>The carousel.</strong> Without the plugin, the gallery becomes a strip shoppers swipe
+    through, with no arrow buttons. If you want arrows, a few lines of code add them back without the
+    library; say so when you book.</li>
+  </ul>
+
+  <h2 id="fine">What’s already fine</h2>
+  <ul>
+    <li><strong>The server.</strong> The page’s HTML arrives compressed (about 3&nbsp;KiB) over HTTP/2,
+    and Google’s “Network dependency tree” shows it back in 69&nbsp;ms.</li>
+    <li><strong>Taps once it’s showing.</strong> Nothing keeps the phone busy after the first paint:
+    Total Blocking Time is 0&nbsp;ms in Google’s test and in every one of my runs.</li>
+    <li><strong>The product details are real text.</strong> The title, price, description and
+    specifications are in the page itself, so they show with the first paint rather than waiting for a
+    script or a photo.</li>
+    <li><strong>No redirects.</strong> The page answers at its own address the first time.</li>
+    <li><strong>Accessibility and best practices.</strong> Both score 100 in Google’s report.</li>
+  </ul>
+  <p>Two things Google flags aren’t causes, so they’re left out of the ranking. “Use efficient cache
+  lifetimes” is set by the demo’s host, GitHub Pages, not by the page; on a Shopify store,
+  Shopify’s servers set it. And the SEO score of 54 is because the demo pages are kept out of search on
+  purpose and have no description; that isn’t a speed matter.</p>
+
+  <h2 id="price">The price to fix it</h2>
+  <p>All six causes are on one template, the product page, so this is the
+  <a href="../services/#speed-fix-one">one-template speed fix</a>: $550, five working days, with the
+  $49 for the report taken off, so $501. On your store, if the home and collection pages need the
+  same work, the <a href="../services/#speed-fix-three">fix for all three</a> is $1,200, less the same
+  $49.</p>
+  <p>The fix is done on a duplicate theme and measured again with the same tools. The guarantee is
+  that each cause above passes its written check in the after-report, or I refund the fix. Not a
+  particular score: lab scores move from one run to the next, and apps can add weight after I’ve
+  finished.</p>
+
+  <h2 id="after">What the after page achieved</h2>
+  <p>The <a href="../speed-demo/after.html">after page</a> is the same page with all six causes fixed:
+  same layout, same copy, same photos, and the same 350&nbsp;ms of app work.
+  <a href="https://pagespeed.web.dev/analysis/https-jnsingh01-github-io-speed-demo-before-html/92jiskrzoh?form_factor=mobile">Before
+  report</a> ·
+  <a href="https://pagespeed.web.dev/analysis/https-jnsingh01-github-io-speed-demo-after-html/1c3gy5h1hm?form_factor=mobile">After
+  report</a>.</p>
+  <table>
+    <thead>
+      <tr><th scope="col">Measure</th><th scope="col" class="num">Before</th><th scope="col" class="num">After</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Performance score<span class="days">Google</span></td><td class="num">68</td><td class="num">96</td></tr>
+      <tr><td>Main photo on screen<span class="days">Google</span></td><td class="num">24.3&nbsp;s</td><td class="num">2.7&nbsp;s</td></tr>
+      <tr><td>Main photo on screen<span class="days">My lab</span></td><td class="num">25.6&nbsp;s</td><td class="num">2.1&nbsp;s</td></tr>
+      <tr><td>First text on screen<span class="days">Google</span></td><td class="num">2.8&nbsp;s</td><td class="num">1.5&nbsp;s</td></tr>
+      <tr><td>First text on screen<span class="days">My lab</span></td><td class="num">2.1&nbsp;s</td><td class="num">0.6&nbsp;s</td></tr>
+      <tr><td>How much the page jumps<span class="days">Google</span></td><td class="num">0.007</td><td class="num">0.001</td></tr>
+      <tr><td>How much the page jumps<span class="days">My lab, without the jump in cause&nbsp;3</span></td><td class="num">0.008</td><td class="num">0.001</td></tr>
+      <tr><td>Page weight<span class="days">My lab · 13 requests before, 9 after</span></td><td class="num">4,484&nbsp;KiB</td><td class="num">237&nbsp;KiB</td></tr>
+    </tbody>
+  </table>
+  <p class="glance-note">Google: both reports run on 22&nbsp;September 2026. My lab: 5&nbsp;October
+  2026, median of three runs of each live page.</p>
+
+  <p>And the written checks, each read from the after report or the after page:</p>
+  <ul>
+    <li><strong>Main photo:</strong> 53.2&nbsp;KiB in Google’s after report (a 900&nbsp;px AVIF), and
+    “LCP request discovery” isn’t flagged.</li>
+    <li><strong>Photos further down:</strong> both have <code>loading="lazy"</code> and their width and height
+    set, at 45.6&nbsp;KiB and 55.6&nbsp;KiB.</li>
+    <li><strong>jQuery and the carousel:</strong> “Render-blocking requests” isn’t flagged, and none of the
+    page’s 9 requests is for jQuery or the carousel.</li>
+    <li><strong>The app’s script:</strong> “Avoid long main-thread tasks” isn’t flagged. The same 350&nbsp;ms of
+    work starts after the page has loaded, in 8&nbsp;ms slices, and none of it shows up as a long task in
+    my runs.</li>
+    <li><strong>Web fonts:</strong> no font request under “Render-blocking requests” or “Font display”.</li>
+    <li><strong>Reviews:</strong> on the page from the first paint, and the Add to cart button isn’t among
+    Google’s layout shift culprits. It still moves 8&nbsp;px as the web fonts arrive; Google scores the
+    heading’s move at 0.001.</li>
+  </ul>
+  <p>Two honest notes. Google’s figure for the main photo on the after page is 2.7&nbsp;s, just over its
+  2.5&nbsp;s mark for good, while my lab median is 2.1&nbsp;s. And Google still suggests 81&nbsp;KiB of image
+  savings, because each photo is served one size up from its space: the next size down would be smaller
+  than the space on that phone, and look soft. Neither is a cause left unfixed; it’s why the guarantee
+  is the written checks, not a score.</p>
+  </article>
+
+  <section class="order" id="order" aria-labelledby="order-title">
+    <h2 id="order-title">What you get when you order</h2>
+    <div class="order-head">
+      <h3 class="order-name">A speed report</h3>
+      <p class="order-price">$49</p>
+    </div>
+    <p class="order-when">Within two working days. Credited in full if you book the fix.</p>
+    <ul>
+      <li>Your home, collection and product pages measured, starting from Google’s data on your real
+      shoppers where it has some.</li>
+      <li>Each cause in plain English, ranked by how much time it adds, with the evidence.</li>
+      <li>The written check that will show each one is fixed.</li>
+      <li>A fixed price to fix them: $550 for one template, $1,200 for home, collection and product.</li>
+      <li>Anything only you can decide, such as removing an app, listed separately.</li>
+    </ul>
+    <p>You send your store’s address. Nothing else: no access, no passwords. If your store is already
+    fast for your shoppers, the report says so.</p>
+    <div class="actions">
+      <a class="buy" href="https://buy.stripe.com/00wdRag1B6eff9bgz35wI03" aria-label="Pay now — $49 for a speed report">Pay now — $49</a>
+      <a class="buy secondary" href="mailto:johnnassersingh@gmail.com?subject=Speed%20report&amp;body=Store%20address%3A%20" aria-label="Start a project: speed report, by email">Start a project</a>
+    </div>
+    <p class="fine">Prices are in US dollars (USD). Questions first? Email
+    <a href="mailto:johnnassersingh@gmail.com?subject=Speed%20report%20question">johnnassersingh@gmail.com</a>.
+    <a class="nw" href="../services/#speed-report">The full scope and terms</a> are on the services page.</p>
+  </section>
+
+  <p class="fine after-order">Not affiliated with Google or Shopify.</p>
+
+  <footer>
+    <p><a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a></p>
+    <nav class="foot-links" aria-label="Terms and notes">
+      <a href="../terms/">Terms</a>
+      <a href="../terms/#refunds">Refunds</a>
+      <a href="../privacy/">Privacy</a>
+      <span class="foot-break" aria-hidden="true"></span>
+      <a href="../shopify-script-tags-2027/">Script tags in 2027</a>
+      <a href="../shopify-purchase-tracking-2026/">Purchase tracking</a>
+    </nav>
+  </footer>
+
+</div>
+</body>
+</html>
