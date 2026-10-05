@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Free Shopify catalog check | John Singh</title>
+<meta name="description" content="Count every product in your Shopify store with no photo, no description, a single photo or a small main photo, and get the list of which to fix first. Free, no sign-up, nothing stored.">
+<link rel="canonical" href="https://jnsingh01.github.io/catalog-check/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="John Singh">
+<meta property="og:title" content="Free Shopify catalog check">
+<meta property="og:description" content="Every product in your Shopify store, checked for missing photos and descriptions, with the list of which to fix first.">
+<meta property="og:url" content="https://jnsingh01.github.io/catalog-check/">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Shopify catalog check",
+  "url": "https://jnsingh01.github.io/catalog-check/",
+  "description": "Reads a Shopify store’s public product list in the visitor’s browser and counts the products with no photo, no description, a short description, a single photo or a main photo under 800 pixels wide, with a downloadable list of which to fix first.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+  "author": {"@type": "Person", "name": "John Singh", "url": "https://jnsingh01.github.io/"}
+}
+</script>
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
+    --accent:#1a4d8f; --btn-fg:#ffffff; --code-bg:#f2f2ef; --tag-bg:#eceae4;
+    --field-bg:#ffffff; --field-line:#8b8b94;
+    --good:#1b6e3c; --avg:#8a5300; --poor:#b42318;
+    --measure:38rem;
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141416; --fg:#e8e8e4; --muted:#9a9aa2; --rule:#2b2b30;
+           --accent:#7fb0e8; --btn-fg:#111114; --code-bg:#1d1d21; --tag-bg:#232328;
+           --field-bg:#1b1b1f; --field-line:#6e6e78;
+           --good:#74c69d; --avg:#e5a54b; --poor:#f28b82; }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16.5px/1.65 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    padding:clamp(2rem,7vw,5.5rem) clamp(1.25rem,6vw,2rem) 5rem;
+  }
+  .wrap{max-width:var(--measure); margin:0 auto}
+
+  /* ---- site navigation (same on every page) ---- */
+  .site-nav{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:-.75rem 0 1.4rem;
+    font:500 .9rem/1.4 var(--sans)}
+  .site-nav a{display:inline-block; padding:.75rem 0; color:var(--muted); border:0}
+  .site-nav a:hover{color:var(--fg)}
+  .site-nav a[aria-current="page"]{color:var(--fg); text-decoration:underline;
+    text-decoration-thickness:1px; text-underline-offset:.32em}
+  @media (max-width:23.25rem){ .site-nav{column-gap:1rem} }
+
+  h1{
+    font:600 1.5rem/1.25 var(--sans);
+    margin:0 0 .15rem; letter-spacing:-.01em;
+  }
+  .role{
+    font:400 1.0rem/1.4 var(--sans);
+    color:var(--muted); margin:0 0 2.25rem;
+  }
+  h2{
+    font:600 .78rem/1.4 var(--sans);
+    text-transform:uppercase; letter-spacing:.09em; color:var(--muted);
+    margin:2.75rem 0 .85rem; padding-bottom:.4rem; border-bottom:1px solid var(--rule);
+  }
+  h3{font:600 1rem/1.35 var(--sans); margin:1.6rem 0 .5rem}
+  p{margin:0 0 1.05rem}
+  ul{margin:0 0 1.05rem; padding-left:1.15rem}
+  li{margin-bottom:.45rem}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+  code{font:.9em/1 ui-monospace,Menlo,monospace; background:var(--code-bg); padding:.1em .3em; border-radius:3px}
+  .lede{font-size:1.06rem}
+  [hidden]{display:none !important}
+
+  /* ---- buttons: the main action filled, the other outlined ---- */
+  .buy{
+    display:inline-block; border:0; border-radius:4px;
+    background:var(--accent); color:var(--btn-fg);
+    font:600 .93rem/1 var(--sans);
+    padding:.95rem 1.3rem; letter-spacing:.005em; text-align:center; cursor:pointer;
+  }
+  .buy:hover{border:0; filter:brightness(1.08)}
+  .buy:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+  .buy.secondary{background:transparent; color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent)}
+  .buy.secondary:hover{filter:none; background:color-mix(in srgb, var(--accent) 7%, transparent)}
+  .actions{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.15rem}
+  @media (max-width:30rem){
+    .actions .buy{flex:1 1 100%}
+  }
+
+  /* ---- the check ---- */
+  .check{margin:0 0 1.6rem}
+  .check label{display:block; font:600 .9rem/1.4 var(--sans); margin:0 0 .5rem}
+  .check-row{display:flex; gap:.6rem}
+  .check input{
+    flex:1 1 auto; min-width:0; height:2.875rem; margin:0; padding:0 .85rem;
+    font:400 1rem/1.2 var(--sans); color:var(--fg);
+    background:var(--field-bg); border:1px solid var(--field-line); border-radius:4px;
+    -webkit-appearance:none; appearance:none;
+  }
+  .check input::placeholder{color:var(--muted); opacity:1}
+  .check input:focus{outline:2px solid var(--accent); outline-offset:-1px; border-color:var(--accent)}
+  .check input[aria-invalid="true"]{border-color:var(--poor)}
+  .check input[aria-invalid="true"]:focus{outline-color:var(--poor); border-color:var(--poor)}
+  .check button{height:2.875rem; padding:0 1.3rem; flex:0 0 auto; margin:0; -webkit-appearance:none; appearance:none}
+  .check button[aria-disabled="true"]{cursor:progress; filter:saturate(.6) brightness(1.06)}
+  .field-error{font:500 .9rem/1.45 var(--sans); color:var(--poor); margin:.55rem 0 0}
+  .fine{font:400 .86rem/1.5 var(--sans); color:var(--muted); margin:.7rem 0 0}
+  @media (max-width:30rem){
+    .check-row{flex-direction:column}
+    .check button{width:100%}
+  }
+
+  .status{font:400 .92rem/1.55 var(--sans); color:var(--muted); margin:0 0 1rem}
+  .status.busy{color:var(--fg)}
+  .status:empty{margin:0}
+  .sr-only{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+  .after-actions{margin-top:1.15rem}
+  #first .actions{margin-top:0}
+
+  /* ---- results ---- */
+  .results:focus{outline:none}
+  .tested{font:400 .9rem/1.5 var(--sans); color:var(--muted); margin:0 0 .85rem; overflow-wrap:anywhere}
+  .tested strong{color:var(--fg); font-weight:600}
+  .flag{border-left:2px solid var(--rule); padding-left:1rem; font-size:.95rem; margin:0 0 1rem}
+
+  .metrics{list-style:none; padding:0; margin:0 0 .5rem}
+  .metric{padding:.9rem 0; margin:0; border-top:1px solid var(--rule)}
+  .metric:first-child{border-top:0; padding-top:.35rem}
+  .metric-head{display:flex; align-items:baseline; gap:.5rem 1rem}
+  .metric-name{font:600 .98rem/1.35 var(--sans); flex:1 1 auto; margin:0; text-wrap:balance}
+  .metric-val{font:600 .98rem/1.35 var(--sans); font-variant-numeric:tabular-nums; white-space:nowrap; margin:0}
+  .metric-val .pct{font-weight:400; color:var(--muted)}
+  .metric-tech{font:400 .84rem/1.5 var(--sans); color:var(--muted); margin:.2rem 0 .35rem}
+  .metric-feel{margin:0; font-size:.985rem}
+  .metric-head + .metric-feel{margin-top:.3rem}
+  .none{color:var(--good)}
+  .wrap p, .wrap li, .wrap dd{text-wrap-style:pretty}
+  .nw{white-space:nowrap}
+
+  table{width:100%; border-collapse:collapse; margin:0 0 1.25rem;
+    font:.92rem/1.4 var(--sans)}
+  caption{text-align:left; font:400 .86rem/1.5 var(--sans); color:var(--muted); padding:0 0 .5rem; text-wrap:pretty}
+  th,td{text-align:left; padding:.6rem .5rem; border-bottom:1px solid var(--rule); vertical-align:top}
+  th:first-child, td:first-child{padding-left:0}
+  th:last-child, td:last-child{padding-right:0}
+  th{font-weight:600; color:var(--muted); font-size:.74rem; text-transform:uppercase; letter-spacing:.07em}
+  td a{overflow-wrap:anywhere}
+  .days{display:block; margin-top:.15rem; font-size:.82rem; color:var(--muted)}
+
+  .glossary{margin:0 0 1rem}
+  .glossary dt{font:600 .98rem/1.4 var(--sans); margin:1rem 0 .2rem}
+  .glossary dt:first-child{margin-top:0}
+  .glossary dd{margin:0}
+
+  footer{
+    margin-top:3.5rem; padding-top:1.1rem; border-top:1px solid var(--rule);
+    font:400 .9rem/1.6 var(--sans);
+    color:var(--muted);
+  }
+  footer p{margin:0}
+  .foot-links{display:flex; flex-wrap:wrap; gap:0 1.4rem; margin:.3rem 0 -.35rem}
+  .foot-links a{display:inline-block; padding:.35rem 0; color:var(--muted); border:0}
+  .foot-links a:hover{color:var(--fg)}
+  .foot-break{display:none}
+  @media (max-width:36rem){ .foot-break{display:block; flex-basis:100%; height:0} }
+  @media (max-width:23.25rem){ .foot-links{column-gap:1rem} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="site-nav" aria-label="Site">
+    <a href="../">Home</a>
+    <a href="../services/">Services</a>
+    <a href="../speed-demo/">Speed demo</a>
+    <a href="../speed-check/">Speed check</a>
+  </nav>
+
+  <h1>Free Shopify catalog check</h1>
+  <p class="role">John Singh · every product, counted in your browser</p>
+
+  <p class="lede">Enter your store’s address. This page reads the product list your store already
+  publishes and counts what holds products back in search and with shoppers: no photo, no description,
+  a short description, a single photo, a small main photo. Then it lists which to fix first.</p>
+
+  <form id="check" class="check" novalidate>
+    <label for="store">Store address</label>
+    <div class="check-row">
+      <input id="store" name="store" type="text" inputmode="url" autocomplete="url" autocapitalize="none"
+        autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="yourstore.com"
+        aria-describedby="store-error store-fine">
+      <button class="buy" id="go" type="submit">Check catalog</button>
+    </div>
+    <p class="field-error" id="store-error" hidden></p>
+    <p class="fine" id="store-fine">Free, with no sign-up. This page has no analytics, no cookies and no
+    tracking, and it stores nothing. Your browser reads the store’s public product list (the one most
+    Shopify stores serve at <code>/products.json</code>) directly from the store. Nothing is sent to
+    me. It reads up to 10,000 products, 250 at a time.</p>
+    <noscript><p class="fine">The check runs in your browser, so it needs JavaScript.</p></noscript>
+  </form>
+
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+  <p class="status" id="progress"></p>
+
+  <section class="results" id="results" tabindex="-1" aria-labelledby="results-title" hidden>
+    <h2 id="results-title">Results</h2>
+    <p class="tested" id="tested"></p>
+    <p class="flag" id="partial" hidden></p>
+    <ul class="metrics" id="metrics"></ul>
+    <div id="first" hidden>
+      <h3>Start with these</h3>
+      <table>
+        <caption id="first-caption"></caption>
+        <thead><tr><th scope="col">Product</th><th scope="col">Missing</th></tr></thead>
+        <tbody id="first-rows"></tbody>
+      </table>
+      <div class="actions"><button class="buy secondary" id="csv" type="button">Download the full list (CSV)</button></div>
+    </div>
+  </section>
+
+  <section id="offer" aria-labelledby="offer-title" hidden>
+    <h2 id="offer-title">If there’s a lot to fix</h2>
+    <p>Photos and descriptions are yours to add, and the list above is the order to add them in. What a
+    product list can’t show is how Google reads the pages themselves: title tags, meta descriptions,
+    headings, image alt text and structured data. I check those page by page and write up what I find,
+    ranked by how much it matters, with the exact steps to fix each one.</p>
+    <p>Email me your store’s address and you’ll have a fixed price for the written audit within one
+    working day. No access or passwords needed.</p>
+    <div class="actions">
+      <a class="buy" id="offer-mail" href="mailto:johnnassersingh@gmail.com?subject=SEO%20audit&amp;body=Store%20address%3A%20">Ask for a fixed price</a>
+    </div>
+    <p class="after-actions">Everything I do at a fixed price is on the <a href="../services/">services
+    page</a>.</p>
+  </section>
+
+  <h2>What the check counts</h2>
+  <dl class="glossary">
+    <dt>No photo</dt>
+    <dd>The product has no image, so its page shows the theme’s placeholder. Google needs a product image
+    to show an item in its shopping results, and shoppers rarely buy what they can’t see.</dd>
+    <dt>No description</dt>
+    <dd>The description has no text (it may hold only an image). That leaves search engines little beyond
+    the title to match a search to, and when no search description is set, Shopify builds the page’s meta
+    description from the product description, so these pages usually go out with none.</dd>
+    <dt>Short description</dt>
+    <dd>Fewer than 30 words: often a single line from a supplier. Enough to exist, rarely enough to
+    answer what a shopper wants to know.</dd>
+    <dt>A single photo</dt>
+    <dd>Only one image. Shoppers look for more than one angle, the scale, or the product in use before
+    they buy.</dd>
+    <dt>Small main photo</dt>
+    <dd>The first image is under 800 pixels wide. On a phone the main photo usually fills the screen’s
+    width, 1,080 pixels or more on most phones, so a smaller one is stretched and looks soft exactly where
+    most shoppers see it. Shopify suggests 2,048 by 2,048 pixels for square product photos.</dd>
+  </dl>
+  <p class="fine">It reads only what your store already publishes to everyone: products on the Online
+  Store sales channel. Not affiliated with Shopify.</p>
+
+  <footer>
+    <p><a href="mailto:johnnassersingh@gmail.com">johnnassersingh@gmail.com</a></p>
+    <nav class="foot-links" aria-label="Terms and notes">
+      <a href="../terms/">Terms</a>
+      <a href="../terms/#refunds">Refunds</a>
+      <a href="../privacy/">Privacy</a>
+      <span class="foot-break" aria-hidden="true"></span>
+      <a href="../shopify-script-tags-2027/">Script tags in 2027</a>
+      <a href="../shopify-purchase-tracking-2026/">Purchase tracking</a>
+    </nav>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var PAGE_SIZE = 250, MAX_PAGES = 40, PAUSE = 250, SHORT_WORDS = 30, SMALL_PX = 800, FIRST_ROWS = 20;
+
+  var form = document.getElementById('check'), input = document.getElementById('store'),
+      button = document.getElementById('go'), err = document.getElementById('store-error'),
+      status = document.getElementById('status'), progress = document.getElementById('progress'),
+      results = document.getElementById('results'), offer = document.getElementById('offer'),
+      busy = false, last = null;
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function fmt(n) { return n.toLocaleString('en-US'); }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  // "yourstore.com", "https://www.yourstore.com/products/x" or "yourstore.myshopify.com" -> https://host
+  function origin(raw) {
+    var s = (raw || '').trim();
+    if (!s) return null;
+    if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(s)) s = 'https://' + s;
+    try {
+      var u = new URL(s);
+      if (!/^https?:$/.test(u.protocol) || u.hostname.indexOf('.') < 1 || /\s/.test(u.hostname)) return null;
+      return 'https://' + u.hostname.toLowerCase();
+    } catch (e) { return null; }
+  }
+
+  // Words of visible text in a product description. Blocks and line breaks separate words; scripts, styles and
+  // zero-width characters don't count. Chinese, Japanese and Korean text has no spaces, so two characters count as a word.
+  var BLOCKS = 'br,p,div,li,dt,dd,h1,h2,h3,h4,h5,h6,td,th,tr,blockquote,section,article,figcaption';
+  var CJK = /[぀-ヿ㐀-䶿一-鿿가-힯豈-﫿]/g;
+  function words(html) {
+    if (!html) return 0;
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    doc.querySelectorAll('script,style,template,noscript').forEach(function (n) { n.remove(); });
+    doc.body.querySelectorAll(BLOCKS).forEach(function (n) { n.after(' '); });
+    var t = (doc.body.textContent || '').replace(/[​-‍⁠﻿]/g, '');
+    var cjk = (t.match(CJK) || []).length;
+    var rest = t.replace(CJK, ' ').trim();
+    return (rest ? rest.split(/\s+/).length : 0) + Math.ceil(cjk / 2);
+  }
+
+  function showError(msg) {
+    err.textContent = msg; err.hidden = false; input.setAttribute('aria-invalid', 'true'); input.focus();
+  }
+  function clearError() {
+    err.hidden = true; err.textContent = ''; input.removeAttribute('aria-invalid');
+  }
+  input.addEventListener('input', function () { if (!err.hidden) clearError(); });
+  function setBusy(on) {
+    busy = on;
+    if (on) button.setAttribute('aria-disabled', 'true'); else button.removeAttribute('aria-disabled');
+    button.textContent = on ? 'Checking…' : 'Check catalog';
+    status.className = on ? 'status busy' : 'status';
+    if (!on) progress.textContent = '';
+  }
+
+  // One page of the product list. Returns {products} or {error: kind}.
+  async function page(base, n) {
+    var url = base + '/products.json?limit=' + PAGE_SIZE + '&page=' + n;
+    for (var attempt = 0; attempt < 4; attempt++) {
+      if (attempt) { progress.textContent = 'The store asked for a pause; trying again…'; await sleep(2000 * attempt); }
+      var res;
+      try {
+        res = await fetch(url, {credentials: 'omit', cache: 'no-store'});
+      } catch (e) {
+        // A redirect we can't follow (usually to a password page) looks like a network error; ask again without following it
+        try {
+          var probe = await fetch(url, {credentials: 'omit', cache: 'no-store', redirect: 'manual'});
+          if (probe.type === 'opaqueredirect') return {error: 'redirect'};
+        } catch (e2) { /* fall through */ }
+        // Mid-way through, a failure is most likely a rate limit the browser can't read; wait and try again
+        if (n > 1) continue;
+        return {error: 'unreachable'};
+      }
+      if (res.status === 429 || res.status === 430 || res.status === 503) continue;
+      if (res.redirected && /\/password\b/.test(res.url)) return {error: 'redirect'};
+      if (!res.ok) return {error: 'unreachable'};
+      try {
+        var data = await res.json();
+        if (!data || !Array.isArray(data.products)) return {error: 'not-shopify'};
+        return {products: data.products};
+      } catch (e) { return {error: 'not-shopify'}; }
+    }
+    return {error: 'busy'};
+  }
+
+  function summarise(products) {
+    var rows = [], c = {total: products.length, noPhoto: 0, noPhotoInStock: 0, noText: 0, short: 0, single: 0, small: 0};
+    products.forEach(function (p) {
+      var images = Array.isArray(p.images) ? p.images.slice().sort(function (a, b) { return (a.position || 0) - (b.position || 0); }) : [];
+      var w = words(p.body_html);
+      var inStock = (p.variants || []).some(function (v) { return v.available; });
+      // gift cards and add-ons such as shipping protection have nothing to ship, so they go to the end of the list
+      var ships = !(p.variants || []).length || (p.variants || []).some(function (v) { return v.requires_shipping !== false; });
+      var main = images[0] && images[0].width ? images[0].width : null;
+      var gaps = [];
+      if (!images.length) { gaps.push('a photo'); c.noPhoto++; if (inStock) c.noPhotoInStock++; }
+      if (!w) { gaps.push('a description'); c.noText++; }
+      else if (w < SHORT_WORDS) { gaps.push('a longer description'); c.short++; }
+      if (images.length === 1) { gaps.push('a second photo'); c.single++; }
+      if (main && main < SMALL_PX) { gaps.push('a larger main photo'); c.small++; }
+      if (gaps.length) rows.push({title: p.title || p.handle, handle: p.handle, inStock: inStock, ships: ships, photos: images.length,
+                                  words: w, main: main, gaps: gaps});
+    });
+    // Products that ship come before add-ons; then in stock first, then the worst gaps (no photo, then no description), then by name
+    function weight(r) { return (r.photos ? 0 : 4) + (r.words ? (r.words < SHORT_WORDS ? 1 : 0) : 2); }
+    rows.sort(function (a, b) {
+      return (b.ships - a.ships) || (b.inStock - a.inStock) || (weight(b) - weight(a)) ||
+        String(a.title).localeCompare(String(b.title), 'en', {numeric: true, sensitivity: 'base'});
+    });
+    c.rows = rows;
+    return c;
+  }
+
+  function pct(n, total) {
+    if (!n) return '';
+    var p = n / total * 100;
+    return p < 1 ? 'under 1%' : (n < total ? Math.min(99, Math.round(p)) : 100) + '%';
+  }
+
+  function metric(name, n, total, tech, feel) {
+    var li = el('li', 'metric'), head = el('div', 'metric-head');
+    head.appendChild(el('h3', 'metric-name', name));
+    var val = el('p', 'metric-val');
+    if (n) {
+      val.appendChild(document.createTextNode(fmt(n) + ' '));
+      val.appendChild(el('span', 'pct', '(' + pct(n, total) + ')'));
+    } else {
+      val.appendChild(el('span', 'none', 'None'));
+    }
+    head.appendChild(val);
+    li.appendChild(head);
+    if (tech) li.appendChild(el('p', 'metric-tech', tech));
+    if (feel && n) li.appendChild(el('p', 'metric-feel', feel));
+    return li;
+  }
+
+  function render(base, c, partial) {
+    var host = base.replace('https://', '');
+    var tested = document.getElementById('tested');
+    tested.textContent = '';
+    tested.appendChild(el('strong', null, host));
+    var now = new Date();
+    var when = now.getDate() + ' ' + now.toLocaleString('en-US', {month: 'long'}) + ' ' + now.getFullYear() + ', ' +
+      now.toLocaleString('en-US', {hour: 'numeric', minute: '2-digit'});
+    tested.appendChild(document.createTextNode(' · ' + fmt(c.total) + (c.total === 1 ? ' product' : ' products') + ' · checked ' + when));
+
+    var flag = document.getElementById('partial');
+    flag.hidden = !partial;
+    flag.textContent = partial || '';
+
+    var list = document.getElementById('metrics');
+    list.textContent = '';
+    list.appendChild(metric('No photo', c.noPhoto, c.total,
+      c.noPhoto ? (c.noPhotoInStock ? fmt(c.noPhotoInStock) + ' of them available to buy' : 'None of them available to buy') : null,
+      'Google won’t show these in its shopping listings until each has one.'));
+    list.appendChild(metric('No description', c.noText, c.total, null,
+      'Search has little beyond the title to go on, and usually no meta description either.'));
+    list.appendChild(metric('Short description', c.short, c.total, 'Fewer than ' + SHORT_WORDS + ' words',
+      'Room for size, materials and how it’s used.'));
+    list.appendChild(metric('A single photo', c.single, c.total, null,
+      'A second angle or the product in use is the quickest thing to add.'));
+    list.appendChild(metric('Small main photo', c.small, c.total, 'First image under ' + SMALL_PX + ' pixels wide',
+      'Stretched to fill a phone’s screen, it looks soft.'));
+
+    var first = document.getElementById('first'), tbody = document.getElementById('first-rows');
+    tbody.textContent = '';
+    first.hidden = !c.rows.length;
+    if (c.rows.length) {
+      var shown = c.rows.slice(0, FIRST_ROWS);
+      var order = 'in‑stock products first, items that don’t ship last.';
+      document.getElementById('first-caption').textContent = c.rows.length > shown.length
+        ? 'The first ' + shown.length + ' of ' + fmt(c.rows.length) + ' products with something missing, ' + order + ' The download has all of them.'
+        : 'All ' + fmt(c.rows.length) + (c.rows.length === 1 ? ' product' : ' products') + ' with something missing, ' + order;
+      shown.forEach(function (r) {
+        var tr = document.createElement('tr'), td = document.createElement('td');
+        var a = el('a', null, r.title);
+        a.href = base + '/products/' + encodeURIComponent(r.handle);
+        a.target = '_blank'; a.rel = 'noopener';
+        td.appendChild(a);
+        if (!r.inStock) td.appendChild(el('span', 'days', 'Sold out'));
+        tr.appendChild(td);
+        tr.appendChild(el('td', null, r.gaps.join(', ')));
+        tbody.appendChild(tr);
+      });
+    }
+    last = {base: base, host: host, rows: c.rows};
+    results.hidden = false;
+    offer.hidden = !(c.noPhoto || c.noText || c.short);
+    var body = ['Store address: ' + host, 'Products checked: ' + fmt(c.total), 'No photo: ' + fmt(c.noPhoto),
+                'No description: ' + fmt(c.noText), 'Short description: ' + fmt(c.short)].join('\r\n') + '\r\n\r\n';
+    document.getElementById('offer-mail').href = 'mailto:johnnassersingh@gmail.com?subject=' +
+      encodeURIComponent('SEO audit: ' + host) + '&body=' + encodeURIComponent(body);
+    results.focus({preventScroll: false});
+  }
+
+  function csvCell(v) {
+    var s = v == null ? '' : String(v);
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;   // keep spreadsheets from reading a title as a formula
+    return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  }
+
+  document.getElementById('csv').addEventListener('click', function () {
+    if (!last) return;
+    var lines = [['Product', 'Address', 'In stock', 'Ships', 'Photos', 'Description words', 'Main photo width (px)', 'Missing'].map(csvCell).join(',')];
+    last.rows.forEach(function (r) {
+      lines.push([r.title, last.base + '/products/' + r.handle, r.inStock ? 'yes' : 'no', r.ships ? 'yes' : 'no', r.photos,
+                  r.words, r.main || '', r.gaps.join('; ')].map(csvCell).join(','));
+    });
+    var blob = new Blob(['﻿' + lines.join('\r\n') + '\r\n'], {type: 'text/csv;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'catalog-check-' + last.host.replace(/[^a-z0-9.-]/g, '') + '.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  });
+
+  form.addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    if (busy) return;
+    clearError();
+    var base = origin(input.value);
+    if (!base) { showError('Enter your store’s address, like yourstore.com.'); return; }
+    setBusy(true);
+    results.hidden = true; offer.hidden = true;
+    status.classList.remove('sr-only');
+    // The live region speaks at the start and the end; the running count beside it stays quiet
+    status.textContent = 'Reading ' + base.replace('https://', '') + '’s product list…';
+    var products = [], partial = null;
+    for (var n = 1; n <= MAX_PAGES; n++) {
+      var r = await page(base, n);
+      if (r.error) {
+        if (!products.length) {
+          setBusy(false); status.textContent = '';
+          showError({
+            redirect: 'That store sends its product list elsewhere, usually to a password page, so it can’t be read from here. The check works once the store is open.',
+            'not-shopify': 'That address didn’t answer with a Shopify product list. Check it’s the store’s own address (or its .myshopify.com one).',
+            busy: 'The store asked for a pause. Wait a minute and try again.',
+            unreachable: 'Couldn’t read a Shopify product list at that address. Check the address, or use the store’s .myshopify.com one; a few stores block the list.'
+          }[r.error]);
+          return;
+        }
+        partial = 'The store asked for a pause after ' + fmt(products.length) + ' products, so these counts cover those only.';
+        break;
+      }
+      if (!r.products.length) break;
+      products = products.concat(r.products);
+      progress.textContent = 'Read ' + fmt(products.length) + ' products…';
+      if (r.products.length < PAGE_SIZE) break;
+      if (n === MAX_PAGES) partial = 'This store has more than ' + fmt(MAX_PAGES * PAGE_SIZE) + ' products; these counts cover the first ' + fmt(products.length) + '.';
+      await sleep(PAUSE);
+    }
+    setBusy(false);
+    if (!products.length) {
+      status.textContent = '';
+      showError('That store’s product list is empty: nothing is published to its online store yet.');
+      return;
+    }
+    status.textContent = 'Done: ' + fmt(products.length) + ' products checked.';
+    status.classList.add('sr-only');
+    render(base, summarise(products), partial);
+  });
+})();
+</script>
+</body>
+</html>
