@@ -319,46 +319,9 @@
 
   <section id="offer" aria-labelledby="offer-title" hidden>
     <h2 id="offer-title">If it turns out slow</h2>
-    <div id="offer-list">
-      <p id="offer-intro"></p>
-      <p>You get before and after reports from this same Google test. On my
-      <a href="../speed-demo/">speed demo</a>, a product page I built with six common problems,
-      fixing them took Google’s mobile score from 68 to 96. I don’t promise a particular score for
-      your store: lab scores move from run to run, and what I guarantee is that each cause passes its
-      written check.</p>
-      <div class="offers">
-        <div class="offer" id="speed-report">
-          <div class="offer-head">
-            <h3 class="offer-name">A speed report</h3>
-            <p class="offer-price">$49</p>
-          </div>
-          <p class="offer-when">Within two working days. Credited in full against a fix.</p>
-          <p>Your home, collection and product pages, measured and explained: each cause ranked by
-          how much time it adds, the written check that will show it’s fixed, and a fixed price for
-          fixing them. No access or passwords needed.
-          <a class="nw" href="../speed-report-sample/">See a sample report</a>.</p>
-          <div class="actions">
-            <a class="buy" href="https://buy.stripe.com/00wdRag1B6eff9bgz35wI03" aria-label="Pay now — $49 for a speed report">Pay now — $49</a>
-            <a class="buy secondary" data-mail="Speed report" href="mailto:johnnassersingh@gmail.com?subject=Speed%20report&amp;body=Store%20address%3A%20" aria-label="Start a project: speed report, by email">Start a project</a>
-          </div>
-        </div>
-      </div>
-      <p class="fixes-lead">Fixing what the report finds, at a fixed price in US dollars, with the report
-      included if you haven’t ordered one:</p>
-      <table>
-        <thead>
-          <tr><th scope="col">Work</th><th scope="col" class="num">Price</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><a href="../services/#speed-fix-one">Speed fix, one template</a><span class="days">5 working days</span></td><td class="num">$550</td></tr>
-          <tr><td><a href="../services/#speed-fix-three">Speed fix, home, collection and product</a><span class="days">7 working days</span></td><td class="num">$1,200</td></tr>
-        </tbody>
-      </table>
-      <p>The full scope, what I guarantee and how ordering works are on the
-      <a href="../services/">services page</a>. Questions first? Email
-      <a id="offer-mail" href="mailto:johnnassersingh@gmail.com?subject=Speed%20check">johnnassersingh@gmail.com</a>.</p>
-    </div>
-    <p id="offer-other" hidden></p>
+    <p>On my <a href="../speed-demo/">speed demo</a>, a product page I built with six common problems,
+    fixing them took Google’s mobile score from 68 to 96.</p>
+    <p>I’m not taking on new work at the moment.</p>
   </section>
 
   <h2>What the check measures</h2>
@@ -411,7 +374,6 @@
   const API = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
   const TIMEOUT_MS = 120000;
   const SLOW_MS = 30000;
-  const EMAIL = 'johnnassersingh@gmail.com';
 
   const $ = (id) => document.getElementById(id);
   const form = $('check'), input = $('url'), button = $('go'), err = $('url-error');
@@ -443,7 +405,6 @@
   const googleLink = (url) => 'https://pagespeed.web.dev/analysis?url=' + encodeURIComponent(url) + '&form_factor=mobile';
   const hostOf = (url) => { try { return new URL(url).host.replace(/^www\./, ''); } catch (e) { return url; } };
   const short = (url) => { try { const u = new URL(url); return (u.host.replace(/^www\./, '') + (u.pathname === '/' ? '' : u.pathname)); } catch (e) { return url; } };
-  const mailto = (subject, body) => 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body).replace(/%0A/g, '%0D%0A');
 
   // Google's thresholds: [good at or below, poor above]
   const T = { lcp: [2500, 4000], tbt: [200, 600], cls: [0.1, 0.25], inp: [200, 500], fcp: [1800, 3000] };
@@ -601,7 +562,7 @@
     status.textContent = statusText;
     status.classList.add('sr-only');
     fallback.hidden = false;
-    setOffer('unknown', url, null);
+    setOffer(false);
     fallback.focus();
   }
 
@@ -924,8 +885,7 @@
     results.replaceChildren(...kids);
     results.hidden = false;
 
-    const summary = { url: finalUrl, score, lab, fieldPass };
-    setOffer(platform, finalUrl, summary);
+    setOffer(true);
 
     status.textContent = score != null
       ? 'Results are ready: Google’s mobile score for ' + short(finalUrl) + ' is ' + score + ' out of 100, ' + RATING[scoreRating(score)].toLowerCase() + '.'
@@ -934,54 +894,10 @@
     results.focus();
   }
 
-  /* ---------- the offer ---------- */
+  /* ---------- the note under the guide or the results ---------- */
 
-  const HOW = 'at a fixed price, on a duplicate of your theme, so your live store doesn’t change until you say so.';
-  const ME = 'I’m John Singh: I’ve been building websites and Shopify stores for more than ten years, and I do the work myself.';
-  const APPS = 'Apps and tags you rely on stay: I make their scripts wait until the page is showing, and tell you what each one costs.';
-
-  function setOffer(platform, url, summary) {
-    const list = $('offer-list'), other = $('offer-other'), intro = $('offer-intro'), title = $('offer-title');
-    const lines = ['Store address: ' + url];
-    if (summary) {
-      if (summary.score != null) lines.push('Mobile score in the speed check: ' + summary.score + ' out of 100');
-      if (summary.lab.lcp != null) lines.push('Main image on screen: ' + fmtMs(summary.lab.lcp).replace(nb, ' '));
-      if (summary.lab.tbt != null) lines.push('Time frozen: ' + fmtMs(summary.lab.tbt).replace(nb, ' '));
-      if (summary.lab.cls != null) lines.push('Layout shift: ' + fmtCls(summary.lab.cls));
-    }
-    const body = lines.join('\n') + '\n\n';
-    for (const a of offer.querySelectorAll('[data-mail]')) {
-      a.href = mailto(a.getAttribute('data-mail'), body);
-    }
-    $('offer-mail').href = mailto('Speed check: ' + hostOf(url), body + 'My question: ');
-
-    if (platform === 'other' || platform === 'headless') {
-      title.textContent = 'About fixes';
-      list.hidden = true; other.hidden = false;
-      other.replaceChildren(
-        platform === 'other'
-          ? 'This doesn’t look like a Shopify store: none of Shopify’s files appear in what Google loaded. Everything I offer at a fixed price is built for Shopify themes, so there’s nothing here to buy for this site. The results above apply to any site, though. If I’ve got it wrong, '
-          : 'This page uses Shopify, but not through a Shopify theme I can see; it may be a custom-built storefront. My fixed prices are for Shopify themes, so I’d rather look first. ',
-        el('a', { href: mailto('Speed check: ' + hostOf(url), body + 'My question: '), text: platform === 'other' ? 'email me' : 'Email me' }),
-        platform === 'other' ? ' and I’ll take a look.' : ' and I’ll tell you honestly whether I can help.');
-    } else {
-      list.hidden = false; other.hidden = true;
-      const fast = !!summary && summary.score >= 90 && summary.fieldPass !== false;
-      const shoppersPass = !!summary && summary.fieldPass === true && !(summary.score >= 90);
-      if (!summary) {
-        title.textContent = 'If it turns out slow';
-        intro.textContent = 'If Google’s test shows your store is slow, I fix it ' + HOW + ' ' + ME + ' ' + APPS;
-      } else if (fast) {
-        title.textContent = 'The rest of your store';
-        intro.textContent = 'This page is already fast. If you’d like the rest of the store checked, the report covers your home, collection and product pages together, and says so plainly if they’re fine too. When there is something to fix, I fix it ' + HOW + ' ' + ME;
-      } else if (shoppersPass) {
-        title.textContent = 'If you want it faster';
-        intro.textContent = 'Your real shoppers already pass Google’s Core Web Vitals here, so this may not need fixing. If you’d still like the causes the lab test found fixed, I do it ' + HOW + ' ' + ME + ' ' + APPS;
-      } else {
-        title.textContent = 'Want it fixed?';
-        intro.textContent = 'I’m John Singh. I’ve been building websites and Shopify stores for more than ten years, and I fix this kind of problem myself, ' + HOW + ' ' + APPS;
-      }
-    }
+  function setOffer(hasResults) {
+    $('offer-title').textContent = hasResults ? 'About fixes' : 'If it turns out slow';
     offer.hidden = false;
   }
 

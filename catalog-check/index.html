@@ -237,15 +237,8 @@
     <h2 id="offer-title">If there’s a lot to fix</h2>
     <p>Photos and descriptions are yours to add, and the list above is the order to add them in. What a
     product list can’t show is how Google reads the pages themselves: title tags, meta descriptions,
-    headings, image alt text and structured data. I check those page by page and write up what I find,
-    ranked by how much it matters, with the exact steps to fix each one.</p>
-    <p>Email me your store’s address and you’ll have a fixed price for the written audit within one
-    working day. No access or passwords needed.</p>
-    <div class="actions">
-      <a class="buy" id="offer-mail" href="mailto:johnnassersingh@gmail.com?subject=SEO%20audit&amp;body=Store%20address%3A%20">Ask for a fixed price</a>
-    </div>
-    <p class="after-actions">Everything I do at a fixed price is on the <a href="../services/">services
-    page</a>.</p>
+    headings, image alt text and structured data.</p>
+    <p>I’m not taking on new work at the moment.</p>
   </section>
 
   <h2>What the check counts</h2>
@@ -480,10 +473,6 @@
     last = {base: base, host: host, rows: c.rows};
     results.hidden = false;
     offer.hidden = !(c.noPhoto || c.noText || c.short);
-    var body = ['Store address: ' + host, 'Products checked: ' + fmt(c.total), 'No photo: ' + fmt(c.noPhoto),
-                'No description: ' + fmt(c.noText), 'Short description: ' + fmt(c.short)].join('\r\n') + '\r\n\r\n';
-    document.getElementById('offer-mail').href = 'mailto:johnnassersingh@gmail.com?subject=' +
-      encodeURIComponent('SEO audit: ' + host) + '&body=' + encodeURIComponent(body);
     results.focus({preventScroll: false});
   }
 
