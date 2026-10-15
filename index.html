@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <title>John Singh | Shopify Liquid development</title>
-<meta name="description" content="I’m not taking on new work at the moment. Freelance Shopify development at fixed prices: a $49 speed report and speed fixes from $550, purchase-tracking repair, front-end fixes from $150, custom Liquid sections from $350, and structured product data.">
+<meta name="description" content="Freelance Shopify development at fixed prices: a $49 speed report and speed fixes from $550, purchase-tracking repair, front-end fixes from $150, custom Liquid sections from $350, and structured product data. I take on selected work through Upwork.">
 <style>
   :root{
     --bg:#fbfbfa; --fg:#16161a; --muted:#5c5c66; --rule:#e2e2dd;
@@ -117,8 +117,9 @@
   architecture that merchants can actually maintain themselves, and the unglamorous front-end work
   that makes a page load quickly and behave on a phone.</p>
 
-  <p>The work below has a price, a written scope and a turnaround in working days. Everything else, I
-  quote fixed before I start. I’m not taking on new work at the moment.</p>
+  <p>The work below has a price, a written scope and the working days it takes. Everything else, I
+  quote fixed before I start. I take on selected work through <a href="https://www.upwork.com/freelancers/~018ed56e30e65e096f">my Upwork profile</a>, and I’m not taking direct
+  orders or bookings through this site. On Upwork, the agreed listing or offer sets the actual scope, price and calendar deadline, and payment, delivery acceptance and refunds go through Upwork.</p>
 
   <h2>Fixed price</h2>
   <table>
@@ -155,16 +156,11 @@
 
   <p>A common one, and a good illustration of how I think about this work.</p>
 
-  <p>A store with deeply detailed product pages hits the theme editor’s cap of 100 dynamic sources
-  per template. The usual advice is to move the data into metaobjects and reference them from a
-  <code>list.metaobject_reference</code> metafield on each product. That advice is right, and it is
-  also a trap: the field will store up to 1024 references, but a Liquid <code>for</code> loop over it
-  returns only the first 50, and <code>{% paginate %}</code> cannot be applied to a
-  metafield value at all. Content past row 51 does not error. It simply is not there.</p>
-
-  <p>The fix is to shard the list — one reference metafield per section of the template rather than
-  one for everything. Each list stays under the cap by construction, and the rendering collapses to
-  the same few lines for every section:</p>
+  <p>A store with deeply detailed product pages can keep its specification rows in metaobjects,
+  referenced from a <code>list.metaobject_reference</code> metafield on each product. I group the rows
+  by section of the page rather than keeping one list for everything: one reference metafield per
+  section, so each section’s rows stay together and are edited in the admin, and the rendering is the
+  same few lines for every section:</p>
 
 <pre><code>{%- assign rows = product.metafields.custom[block.settings.field] -%}
 {%- capture body -%}
@@ -189,9 +185,8 @@
   heading, wrapper and all — never renders. No conditional per feature, and nothing to maintain when
   a section is added next year.</p>
 
-  <p class="note">That 50-reference limit is confirmed by Shopify staff on their developer forum
-  rather than stated in the documentation, which is exactly why it catches people. Checking the thing
-  that everyone assumes is the part of this job I enjoy most.</p>
+  <p class="note">The code sets no limit on how many rows a section holds: the grouping is for order
+  and editing, not a size cap.</p>
 
   <h2>See it running</h2>
 
@@ -203,9 +198,12 @@
   <p><a href="https://john-singh-demo-store.myshopify.com/products/loft-standing-desk-60-in">john-singh-demo-store.myshopify.com</a>
   &nbsp;·&nbsp; storefront password: <code>dalaol</code> (Shopify requires one on development stores)</p>
 
-  <p>And a speed rebuild: the same product page built twice, once with the six problems that most often slow a store
-  down and once with them fixed. Google’s mobile score goes from 68 to 96, and the main product photo appears in
-  2.7 seconds instead of 24. <a href="speed-demo/">See the before and after, with both reports</a>.</p>
+  <p>Separately, a speed demo: a fictional product page for a made-up desk brand, built as two static
+  pages (not a Shopify store, and not the demo store above), once with six problems that commonly slow
+  a store down and once with them fixed. In Google PageSpeed Insights’ mobile lab test on
+  22&nbsp;September 2026, the score went from 68 to 96, and the main product photo appeared in 2.7
+  seconds instead of 24.3. It shows the method, not a result on a real store.
+  <a href="speed-demo/">See the before and after, with both reports</a>.</p>
 
   <h2>How I work</h2>
   <ul>
